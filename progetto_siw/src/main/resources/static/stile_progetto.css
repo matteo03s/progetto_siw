@@ -1,0 +1,23 @@
+a#logo {
+	transform: scale(0.2);
+	transform-origin: top right;
+	position: fixed;
+	top: 10px;
+	left: 100px;
+}
+
+#logo_home {
+	transform: scale(0.4);
+	transform-origin: top;
+	position: fixed;
+	top: 10px;
+	left: 100px;
+}
+
+#logo_richiesta {
+	transform: scale(0.4);
+	transform-origin: top;
+	position: fixed;
+	top: 10px;
+	left: 100px;
+}
