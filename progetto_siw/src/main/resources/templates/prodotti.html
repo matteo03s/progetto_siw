@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MENU</title>
+		<link rel="stylesheet" href="stile_prodotti.css"/>
+	</head>
+	<body>
+		<a id="logo" href="/"> <img src="/logo.png"> </a>
+		<h1 th:text="'Elenco ' + ${tipologia}"></h1>
+		
+		<!-- Mostra messaggio se la lista prodotti è vuota -->
+		<span th:if="${prodotti.isEmpty()}">No products available.</span>
+
+		<!-- Modulo di ordinamento, visibile solo se tipologia è 'prodotti'
+		<div th:if="${tipologia == 'prodotti'}"> -->
+			<form action="/ordinaProdotti" method="GET">
+				<input type="hidden" name="tipologia" th:value="${tipologia}" />
+				<label for="ordine">Ordina per:</label>
+				<select id="ordine" name="ordine">
+					<option value="nome">Nome</option>
+					<option value="prezzo">Prezzo</option>
+					<option th:if="${tipologia == 'prodotti'}" value="categoria">Categoria</option>
+				</select>
+				<button type="submit">Ordina</button>
+			</form>
+	<!--	</div> -->
+
+		<div id="lista">
+			<ul>
+				<li th:each="prodotto : ${prodotti}">
+					<div class="prodotto">
+					<img th:src="${prodotto.urlImage}" class="prodotto-img">
+					<div class="prodotto-dettagli">
+						<a th:href="@{'/prodotto/' + ${prodotto.id}}"
+						  th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </a>
+					 <span th:if="${tipologia == 'prodotti'}" th:text="${prodotto.categoria}">categoria</span>
+					 </div>
+					 </div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
