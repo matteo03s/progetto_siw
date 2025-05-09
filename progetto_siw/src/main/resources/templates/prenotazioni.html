@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Prenotazioni </title>
+		<link rel="stylesheet" href="stile_progetto.css"/>
+	</head>
+	<body>
+		<a id="logo" href="/"> <img src="/logo.png"> </a>
+		<div th:if="${descrizione!=null}">
+			<p th:text="${descrizione}"></p>
+		</div>
+		<h1>Elenco prenotazioni</h1>
+		<!-- Modulo di ordinamento -->
+				<form action="/ordinaPrenotazioni" method="GET">
+					<label for="ordine">Ordina per:</label>
+					<select id="ordine" name="ordine">
+						<option value="nome">Nome</option>
+						<option value="data">Data</option>
+						<option value="posti">Posti</option>
+					</select>
+					<button type="submit">Ordina</button>
+				</form>
+		<span th:if="${prenotazioni.isEmpty()}"></span>
+		<div id="lista">
+			<ul>
+				<li th:each="prenotazione:${prenotazioni}">
+					<p th:text="'prenotato a nome ' + ${prenotazione.nome} +
+					' per '+ ${prenotazione.posti} + ' persone, per il giorno ' +
+					${prenotazione.data} + ' a ' + ${prenotazione.turno}">Nome e posti</p>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
