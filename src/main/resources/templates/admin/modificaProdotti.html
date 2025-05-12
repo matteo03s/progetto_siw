@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>MENU</title>
-		<link rel="stylesheet" href="stile_prodotti.css"/>
+		<link rel="stylesheet" href="/stile_prodotti.css" />
 	</head>
 	<body>
 		<a id="logo" href="/"> <img src="/logo.png"> </a>
@@ -13,7 +13,7 @@
 
 		<!-- Modulo di ordinamento, visibile solo se tipologia è 'prodotti'
 		<div th:if="${tipologia == 'prodotti'}"> -->
-			<form action="/ordinaProdotti" method="GET">
+			<form action="/admin/ordinaProdotti" method="GET">
 				<input type="hidden" name="tipologia" th:value="${tipologia}" />
 				<label for="ordine">Ordina per:</label>
 				<select id="ordine" name="ordine">
@@ -30,11 +30,16 @@
 				<li th:each="prodotto : ${prodotti}">
 					<div class="prodotto">
 					<img th:src="${prodotto.urlImage}" class="prodotto-img">
-					<div class="prodotto-dettagli">
-						<a class="nome" th:href="@{'/prodotto/' + ${prodotto.id}}"
+						<div class="prodotto-dettagli">
+<!--							<a class="nome" th:href="@{'/prodotto/' + ${prodotto.id}}"
 						  th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </a>
-					 <span class="tipo" th:if="${tipologia == 'prodotti'}" th:text="${prodotto.categoria}">categoria</span>
-					 </div>
+						 <span class="tipo" th:if="${tipologia == 'prodotti'}" th:text="${prodotto.categoria}">categoria</span>
+-->							<p th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </p>
+							<a class="modifica" th:href="@{'/admin/modificaProdotto/' + ${prodotto.id}}">Modifica</a>
+							<a class="cancella" th:href="@{'/admin/cancellaProdotto/' + ${prodotto.id}}">Cancella</a>
+					 	<span class="tipo" th:if="${tipologia == 'prodotti'}" th:text="${prodotto.categoria}">categoria</span>
+					 		
+						</div>
 					 </div>
 				</li>
 			</ul>

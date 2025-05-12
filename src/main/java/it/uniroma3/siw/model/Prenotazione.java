@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -27,6 +29,9 @@ public class Prenotazione {
 	@Min(1)
 	private int posti;
 	private String turno;
+	
+	@ManyToOne (fetch = FetchType.LAZY)
+	private User utente;
 	
 	public Long getId() {
 		return id;
@@ -78,5 +83,11 @@ public class Prenotazione {
 	public String toString() {
 		return "Prenotazione [id=" + id + ", nome=" + nome + ", data=" + data + ", posti=" + posti + ", turno=" + turno
 				+ "]";
+	}
+	public User getUtente() {
+		return utente;
+	}
+	public void setUtente(User utente) {
+		this.utente = utente;
 	}
 }

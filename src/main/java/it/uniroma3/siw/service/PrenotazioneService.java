@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Prenotazione;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.PrenotazioneRepository;
 
 @Service
@@ -15,7 +17,10 @@ public class PrenotazioneService {
 	@Autowired
 	private PrenotazioneRepository prenotazioneRepository;
 
-    private static final int MAX_POSTI_PER_TURNO = 50;
+	@Autowired
+	private CredentialsService credentialService;
+
+	private static final int MAX_POSTI_PER_TURNO = 50;
 
     public Prenotazione getById(Long id) {
     	return prenotazioneRepository.findById(id).get();
@@ -25,8 +30,8 @@ public class PrenotazioneService {
     	return prenotazioneRepository.findByData(data);
     }
     
-    public Iterable <Prenotazione> getAll() {
-    	return prenotazioneRepository.findAll();
+    public List <Prenotazione> getAll() {
+    	return (List<Prenotazione>)prenotazioneRepository.findAll();
     }
     
     public List <Prenotazione> getOrderedByPosti () {
@@ -40,8 +45,14 @@ public class PrenotazioneService {
     public List <Prenotazione> getOrderedByNome () {
     	return prenotazioneRepository.findAllByOrderByNomeAsc();
     }
+    
+    public List <Prenotazione> getPrenotazioniUsername (String username) {
+    	String email = credentialService.getCredentials(username).getUser().getEmail();
+    	return prenotazioneRepository.findByUtenteEmail(email);
+    }
+    
     // Metodo per creare una nuova prenotazione
-    public String creaPrenotazione(Prenotazione prenotazione) {
+    public String creaPrenotazione(Prenotazione prenotazione, String username) {
     	
         // Ottieni la data della prenotazione
         LocalDate dataPrenotazione = prenotazione.getData();
@@ -51,9 +62,10 @@ public class PrenotazioneService {
 
         // Controlla se ci sono ancora posti disponibili
         if (postiPrenotati + prenotazione.getPosti() > MAX_POSTI_PER_TURNO) {
-            return "Non ci sono abbastanza posti disponibili per il " + prenotazione.getTurno() + " del " + prenotazione.getData() + " . Posti disponibili: " + (MAX_POSTI_PER_TURNO - postiPrenotati);
+            throw new RuntimeException("Non ci sono abbastanza posti disponibili per il " + prenotazione.getTurno() + " del " + prenotazione.getData() + " . Posti disponibili: " + (MAX_POSTI_PER_TURNO - postiPrenotati));
         }
-
+        Credentials cred = credentialService.getCredentials(username);
+        prenotazione.setUtente(cred.getUser());
         // Salva la prenotazione
         prenotazioneRepository.save(prenotazione);
         return "Prenotazione confermata per il turno " + prenotazione.getTurno() + "!";
@@ -68,4 +80,14 @@ public class PrenotazioneService {
 		}
 		return prenotati;	
 	}
+	
+/*    public Prenotazione getAndCheck(Long id, String username, boolean isAdmin){
+        Prenotazione p = prenotazioneRepository.findById(id).orElseThrow();
+        Credentials cred = credentialService.getCredentials(username);
+        User u = cred.getUser();
+        if (!isAdmin && !p.getUtente().getUsername().equals(username))
+            throw new AccessDeniedException("Non autorizzato");
+        return p;
+    }
+*/
 }

@@ -21,3 +21,26 @@ a#logo {
 	top: 10px;
 	left: 100px;
 }
+
+
+.navbar ul {
+	list-style-type: none;
+	background-color: rgb(98, 98, 98);
+	padding: 0%;
+	margin:0%;
+	overflow: hidden;
+}
+.navbar a {
+	color:white;
+	text-decoration: none;
+	padding: 15%;
+	display: block;
+	text-align: center;
+}
+
+.navbar a:hover {
+	background-color: rgb(95, 95, 95);
+}
+.navbar li{
+	float:left;
+}

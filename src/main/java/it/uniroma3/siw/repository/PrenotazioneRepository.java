@@ -13,5 +13,7 @@ public interface PrenotazioneRepository extends CrudRepository <Prenotazione, Lo
 	public List <Prenotazione> findAllByOrderByPostiAsc ();
 	public List <Prenotazione> findAllByOrderByDataAsc();
 	public List <Prenotazione> findAllByOrderByNomeAsc ();
+//	public List <Prenotazione> findByUtenteCredentialsUsername (String username);
+	public List <Prenotazione> findByUtenteEmail(String email);
 	
 }

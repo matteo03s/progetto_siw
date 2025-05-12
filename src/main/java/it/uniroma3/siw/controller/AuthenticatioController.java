@@ -49,7 +49,7 @@ public class AuthenticatioController {
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			if (credentials.getRole().equals(Credentials.PROVIDER_ROLE)) {
-				return "azienda/indexAzienda.html";
+				return "admin/indexAdmin.html";
 			}
 		}
 		return "index.html";
@@ -61,7 +61,7 @@ public class AuthenticatioController {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		if (credentials.getRole().equals(Credentials.PROVIDER_ROLE)) {
-			return "azienda/indexAzienda.html";	//se ho permessi speciali allora posso accedere ad un'altra area
+			return "admin/indexAdmin.html";	//se ho permessi speciali allora posso accedere ad un'altra area
 		}
 		return "index.html"; //se mi sono autenticato e sono un utente normale torno alla homepage
 	}
@@ -70,17 +70,41 @@ public class AuthenticatioController {
 	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult userBindingResult,
 			@Valid @ModelAttribute("credentials") Credentials credentials, BindingResult credentialsBindingResult,
 			Model model) {
-
+		if (userBindingResult.hasErrors() || credentialsBindingResult.hasErrors()) {
+			return "register.html";
+		}
+		
+		try {
+			this.userService.saveUser(user);
+		} catch (RuntimeException e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "register.html";
+		}
+		try {
+			credentials.setUser(user);
+			this.credentialsService.save(credentials);
+			return "redirect:/login";
+		} catch (RuntimeException e) {
+			this.userService.remove (user);
+			model.addAttribute("errorMessage", e.getMessage());
+			return "register.html";
+		}
+	}
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the
 		// Credentials nel DB
-		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+/*		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
 			userService.saveUser(user);
 			credentials.setUser(user);
-			credentialsService.saveCredentials(credentials);
+			credentialsService.save(credentials);
 			model.addAttribute("user", user);
 			return "login.html";
 		}
 		return "register.html";
 	}
-
+*/
+	
+	@GetMapping("/access-denied")
+    public String accessDeniedPage() {
+        return "accessoNegato.html";  // La vista della pagina di errore 403
+    }
 }

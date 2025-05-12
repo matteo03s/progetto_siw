@@ -35,7 +35,10 @@ public class CredentialsService {
 
 	
 	@Transactional
-	public Credentials saveCredentials(Credentials credentials) {
+	public Credentials save(Credentials credentials) {
+		if (this.credentialsRepository.findByUsername(credentials.getUsername()).isPresent()) {
+			throw new RuntimeException("Username già utilizza, cambialo");
+		}
 		credentials.setRole(Credentials.DEFAULT_ROLE);
 		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
 		return this.credentialsRepository.save(credentials);

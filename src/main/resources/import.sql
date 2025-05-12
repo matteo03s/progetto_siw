@@ -11,7 +11,9 @@
 
 --Inserisci l'admin username=gestore pw=pwadmin
 INSERT INTO credentials (username, password, role) VALUES ('gestore', '$2a$10$JOX7nLjPEbvs/iUIp9D0b.S7MLOfKtsn1yzUr2ZsRgwN1d60v7SCa', 'PROVIDER');
-INSERT INTO credentials (username, password, role) VALUES ('user', 'resu', 'UTENTE');
+--Inserisci un utente base username=utente pw=utente
+INSERT INTO credentials (username, password, role) VALUES ('utente', '$2a$10$hw5JU.q4XinVleq1CVhQmeaQDReYjOdNllI3V2aILT03q6OpRJPym', 'UTENTE');
+
 
 -- Prima pizza
 INSERT INTO prodotto (nome, categoria, descrizione, prezzo, url_image) VALUES ('Margherita', 'pizza', 'Pizza con pomodoro e mozzarella', 6.00, 'https://stanzedicinema.com/wp-content/uploads/2010/05/inception-poster4.jpg');

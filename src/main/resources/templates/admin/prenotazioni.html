@@ -11,7 +11,7 @@
 		</div>
 		<h1>Elenco prenotazioni</h1>
 		<!-- Modulo di ordinamento -->
-				<form action="/ordinaPrenotazioni" method="GET">
+				<form action="/admin/ordinaPrenotazioni" method="GET">
 					<label for="ordine">Ordina per:</label>
 					<select id="ordine" name="ordine">
 						<option value="nome">Nome</option>
@@ -26,8 +26,10 @@
 				<li th:each="prenotazione:${prenotazioni}">
 					<p th:text="'prenotato a nome ' + ${prenotazione.nome} +
 					' per '+ ${prenotazione.posti} + ' persone, per il giorno ' +
-					${prenotazione.data} + ' a ' + ${prenotazione.turno}">Nome e posti</p>
-				</li>
+					${prenotazione.data} + ' a ' + ${prenotazione.turno} +
+					' prenotata dall\'utente ' + ${prenotazione.utente.email}">Nome e posti</p>
+<!--					<span><a th:href="@{'/admin/contatta/' + ${prenotazione.utente.id}}" th:text="${prenotazione.utente.email}"> </a></span> 
+-->				</li>
 			</ul>
 		</div>
 	</body>

@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,13 +20,24 @@ public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @Column (nullable = false)
     @NotBlank
     private String name;
     private String surname;
+    
+    @Column(unique = true)
+    @NotBlank
     private String email;
-    @Pattern(regexp = "^[0-9]{9}$")
-    private Integer numeroTelefonico;
+    
+    @Pattern(regexp = "\\d{10}")
+    private String numeroTelefonico;
+    
+    @OneToMany (mappedBy="utente" )
+    private List <Prenotazione> prenotazioni;
+    
+    @OneToMany (mappedBy="utente" )
+    private List <Ordine> ordini;
     
     // Getters and setters
     public Long getId() {
@@ -59,11 +72,11 @@ public class User {
         this.email = email;
     }
 
-	public int getNumeroTelefonico() {
+	public String getNumeroTelefonico() {
 		return numeroTelefonico;
 	}
 
-	public void setNumeroTelefonico(int numeroTelefonico) {
+	public void setNumeroTelefonico(String numeroTelefonico) {
 		this.numeroTelefonico = numeroTelefonico;
 	}
 
@@ -89,5 +102,21 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", numeroTelefonico="
 				+ numeroTelefonico + "]";
+	}
+
+	public List<Prenotazione> getPrenotazioni() {
+		return prenotazioni;
+	}
+
+	public void setPrenotazioni(List<Prenotazione> prenotazioni) {
+		this.prenotazioni = prenotazioni;
+	}
+
+	public List<Ordine> getOrdini() {
+		return ordini;
+	}
+
+	public void setOrdini(List<Ordine> ordini) {
+		this.ordini = ordini;
 	}
 }

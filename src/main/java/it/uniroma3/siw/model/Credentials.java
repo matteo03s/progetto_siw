@@ -21,13 +21,14 @@ public class Credentials {	//gestisce le credenziali di accesso al sito
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
+	@Column(unique = true)
 	private String username; 
 	@NotBlank
 	private String password; 
 	private String role;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private User user;
 
 	public String getUsername() {

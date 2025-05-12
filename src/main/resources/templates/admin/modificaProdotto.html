@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifica Prodotto</title>
+</head>
+<body>
+    <h1>Modifica Prodotto</h1>
+    
+    <!-- Usa th:object per associare il form all'oggetto prodotto -->
+    <form th:action="@{'/admin/prodotti/' + ${prodotto.id}}" th:object="${prodotto}" method="POST" enctype="multipart/form-data">
+        <label for="nome">Nome:</label>
+        <!-- Usa th:field per il binding automatico -->
+        <input type="text" id="nome" th:field="${prodotto.nome}" required><br><br>
+
+        <label for="descrizione">Descrizione:</label>
+        <textarea id="descrizione" th:field="${prodotto.descrizione}" required></textarea><br><br>
+
+        <label for="urlImage">Immagine:</label>
+        <input type="url" id="urlImage" th:field="${prodotto.urlImage}"><br><br>
+
+        <!-- Mostra l'immagine attuale del prodotto -->
+        <img th:src="${prodotto.urlImage}" alt="Immagine Prodotto" width="100" height="100"><br><br>
+
+        <button type="submit">Salva modifiche</button>
+
+		<!-- Visualizza gli errori di validazione -->
+		<div th:if="${#fields.hasErrors('*')}" style="color:red">
+		    <p th:each="e : ${#fields.errors('*')}" th:text="${e}">Errore</p>
+		</div>
+
+    </form>
+
+
+    <a href="/admin/modificaProdotti">Annulla</a>
+</body>
+</html>

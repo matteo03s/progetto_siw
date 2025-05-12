@@ -8,7 +8,7 @@
 	<body>
 		<a id="logo_richiesta" href="/"><img src="/logo.png" /></a>
 		<h1>Aggiungi un <h1 th:text="${prodotto.categoria}"></h1>
-		<form th:action="@{/prodotto}" method="POST" th:object="${prodotto}">
+		<form th:action="@{/admin/prodotto}" method="POST" th:object="${prodotto}">
 			<div id="nome">
 				Nome: <span><input required type="text" th:field="${prodotto.nome}" /></span>
 			</div>

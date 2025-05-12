@@ -7,7 +7,7 @@
 	<body>
 		<a id="logo_prenotazione" href="/"><img src="/logo.png" /></a>
 		<h1>Aggiungi una prenotazione</h1>
-		<form th:action="@{/prenotazione}" method="POST" th:object="${prenotazione}">
+		<form th:action="@{/prenotazione/prenotazione}" method="POST" th:object="${prenotazione}">
 			<div id="nome">
 				Nome: <span><input required type="text" th:field="${prenotazione.nome}" /></span>
 				<span th:if="${#fields.hasErrors('nome')}"th:errors="*{nome}"></span>
@@ -39,13 +39,17 @@
 								<button type="submit" th:field="*{turno}" th:value="'cena'" th:text="'Cena'" ></button>
 				<button type="submit" th:field="*{turno}" th:value="'pranzo'">Pranzo</button>
 				<button type="submit" th:field="${prenotazione.turno}"  th:value="'pranzo'">Pranzo</button>
-				<button type="submit" th:value="'cena'" th:text="'Cena'">Cena</button>-->
+				<button type="submit" th:value="'cena'" th:text="'Cena'">Cena</button>
 				
-		<!--		<button type="submit" th:value="'cena'" th:text="'Cena'">Cena</button> -->
+		<button type="submit" th:value="'cena'" th:text="'Cena'">Cena</button> 
 				<div>
 					<button type="submit">Conferma</button>
-				</div>
+				</div>-->
+				<div th:if="${#fields.hasErrors('*')}" style="color:red" th:errors="*{nome}">
 			</div>
 		</form>
+		<div class="error" th:if="${errorMessage}">
+			<p th:text="${errorMessage}"></p>
+		</div>
 	</body>
 </html>

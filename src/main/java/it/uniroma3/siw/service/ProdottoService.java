@@ -63,6 +63,10 @@ public class ProdottoService {
 	public Prodotto save(Prodotto prodotto) {
 		return prodottoRepository.save(prodotto);
 	}
+
+	public void remove(Long id) {
+		prodottoRepository.deleteById(id);
+	}
 	
 
 }

@@ -121,39 +121,14 @@ form button:hover {
     flex-direction: column;             /* Imposta gli elementi del testo in colonna (per nome, prezzo, categoria) */
 }
 
-#lista a.nome {
+#lista a {
     text-decoration: none;
     color: #333;
     font-size: 1.1rem;
     font-weight: bold;
 }
 
-#lista p {
-	text-decoration: none;
-	color: #333;
-	font-size: 1.1rem;
-	font-weight: bold;	
-}
-#lista a.modifica {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-#lista a.modifica:hover {
-
-	color: aqua;	
-}
-
-#lista a.cancella {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-#lista span.tipo {
+#lista span {
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: bold;

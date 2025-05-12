@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.UserRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -17,6 +18,14 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+		if (this.userRepository.findByEmail(user.getEmail()).isPresent()) {
+			throw new RuntimeException("Email già utilizza, cambialo");
+		}
         return userRepository.save(user);  // Salva solo l'utente
     }
+
+	public void remove(@Valid User user) {
+		userRepository.delete(user);
+		
+	}
 }

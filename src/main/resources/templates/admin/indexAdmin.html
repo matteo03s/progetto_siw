@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HOME ADMIN PIZZAZA</title>
+		<link rel="stylesheet" href="/stile_progetto.css"/>
+	</head>
+	<body>
+		<a id="logo_home" href="/"> <img src="/logo.png"> </a>
+		
+		<div id="login">
+			<p th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</p>
+				<a href="/logout">Logout</a>				
+			</p>
+		</div>
+		<nav class="navbar">
+			<ul>
+				<li><a href="/admin/modificaProdotti"> Modifica menù</a></li>
+				<li><a href="/admin/formInserimentoMenu"> Inserimento menù</a></li>
+				<li><a href="/admin/prenotazioni"> Visualizza e gestisci prenotazioni</a></li>								
+			</ul>
+		</nav>
+		<div id="richiesta">Cosa vuoi fare?</div>
+		<div id="possibli">
+			<p><a href="/admin/modificaProdotti"><button>Visualizza e modifica menù</button></a></p>
+			<p><a href="/admin/formInserimentoMenu"><button>Inserisci nuovo prodotto al menù</button></a></p>
+			<p><a href="/admin/prenotazioni"><button>Visualizza e gestisci le prenotazioni prenotazioni</button></a></p>
+		</div>
+
+	</body>
+</html>

@@ -16,8 +16,9 @@
 
         <label>Nome*: <input type="text"    th:field="*{name}"          /></label><br/>
         <label>Cognome: <input type="text" th:field="*{surname}"       /></label><br/>
-        <label>Email: <input type="email"  th:field="*{email}"         /></label><br/>
-        <label>Telefono: <input type="text" th:field="*{numeroTelefonico}"/></label><br/>
+        <label>Email*: <input type="email"  th:field="*{email}"         /></label><br/>
+<!--        <label>Telefono: <input type="text" th:field="*{numeroTelefonico}"/></label><br/>
+-->		<label><input type="text" th:field="*{numeroTelefonico}" th:value="*{numeroTelefonico != null ? numeroTelefonico : ''}" /></label><br/>
 
         <!-- Errori relativi a User -->
         <div th:if="${#fields.hasErrors('*')}" style="color:red">
@@ -31,7 +32,8 @@
 
         <label>Username*: <input type="text"     th:field="*{username}" /></label><br/>
         <label>Password*: <input type="password" th:field="*{password}" /></label><br/>
-
+<!--		<label>Conferma Password*: <input type="password" th:field="*{password}" /></label><br/>
+	-->		
         <!-- Errori relativi a Credentials -->
         <div th:if="${#fields.hasErrors('*')}" style="color:red" th:errors="*{username}">
 <!--<p th:each="e : ${#fields.errors('*')}" th:text="${e}">Errore</p>
@@ -43,6 +45,10 @@
 
     <button type="submit">Registrati</button>
 </form>
+
+<div class="error" th:if="${errorMessage}">
+	<p th:text="${errorMessage}"></p>
+</div>
 
 </body>
 </html>
