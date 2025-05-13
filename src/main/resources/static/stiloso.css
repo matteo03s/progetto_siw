@@ -81,6 +81,70 @@ body {
     padding-top: 135px; /* Spazio per la navbar fissa */
 }
 
+
+footer {
+    background-color: #555; /* colore di sfondo */
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+    color: #f4f4f4;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.footer-info, .footer-contact, .footer-newsletter {
+    width: 30%;
+    padding: 15px;
+}
+
+.footer-info h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.footer-contact p, .footer-info p {
+    margin: 5px 0;
+}
+
+.social-links a {
+    margin-right: 15px;
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+}
+
+.footer-newsletter form {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-newsletter input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.footer-newsletter button {
+    padding: 10px;
+    background-color: #B63D27; /* Colore del bottone */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.footer-newsletter button:hover {
+    background-color: #A0331F;
+}
+
+
 /* Media query per la responsività */
 @media (max-width: 768px) {
     .navbar ul {

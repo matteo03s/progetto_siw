@@ -42,5 +42,38 @@
 		<span th:if="${userDetails != null}" th:text="${userDetails.username}">Nome utente</span>
 		<span th:if="${userDetails == null}">Utente non autenticato</span>
 		</div>
+		
+		
+		<footer>
+		    <div class="footer-container">
+		        <div class="footer-info">
+		            <h3>Pizzaza Pizzeria</h3>
+		            <p><strong>Orario:</strong></p>
+		            <p>Lunedì – Venerdì: 19:00 – 23:00</p>
+		            <p>Sabato: 19:00 – 23:00</p>
+		            <p>Domenica: 12:00 – 15:00 / 19:00 – 23:00</p>
+		        </div>
+		        
+		        <div class="footer-contact">
+		            <p><strong>Telefono:</strong> +39 065574532</p>
+		            <p><strong>Indirizzo:</strong> Lungotevere di Pietra Papa, 55, 00146 Roma</p>
+		            <a href="mailto:info@arvolo.it">Indirizzo e-mail</a>
+		            <div class="social-links">
+		                <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+		                <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+		                <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+		            </div>
+		        </div>
+
+		        <div class="footer-newsletter">
+		            <p>Ricevi le nostre Offerte e Novità</p>
+		            <form>
+		                <input type="email" placeholder="Inserisci il tuo indirizzo e-mail" required>
+		                <button type="submit">Registrati</button>
+		            </form>
+		        </div>
+		    </div>
+		</footer>
+
 	</body>
 </html>
