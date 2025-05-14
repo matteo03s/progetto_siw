@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import it.uniroma3.siw.model.Ordine;
 
+
 public interface OrdineRepository extends CrudRepository <Ordine, Long> {
 	public List <Ordine> findByGiornoConsegna(LocalDate data);
 	public List <Ordine> findAllByOrderByGiornoConsegnaAsc();
@@ -14,4 +15,6 @@ public interface OrdineRepository extends CrudRepository <Ordine, Long> {
 //	public List <Prenotazione> findByUtenteCredentialsUsername (String username);
 	public List <Ordine> findByUtenteEmail(String email);
 
+
+	
 }

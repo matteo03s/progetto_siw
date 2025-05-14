@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<title>Nuovo ordine</title>
+		<link rel="stylesheet" href="/stiloso.css"/>
+	</head>
+	
+	<body>
+		<nav class="navbar">
+					<ul>
+						<li><a href="/prodotto">Il nostro menù</a></li>
+						<li><a href="/pizza">Le nostre pizze</a></li>
+						<li><a href="/sfizio">Gli immancabili sfizi</a></li>
+						<li><a id="logo_home" href="/"><img src="/logo.png"></a></li> <!-- Logo al centro -->
+						<li><a href="/dolce">Per i più golosi</a></li>
+						<li><a href="/bevanda">Con cosa accompagnamo sto cibo?</a></li>
+						<li> <div id="login">
+						    <span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</span>
+						    <p th:if="${userDetails == null}" class="login-link">
+						        <a href="/login">Login</a> </p>
+						    <p th:if="${userDetails == null}" class="register-link">
+						        <span>Non hai un account?</span> <a href="/register">Registrati</a></p>
+						    <p th:if="${userDetails != null}" class="logout-link">
+						        <a href="/logout">Logout</a>
+						    </p>
+						</div></li> 
+					</ul>
+		</nav>
+				
+		<h1> Aggiungi Ordine</h1>
+		<form th:action="@{/ordiniFatti}" method="POST" th:object="${ordine}">
+		<div>   
+			Nome: <span><input required type="text" th:field="${ordine.nome}"/></span>
+		</div>
+		<div>Numero Telefonico: <span> <input required type="text" th:field="${ordine.numeroTelefonico}" > </span></div>
+	
+	</body>
+	
+		
+
+
+</html>

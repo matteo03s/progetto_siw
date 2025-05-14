@@ -38,6 +38,9 @@ public class Ordine {
 	@OneToMany (mappedBy="ordine")
 	private List <VoceOrdine> vociOrdine;
 	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
