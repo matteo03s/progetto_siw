@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+	background-color: rgb(238,225,202);	
 }
 
 /* Logo sopra i tasti */
@@ -28,7 +29,7 @@
 }
 
 .button {
-    background-color: #555;
+    background-color: rgba(68,93,50,255);
     color: white;
     font-size: 18px;
     text-decoration: none;
@@ -42,8 +43,8 @@
 }
 
 .button:hover {
-    background-color: #333;
-    transform: scale(1.05); /* Leggera animazione di ingrandimento al passaggio del mouse */
+    background-color: rgba(68,93,50,255);
+    transform: scale(1.1); /* Leggera animazione di ingrandimento al passaggio del mouse */
 }
 
 .button:active {

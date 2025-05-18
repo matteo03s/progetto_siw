@@ -24,7 +24,7 @@ public class PrenotazioneController {
 	private PrenotazioneService prenotazioneService;
 	
 	/* lista prenotazioni dell'utente (username passato automaticamente grazie a principal) */
-	@GetMapping ("/prenotazione/prenotazioni")
+	@GetMapping ("/prenotazione/prenotazione")
 	public String prenotazioniUtente (Model model, Principal principal) {
 		model.addAttribute("prenotazioni", this.prenotazioneService.getPrenotazioniUsername(principal.getName()));
 		return "/prenotazione/prenotazioni.html";
@@ -73,7 +73,7 @@ public class PrenotazioneController {
        try {
     	   String message = (prenotazioneService.creaPrenotazione(prenotazione, principal.getName()));
     	   model.addAttribute("message", message);
-    	   return "redirect:/prenotazione/prenotazioni";
+    	   return "redirect:/prenotazione/prenotazione";
        } catch (RuntimeException e) {
     	   model.addAttribute("errorMessage", e.getMessage());
     	   return "/prenotazione/formNewPrenotazione.html";

@@ -85,7 +85,7 @@ public class AuthConfiguration {
 //				response.sendRedirect("/login?error=unauthorized");
 //				})
 				// Gestione dell'errore Forbidden (403)
-				.accessDeniedPage("/access-denied");  // Redirect a una pagina di errore 403
+				.accessDeniedPage("/error/access-denied");  // Redirect a una pagina di errore 403
 		return httpSecurity.build();
 	}
 }

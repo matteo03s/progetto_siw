@@ -80,7 +80,7 @@ form button:hover {
 }
 
 #lista li {
-    background-color: white;
+    background-color: rgb(238,225,202);
     margin: 10px 0;
     padding: 15px;
     border-radius: 5px;
@@ -89,7 +89,7 @@ form button:hover {
 }
 
 #lista li:hover {
-    background-color: #f1f1f1;
+    background-color: rgb(223, 200, 155);
     transform: translateY(-5px);
 }
 
