@@ -5,12 +5,15 @@
     box-sizing: border-box;
 }
 
+body {
+	background-color: bisque;
+}
 /* Stile per la navbar */
 .navbar {
     position: fixed; /* Fissa la navbar in alto */
     top: 0;
     width: 100%; /* Occupa l'intera larghezza della pagina */
-    background-color: #555; /* Colore di sfondo della navbar */
+    background-color: rgb(0, 111, 55); /* Colore di sfondo della navbar */
     z-index: 1000; /* Assicura che la navbar sia sopra gli altri elementi */
 }
 
@@ -50,7 +53,7 @@
 
 /* Effetto hover sui link */
 .navbar ul li a:hover {
-    background-color: #333; /* Colore di sfondo al passaggio del mouse */
+    background-color: rgb(0, 96, 48); /* Colore di sfondo al passaggio del mouse */
 }
 
 /* Stile per l'elemento del logo */
@@ -79,6 +82,50 @@ span {
 /* Assicura che il contenuto sotto la navbar non sia coperto */
 body {
     padding-top: 135px; /* Spazio per la navbar fissa */
+}
+
+.carousel {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.carousel h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;              /*  abilitia lo scorrimento  */
+    scroll-snap-type: x mandatory; /*  scatta da un’immagine all’altra  */
+    padding-bottom: 10px;          /*  spazio sotto le foto  */
+}
+
+.carousel-track figure {
+    flex: 0 0 auto;
+    width: 260px;
+    height: 280px;            /* altezza fissa della slide */
+    scroll-snap-align: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-track img {
+    width: 100%;
+    height: 200px;            /* altezza fissa immagine */
+    object-fit: cover;        /* taglia l’immagine per riempire */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.25);
+    flex-shrink: 0;
+    margin-bottom: 8px;
+}
+
+.carousel-track figcaption {
+    margin-top: 8px;
+    font-weight: 600;
 }
 
 
@@ -142,6 +189,78 @@ footer {
 
 .footer-newsletter button:hover {
     background-color: #A0331F;
+}
+
+#pulsanti {
+    display: flex;
+    width: 100%;
+    height: 350px;        /* più alte */
+    margin-bottom: 40px;
+    border-radius: 12px;
+    overflow: hidden;
+	
+}
+
+.half-btn {
+    flex: 1 1 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0 20px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+
+}
+
+/* Immagine di sfondo + overlay scuro */
+.half-btn.left {
+    background: url('https://scuolaartebianca.it/wp-content/uploads/2017/11/shutterstock_355605911-1024x683.jpg') center center/cover no-repeat;
+}
+.half-btn.right {
+    background: url('https://www.deliverart.it/wp-content/uploads/2025/03/Prosus-compra-Just-Eat-uai-1333x1000.jpg') center center/cover no-repeat;
+}
+
+/* Overlay scuro per migliorare leggibilità testo */
+.half-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 0;
+	transition: background-color 0.3s; /* Animazione per l'hover */
+}
+
+/* Testo sopra l’overlay */
+.half-btn > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover: diminuisci overlay per effetto luminoso */
+.half-btn:hover::before {
+    background: rgba(0,0,0,0.1);
+}
+
+
+/* Responsive: su schermi piccoli dividi verticalmente */
+@media (max-width: 600px) {
+    #pulsanti {
+        flex-direction: column;
+        height: auto;        /* altezza adattabile */
+    }
+    .half-btn {
+        flex: none;
+        width: 100%;
+        padding: 30px 10px;
+        font-size: 1.6rem;
+    }
 }
 
 

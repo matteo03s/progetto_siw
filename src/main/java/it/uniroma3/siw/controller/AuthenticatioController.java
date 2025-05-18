@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.ProdottoService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
@@ -27,6 +28,9 @@ public class AuthenticatioController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ProdottoService prodottoService;
 	
 	@GetMapping("/login")
 	public String showLogin(Model model) {
@@ -44,6 +48,7 @@ public class AuthenticatioController {
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
+			model.addAttribute("prodotti", prodottoService.getVetrina());
 			return "index.html";
 		} else {
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -52,6 +57,7 @@ public class AuthenticatioController {
 				return "admin/indexAdmin.html";
 			}
 		}
+		model.addAttribute("prodotti", prodottoService.getVetrina());		
 		return "index.html";
 	}
 	
@@ -63,6 +69,7 @@ public class AuthenticatioController {
 		if (credentials.getRole().equals(Credentials.PROVIDER_ROLE)) {
 			return "admin/indexAdmin.html";	//se ho permessi speciali allora posso accedere ad un'altra area
 		}
+		model.addAttribute("prodotti", prodottoService.getVetrina());
 		return "index.html"; //se mi sono autenticato e sono un utente normale torno alla homepage
 	}
 

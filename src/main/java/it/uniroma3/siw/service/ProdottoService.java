@@ -1,6 +1,9 @@
 package it.uniroma3.siw.service;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +61,23 @@ public class ProdottoService {
 	}
 	public List<Prodotto> getByCategoriaOrderedByNome(String categoria) {	
 		return prodottoRepository.findByCategoriaOrderByNomeAsc(categoria);
+	}
+	
+	public List <Prodotto> getVetrina () {
+		List <Prodotto> vetrina = new ArrayList<>();
+		List <Prodotto> pizze = this.getAllPizze();
+		List <Prodotto> sfizi = this.getAllSfizi();
+		List <Prodotto> dolci = this.getAllDolci();
+		Collections.shuffle(pizze);
+		Collections.shuffle(sfizi);
+		Collections.shuffle(dolci);
+		vetrina.addAll(pizze.subList(0, 2));
+		vetrina.addAll(sfizi.subList(0, 2));
+		vetrina.addAll(dolci.subList(0, 2));
+//		vetrina.add(pizze.getFirst());
+//		vetrina.add(dolci.getFirst());
+		
+		return vetrina;
 	}
 	
 	public Prodotto save(Prodotto prodotto) {

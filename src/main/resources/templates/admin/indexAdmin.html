@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>HOME ADMIN PIZZAZA</title>
-		<link rel="stylesheet" href="/stile_progetto.css"/>
-	</head>
-	<body>
-		<a id="logo_home" href="/"> <img src="/logo.png"> </a>
-		
-		<div id="login">
-			<p th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</p>
-				<a href="/logout">Logout</a>				
-			</p>
-		</div>
-		<nav class="navbar">
-			<ul>
-				<li><a href="/admin/modificaProdotti"> Modifica menù</a></li>
-				<li><a href="/admin/formInserimentoMenu"> Inserimento menù</a></li>
-				<li><a href="/admin/prenotazioni"> Visualizza e gestisci prenotazioni</a></li>								
-			</ul>
-		</nav>
-		<div id="richiesta">Cosa vuoi fare?</div>
-		<div id="possibli">
-			<p><a href="/admin/modificaProdotti"><button>Visualizza e modifica menù</button></a></p>
-			<p><a href="/admin/formInserimentoMenu"><button>Inserisci nuovo prodotto al menù</button></a></p>
-			<p><a href="/admin/prenotazioni"><button>Visualizza e gestisci le prenotazioni prenotazioni</button></a></p>
-		</div>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina di Gestione</title>
+    <link rel="stylesheet" href="/stile_progetto.css">
+</head>
+<body>
 
-	</body>
+<header>
+    <!-- Logo sopra i tasti -->
+    <div class="logo-home">
+        <a href="/" id="logo">
+            <img src="/logo.png" alt="Logo Pizzaza" />
+        </a>
+    </div>
+
+    <!-- Sezione con i tasti -->
+    <div class="buttons-container">
+        <a href="/admin/modificaProdotti" class="button">Modifica menù</a>
+        <a href="/admin/formInserimentoMenu" class="button">Inserimento menù</a>
+        <a href="/admin/prenotazioni" class="button">Gestisci prenotazioni</a>
+		<a href="/admin/prenotazioni" class="button">Gestisci ordini</a>
+    </div>
+
+    <!-- Login -->
+    <div class="login-container" style="text-align: center; margin-top: 20px;">
+        <span>Ciao, gestore</span>
+        <a href="/logout" class="button" style="background-color: #d9534f;">Logout</a>
+    </div>
+</header>
+
+<div class="content">
+    <h1 style="text-align: center; margin-top: 50px;">Benvenuto nella pagina di gestione</h1>
+</div>
+
+</body>
 </html>
