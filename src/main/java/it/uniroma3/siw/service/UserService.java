@@ -16,6 +16,8 @@ public class UserService {
     public User getUser(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+    
+  
 
     public User saveUser(User user) {
 		if (this.userRepository.findByEmail(user.getEmail()).isPresent()) {

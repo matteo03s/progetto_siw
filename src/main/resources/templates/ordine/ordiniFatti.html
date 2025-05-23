@@ -26,12 +26,7 @@
 					</div></li> 
 				</ul>
 			</nav>
-		<div th:if="${ordini.isEmpty()}">Non ci sono film nel sistema</div>
-		<ul>
-			<li th:each="ordine : ${ordini}" th:id="'ordine-' + ${ordine.id}">
-			                <span th:text="${ordine.nome}"></span>
-			</li>
-		</ul>
+
 
 
 		

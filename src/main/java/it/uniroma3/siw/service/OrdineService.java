@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,12 @@ public class OrdineService {
 		return ordinerepository.findAllByOrderByNomeAsc();
 	}
 	
+	public Ordine getBygiornoConsegnaAndorarioConsegna(LocalDate giorno, LocalTime orario) {
+		return ordinerepository.findByGiornoConsegnaAndOrarioConsegna(giorno, orario);
+	}
+	
 	public Ordine save(Ordine ordine) {
-		return ordinerepository.save(ordine);
+			return ordinerepository.save(ordine);
 	}
 	
 	
