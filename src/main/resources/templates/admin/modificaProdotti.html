@@ -5,9 +5,20 @@
 		<link rel="stylesheet" href="/stile_prodotti.css" />
 	</head>
 	<body>
-		<a id="logo" href="/"> <img src="/logo.png"> </a>
+		<!-- Divisione pulsanti per permettere di scegliere se
+					mostrare una tipologia specifica di prodotto -->
+					<div class="header-container">
+					        <div class="left-buttons">
+					            <a href="/admin/newPizza"> <button>Inserisci nuova pizza</button> </a>
+					            <a href="/admin/newSfizio"> <button>Inserisci nuovo sfizio</button> </a>			        </div>
+					        <div id="logo">
+					            <a href="/" ><img src="/logo.png" alt="Logo"></a>
+					        </div>
+					        <div class="right-buttons">
+					            <a href="/admin/newDolce"> <button>Inserisci nuovo dolce</button> </a>
+					            <a href="/admin/newBevanda"> <button>Inserisci nuova bevanda</button> </a>								        </div>
+					    </div>
 		<h1 th:text="'Elenco ' + ${tipologia}"></h1>
-		
 		<!-- Mostra messaggio se la lista prodotti è vuota -->
 		<span th:if="${prodotti.isEmpty()}">No products available.</span>
 

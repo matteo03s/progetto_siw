@@ -2,22 +2,24 @@
 <html>
 	<head>
 		<title>HOME PIZZAZA</title>
-		<link rel="stylesheet" href="/stiloso.css"/>
+		<link rel="stylesheet" href="/stileIndex.css"/>
 	</head>
 	<body>
 		<nav class="navbar">
 			<ul>
-				<li><a href="/prodotto">Il nostro menù</a></li>
-				<li><a href="/pizza">Le nostre pizze</a></li>
-				<li><a href="/sfizio">Gli immancabili sfizi</a></li>
+				<li><a href="/menu">Il nostro menù</a></li>
+				<li><a href="/menu/pizza">Le nostre pizze</a></li>
+				<li><a href="/menu/sfizio">Gli immancabili sfizi</a></li>
 				<li><a id="logo_home" href="/"><img src="/logo.png"></a></li> <!-- Logo al centro -->
-				<li><a href="/prenotazione/formNewPrenotazione">Vieni a mangiare da noi</a></li>
+				<li><a href="/prenotazione/prenotazione">Visualizza le tue prenotazioni</a></li>
 				<li><a href="/prenotazione/formNewPrenotazione">Te la portiamo anche a casa!</a></li>
 <!--				<li><a href="/dolce">Per i più golosi</a></li>
 				<li><a href="/bevanda">Con cosa accompagnamo sto cibo?</a></li>
 -->				<li> <div id="login">
-				    <span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</span>
-				    <p th:if="${userDetails == null}" class="login-link">
+					<a href="/utente">
+					<span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</span>
+					</a>
+					<p th:if="${userDetails == null}" class="login-link">
 				        <a href="/login">Login</a> </p>
 				    <p th:if="${userDetails == null}" class="register-link">
 				        <span>Non hai un account?</span> <a href="/register">Registrati</a></p>
@@ -81,11 +83,11 @@
 		<footer>
 		    <div class="footer-container">
 		        <div class="footer-info">
-		            <h3>Pizzaza Pizzeria</h3>
+		            <h3>Pizzaza</h3>
 		            <p><strong>Orario:</strong></p>
-		            <p>Lunedì – Venerdì: 19:00 – 23:00</p>
-		            <p>Sabato: 19:00 – 23:00</p>
-		            <p>Domenica: 12:00 – 15:00 / 19:00 – 23:00</p>
+		            <p>Lunedì siamo chiusi</p>
+					<p>Martedì – Giovedì: 19:00 – 23:00</p>
+		            <p>Venerdì - Domenica 12:00 – 15:00 / 19:00 – 23:00</p>
 		        </div>
 		        
 		        <div class="footer-contact">

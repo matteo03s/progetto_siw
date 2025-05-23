@@ -1,7 +1,10 @@
 package it.uniroma3.siw.service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,20 +58,35 @@ public class PrenotazioneService {
     public String creaPrenotazione(Prenotazione prenotazione, String username) {
     	
         // Ottieni la data della prenotazione
-        LocalDate dataPrenotazione = prenotazione.getData();
-        
-        // Calcola il totale dei posti già prenotati per quel giorno e turno
-        int postiPrenotati = calcolaPostiPrenotatiPerGiornoETurno(dataPrenotazione, prenotazione.getTurno());
+        LocalDate data = prenotazione.getData();
 
+        //ottieni il turno
+        String turno = prenotazione.getTurno();
+
+        //ottieneìi il giorno della settimana
+        DayOfWeek giorno = data.getDayOfWeek();
+
+        // Calcola il totale dei posti già prenotati per quel giorno e turno
+        int postiPrenotati = calcolaPostiPrenotatiPerGiornoETurno(data, turno);
+        
+        if (giorno == DayOfWeek.MONDAY) {
+        	throw new RuntimeException("Le prenotazioni non sono disponibili il lunedì.");
+        }
+
+        if ((giorno == DayOfWeek.TUESDAY || giorno == DayOfWeek.WEDNESDAY || giorno == DayOfWeek.THURSDAY) && "pranzo".equalsIgnoreCase(turno)) {
+        	throw new RuntimeException("Le prenotazioni per il giorno selezionato non sono disponibili a pranzo");
+
+        }
+        
         // Controlla se ci sono ancora posti disponibili
         if (postiPrenotati + prenotazione.getPosti() > MAX_POSTI_PER_TURNO) {
-            throw new RuntimeException("Non ci sono abbastanza posti disponibili per il " + prenotazione.getTurno() + " del " + prenotazione.getData() + " . Posti disponibili: " + (MAX_POSTI_PER_TURNO - postiPrenotati));
+            throw new RuntimeException("Non ci sono abbastanza posti disponibili per il " + prenotazione.getData() + " a " + prenotazione.getTurno()  + " . Posti disponibili: " + (MAX_POSTI_PER_TURNO - postiPrenotati));
         }
         Credentials cred = credentialService.getCredentials(username);
         prenotazione.setUtente(cred.getUser());
         // Salva la prenotazione
         prenotazioneRepository.save(prenotazione);
-        return "Prenotazione confermata per il turno " + prenotazione.getTurno() + "!";
+        return "Prenotazione confermata per il turno " + turno + "!";
     }
 
 	// Metodo per calcolare i posti già prenotati per un determinato giorno e turno

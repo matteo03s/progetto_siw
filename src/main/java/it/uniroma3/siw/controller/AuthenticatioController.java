@@ -110,8 +110,12 @@ public class AuthenticatioController {
 	}
 */
 	
-	@GetMapping("/access-denied")
-    public String accessDeniedPage() {
-        return "accessoNegato.html";  // La vista della pagina di errore 403
-    }
+	@GetMapping("/utente")
+	public String getPaginaUtente (Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+		User utente = credentials.getUser();
+		model.addAttribute("utente", utente);
+		return "/utente.html";
+	}
 }

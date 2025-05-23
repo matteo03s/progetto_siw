@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ public class ProdottoService {
 	}
 	
 	public Prodotto getProdottoById (Long id) {
-		return prodottoRepository.findById(id).get();
+		return prodottoRepository.findById(id)
+		.orElseThrow(() -> new NoSuchElementException("Prodotto non trovato con id: " + id));
 	}
 	
 	public List <Prodotto> getAllProdottiCategoria (String categoria) {
@@ -85,7 +87,10 @@ public class ProdottoService {
 	}
 
 	public void remove(Long id) {
-		prodottoRepository.deleteById(id);
+		if (prodottoRepository.findById(id).isPresent())
+			prodottoRepository.deleteById(id);
+		else
+			throw new NoSuchElementException("Prodotto non trovato con id: " + id);
 	}
 	
 

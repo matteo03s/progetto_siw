@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Utente</title>
+		<link rel="stylesheet" href="/stile_untente.css"/>
+	</head>
+	<body>
+		<a id="logo" href="/"><img src="/logo.png" /></a>
+		<h1 th:text="'Benveuto nella tua pagina utente, ' + ${userDetails.username}"></h1>
+		<p>scegli cosa vuoi fare</p>
+		<div class="pulsanti">
+			<a href="/prenotazione/leMiePrenotazioni"><button>Visualizza le tue prenotazioni</button></a>
+			<a href="/prenotazione/leMiePrenotazioni"><button>Visualizza i tuoi ordini</button></a>
+		</div>		
+		
+	</body>
+</html>

@@ -10,6 +10,14 @@ public class ErrorController {
     public String gestisci405() {
         return "/error/405.html"; // ritorna la pagina 405.html in templates/error/
     }
+    @GetMapping("/error/404")
+    public String gestisci404() {
+        return "/error/404.html"; // ritorna la pagina 404.html in templates/error/
+    }
+	@GetMapping("/error/access-denied")
+    public String accessDeniedPage() {
+        return "/error/accessoNegato.html";  // La vista della pagina di errore 403
+    }
 //    @GetMapping("/error/404")
 //    public String gestisci404() {
 //        return "/error/404.html"; // ritorna la pagina 405.html in templates/error/

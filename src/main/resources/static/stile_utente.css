@@ -1,0 +1,44 @@
+/* Reset margini e padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo della pagina */
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* Logo in alto a sinistra con un po' di margine */
+#logo img {
+    width: 350px;
+    margin: 20px;
+    float: left;
+	
+}
+
+
+/* Bottoni per 'Pranzo' e 'Cena' */
+.pulsanti button { /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
+    padding: 10px 20px; /* Aggiunge 10px di padding sopra/sotto e 20px a sinistra/destra */
+    margin: 5px 10px; /* Aggiunge 5px di margine sopra/sotto e 10px a sinistra/destra */
+    background-color: rgb(0, 111, 55); /* Imposta uno sfondo verde scuro per i bottoni */
+    color: white; /* Imposta il colore del testo a bianco */
+    border: none; /* Rimuove il bordo predefinito dei bottoni */
+    border-radius: 6px; /* Arrotonda gli angoli dei bottoni con un raggio di 6 pixel */
+    cursor: pointer; /* Cambia il cursore in un puntatore al passaggio del mouse */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+}
+
+.pulsanti button:hover { /* Seleziona i bottoni di #turno al passaggio del mouse */
+    background-color: rgba(68, 93, 50, 255); /* Cambia il colore di sfondo a un verde più scuro */
+    transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+}
+
+.pulsanti button:active { /* Seleziona i bottoni di #turno quando vengono cliccati */
+    transform: scale(0.98); /* Riduce leggermente il bottone (2%) per un effetto di pressione */
+}

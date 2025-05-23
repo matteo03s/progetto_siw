@@ -1,0 +1,313 @@
+/* Resetta i margini e i padding di default per tutti gli elementi */
+* {
+    margin: 0; /* Rimuove i margini predefiniti */
+    padding: 0; /* Rimuove i padding predefiniti */
+    box-sizing: border-box; /* Include padding e bordi nella larghezza/altezza totale */
+}
+
+/* Stile per il corpo della pagina */
+body {
+    background-color: rgb(238,225,202); /* Imposta il colore di sfondo del body */
+}
+
+/* Stile per la navbar */
+.navbar {
+    position: fixed; /* Fissa la navbar in alto anche durante lo scorrimento */
+    top: 0; /* Posiziona la navbar nella parte superiore della pagina */
+    width: 100%; /* Fa occupare alla navbar l'intera larghezza della pagina */
+    background-color: rgb(0, 111, 55); /* Imposta il colore di sfondo della navbar */
+    z-index: 1000; /* Assicura che la navbar sia sopra altri elementi */
+}
+
+/* Stile per la lista non ordinata nella navbar */
+.navbar ul {
+    display: flex; /* Dispone gli elementi della lista in orizzontale */
+    justify-content: space-between; /* Distribuisce gli elementi uniformemente */
+    align-items: center; /* Allinea gli elementi verticalmente al centro */
+    list-style: none; /* Rimuove i punti predefiniti della lista */
+    padding: 0 20px; /* Aggiunge padding laterale di 20px */
+    height: 135px; /* Imposta un'altezza fissa per ospitare il logo */
+}
+
+/* Stile per gli elementi della lista nella navbar */
+.navbar ul li {
+    flex: 1; /* Fa occupare a ogni elemento la stessa larghezza disponibile */
+    text-align: center; /* Centra il testo orizzontalmente */
+    height: 100%; /* Fa occupare l'intera altezza della navbar */
+    display: flex; /* Usa flexbox per allineare il contenuto */
+    align-items: center; /* Centra il contenuto verticalmente */
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+}
+
+/* Stile per i link all'interno degli elementi della lista */
+.navbar ul li a {
+    color: #fff; /* Imposta il colore del testo dei link a bianco */
+    text-decoration: none; /* Rimuove la sottolineatura dai link */
+    font-size: 26px; /* Imposta la dimensione del testo dei link */
+    display: block; /* Rende il link un blocco per occupare tutta l'area */
+    width: 100%; /* Fa occupare al link l'intera larghezza dell'elemento */
+    height: 100%; /* Fa occupare al link l'intera altezza dell'elemento */
+    display: flex; /* Usa flexbox per centrare il testo */
+    align-items: center; /* Centra il testo verticalmente */
+    justify-content: center; /* Centra il testo orizzontalmente */
+    transition: background-color 0.3s; /* Aggiunge un'animazione fluida per il cambio di sfondo */
+}
+
+/* Effetto al passaggio del mouse sui link */
+.navbar ul li a:hover {
+    background-color: rgb(0, 96, 48); /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+/* Stile per l'elemento che contiene il logo */
+.navbar ul li #logo_home {
+    display: flex; /* Usa flexbox per centrare il logo */
+    justify-content: center; /* Centra il logo orizzontalmente */
+    align-items: center; /* Centra il logo verticalmente */
+    height: 100%; /* Fa occupare l'intera altezza della navbar */
+}
+
+/* Stile per l'immagine del logo */
+.navbar ul li #logo_home img {
+    max-height: 125px; /* Imposta l'altezza massima del logo */
+    width: auto; /* Mantiene le proporzioni dell'immagine */
+}
+
+/* Disabilita l'effetto hover sul link del logo */
+.navbar ul li a#logo_home:hover {
+    background-color: transparent; /* Rimuove il cambio di sfondo al passaggio del mouse */
+}
+
+/* Stile per gli elementi <span> */
+span {
+    color: beige; /* Imposta il colore del testo degli span a beige */
+}
+
+/* Aggiunge spazio sopra il contenuto del body per evitare sovrapposizioni con la navbar fissa */
+body {
+    padding-top: 135px; /* Aggiunge uno spazio superiore pari all'altezza della navbar */
+}
+
+/* Stile per il contenitore del carosello */
+.carousel {
+    max-width: 100%; /* Limita la larghezza massima al 100% del contenitore */
+    margin: 0 auto; /* Centra il carosello orizzontalmente */
+    padding: 40px 20px; /* Aggiunge padding superiore/inferiore di 40px e laterale di 20px */
+}
+
+/* Stile per il titolo del carosello */
+.carousel h2 {
+    text-align: center; /* Centra il testo del titolo */
+    margin-bottom: 20px; /* Aggiunge margine inferiore per separare dal contenuto */
+}
+
+/* Stile per il contenitore delle immagini del carosello */
+.carousel-track {
+    display: flex; /* Dispone le immagini in orizzontale */
+    gap: 20px; /* Aggiunge uno spazio di 20px tra le immagini */
+    overflow-x: auto; /* Abilita lo scorrimento orizzontale */
+    scroll-snap-type: x mandatory; /* Fa scattare lo scorrimento su ogni immagine */
+    padding-bottom: 10px; /* Aggiunge spazio sotto le immagini */
+}
+
+/* Stile per ogni figura (immagine + didascalia) nel carosello */
+.carousel-track figure {
+    flex: 0 0 auto; /* Impedisce il ridimensionamento delle figure */
+    width: 260px; /* Imposta una larghezza fissa per ogni figura */
+    height: 280px; /* Imposta un'altezza fissa per ogni figura */
+    scroll-snap-align: center; /* Allinea ogni figura al centro durante lo scorrimento */
+    text-align: center; /* Centra il testo all'interno della figura */
+    display: flex; /* Usa flexbox per disporre il contenuto */
+    flex-direction: column; /* Dispone immagine e didascalia in verticale */
+}
+
+/* Stile per le immagini nel carosello */
+.carousel-track img {
+    width: 100%; /* Fa occupare all'immagine l'intera larghezza della figura */
+    height: 200px; /* Imposta un'altezza fissa per l'immagine */
+    object-fit: cover; /* Ritaglia l'immagine per adattarla senza deformarla */
+    border-radius: 12px; /* Aggiunge bordi arrotondati all'immagine */
+    box-shadow: 0 4px 8px rgba(0,0,0,.25); /* Aggiunge un'ombra leggera */
+    flex-shrink: 0; /* Impedisce il ridimensionamento dell'immagine */
+    margin-bottom: 8px; /* Aggiunge margine inferiore per separare dalla didascalia */
+}
+
+/* Stile per le didascalie nel carosello */
+.carousel-track figcaption {
+    margin-top: 8px; /* Aggiunge margine superiore per separare dall'immagine */
+    font-weight: 600; /* Imposta il testo in grassetto */
+}
+
+/* Stile per il footer */
+footer {
+    background-color: rgb(0, 111, 55); /* Imposta il colore di sfondo del footer */
+    padding: 20px 0; /* Aggiunge padding superiore e inferiore */
+    font-family: Arial, sans-serif; /* Imposta il font del testo */
+    color: #f4f4f4; /* Imposta il colore del testo */
+}
+
+/* Stile per il contenitore principale del footer */
+.footer-container {
+    display: flex; /* Dispone le sezioni del footer in orizzontale */
+    justify-content: space-around; /* Distribuisce le sezioni uniformemente */
+    align-items: flex-start; /* Allinea le sezioni in alto */
+    flex-wrap: wrap; /* Permette alle sezioni di andare a capo su schermi piccoli */
+}
+
+/* Stile per le sezioni del footer */
+.footer-info, .footer-contact, .footer-newsletter {
+    width: 30%; /* Ogni sezione occupa il 30% della larghezza */
+    padding: 15px; /* Aggiunge padding interno */
+}
+
+/* Stile per il titolo della sezione info del footer */
+.footer-info h3 {
+    font-size: 24px; /* Imposta la dimensione del titolo */
+    margin-bottom: 10px; /* Aggiunge margine inferiore per separare dal testo */
+}
+
+/* Stile per i paragrafi nelle sezioni info e contact */
+.footer-contact p, .footer-info p {
+    margin: 5px 0; /* Aggiunge margine superiore e inferiore ai paragrafi */
+}
+
+/* Stile per i link dei social media */
+.social-links a {
+    margin-right: 15px; /* Aggiunge margine a destra per separare i link */
+}
+
+/* Stile per le icone dei social media */
+.social-links img {
+    width: 24px; /* Imposta la larghezza delle icone */
+    height: 24px; /* Imposta l'altezza delle icone */
+}
+
+/* Stile per il form della newsletter */
+.footer-newsletter form {
+    display: flex; /* Dispone gli elementi del form in verticale */
+    flex-direction: column; /* Allinea input e bottone in colonna */
+}
+
+/* Stile per il campo di input della newsletter */
+.footer-newsletter input {
+    padding: 10px; /* Aggiunge padding interno */
+    margin-bottom: 10px; /* Aggiunge margine inferiore per separare dal bottone */
+    border: 1px solid #ddd; /* Aggiunge un bordo leggero */
+    border-radius: 5px; /* Aggiunge bordi arrotondati */
+}
+
+/* Stile per il bottone della newsletter */
+.footer-newsletter button {
+    padding: 10px; /* Aggiunge padding interno */
+    background-color: #B63D27; /* Imposta il colore di sfondo del bottone */
+    color: white; /* Imposta il colore del testo */
+    border: none; /* Rimuove il bordo predefinito */
+    border-radius: 5px; /* Aggiunge bordi arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+}
+
+/* Effetto hover sul bottone della newsletter */
+.footer-newsletter button:hover {
+    background-color: #A0331F; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+/* Stile per il contenitore dei pulsanti */
+#pulsanti {
+    display: flex; /* Dispone i pulsanti in orizzontale */
+    width: 100%; /* Fa occupare l'intera larghezza disponibile */
+    height: 350px; /* Imposta un'altezza fissa per i pulsanti */
+    margin-bottom: 40px; /* Aggiunge margine inferiore */
+    border-radius: 12px; /* Aggiunge bordi arrotondati */
+    overflow: hidden; /* Nasconde il contenuto che eccede i bordi */
+}
+
+/* Stile per ogni pulsante */
+.half-btn {
+    flex: 1 1 50%; /* Ogni pulsante occupa il 50% della larghezza */
+    display: flex; /* Usa flexbox per centrare il contenuto */
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+    align-items: center; /* Centra il contenuto verticalmente */
+    font-size: 2.5rem; /* Imposta la dimensione del testo */
+    font-weight: 500; /* Imposta il peso del testo */
+    color: white; /* Imposta il colore del testo */
+    text-decoration: none; /* Rimuove la sottolineatura dai link */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    padding: 0 20px; /* Aggiunge padding laterale */
+    text-align: center; /* Centra il testo orizzontalmente */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Imposta il font */
+    position: relative; /* Posizione relativa per l'overlay */
+    overflow: hidden; /* Nasconde il contenuto che eccede */
+}
+
+/* Immagine di sfondo per il pulsante sinistro */
+.half-btn.left {
+    background: url('https://scuolaartebianca.it/wp-content/uploads/2017/11/shutterstock_355605911-1024x683.jpg') center center/cover no-repeat; /* Imposta l'immagine di sfondo */
+}
+
+/* Immagine di sfondo per il pulsante destro */
+.half-btn.right {
+    background: url('https://www.deliverart.it/wp-content/uploads/2025/03/Prosus-compra-Just-Eat-uai-1333x1000.jpg') center center/cover no-repeat; /* Imposta l'immagine di sfondo */
+}
+
+/* Overlay scuro per migliorare la leggibilità del testo */
+.half-btn::before {
+    content: ""; /* Crea un elemento vuoto per l'overlay */
+    position: absolute; /* Posiziona l'overlay sopra il pulsante */
+    inset: 0; /* Fa occupare all'overlay l'intera area del pulsante */
+    background: rgba(0,0,0,0.4); /* Imposta un overlay scuro semitrasparente */
+    z-index: 0; /* Posiziona l'overlay sotto il testo */
+    transition: background-color 0.3s; /* Aggiunge un'animazione fluida per il cambio di sfondo */
+}
+
+/* Assicura che il contenuto del pulsante sia sopra l'overlay */
+.half-btn > * {
+    position: relative; /* Posiziona il contenuto sopra l'overlay */
+    z-index: 1; /* Imposta un livello superiore rispetto all'overlay */
+}
+
+/* Effetto hover: riduce l'opacità dell'overlay */
+.half-btn:hover::before {
+    background: rgba(0,0,0,0.1); /* Riduce l'opacità dell'overlay al passaggio del mouse */
+}
+
+/* Media query per schermi inferiori a 600px */
+@media (max-width: 600px) {
+    #pulsanti {
+        flex-direction: column; /* Dispone i pulsanti in verticale */
+        height: auto; /* Imposta un'altezza adattabile */
+    }
+    .half-btn {
+        flex: none; /* Rimuove la proporzione fissa */
+        width: 100%; /* Fa occupare l'intera larghezza */
+        padding: 30px 10px; /* Aggiunge padding per adattarsi */
+        font-size: 1.6rem; /* Riduce la dimensione del testo */
+    }
+}
+
+/* Media query per schermi inferiori a 768px */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column; /* Dispone gli elementi della navbar in verticale */
+        height: auto; /* Imposta un'altezza adattabile */
+        padding: 10px; /* Riduce il padding */
+    }
+
+    .navbar ul li {
+        width: 100%; /* Fa occupare a ogni elemento l'intera larghezza */
+        height: 60px; /* Riduce l'altezza di ogni elemento */
+    }
+
+    .navbar ul li a {
+        font-size: 20px; /* Riduce la dimensione del testo dei link */
+        display: flex; /* Mantiene il centramento del testo */
+        align-items: center; /* Centra il testo verticalmente */
+        justify-content: center; /* Centra il testo orizzontalmente */
+    }
+
+    .navbar ul li #logo_home img {
+        max-height: 80px; /* Riduce l'altezza massima del logo */
+    }
+
+    body {
+        padding-top: 350px; /* Aumenta lo spazio sopra il contenuto per la navbar più alta */
+    }
+}

@@ -57,7 +57,7 @@ form {
     justify-content: center; /* Centra gli elementi del form orizzontalmente */
     align-items: center; /* Allinea gli elementi verticalmente al centro */
     gap: 10px; /* Spazio di 10px tra label, select e button */
-    margin: 20px auto; /* Margine sopra/sotto e centra orizzontalmente */
+    margin: 10px auto; /* Margine sopra/sotto e centra orizzontalmente */
 	font-size: 1.15rem; /* Dimensione del font per form*/
 
 }
@@ -67,7 +67,7 @@ h1 {
     text-align: center; /* Centra il testo del titolo */
     color: #333; /* Colore grigio scuro per il titolo */
     font-size: 2rem; /* Dimensione del font di 2rem (circa 32px) */
-    margin-top: 20px; /* Margine superiore di 20px */
+    margin-top: 10px; /* Margine superiore di 20px */
 }
 
 /* Messaggio quando la lista è vuota */
