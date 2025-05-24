@@ -102,7 +102,7 @@ form button {
 }
 
 form button:hover {
-    background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
+background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
 }
 
 /* Bottoni per le categorie */
@@ -119,8 +119,8 @@ form button:hover {
 }
 
 .left-buttons button:hover, .right-buttons button:hover {
-    background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
-    transform: scale(1.1); /* Ingrandisce del 10% */
+	background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
+	transform: scale(1.1); /* Ingrandisce del 10% */
 }
 
 .left-buttons button:active, .right-buttons button:active {

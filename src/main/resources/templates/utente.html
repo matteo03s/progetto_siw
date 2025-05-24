@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8"/>
-		<title>Utente</title>
-		<link rel="stylesheet" href="/stile_untente.css"/>
-	</head>
-	<body>
-		<a id="logo" href="/"><img src="/logo.png" /></a>
-		<h1 th:text="'Benveuto nella tua pagina utente, ' + ${userDetails.username}"></h1>
-		<p>scegli cosa vuoi fare</p>
-		<div class="pulsanti">
-			<a href="/prenotazione/leMiePrenotazioni"><button>Visualizza le tue prenotazioni</button></a>
-			<a href="/prenotazione/leMiePrenotazioni"><button>Visualizza i tuoi ordini</button></a>
-		</div>		
-		
-	</body>
+<html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Profilo Utente</title>
+  <link rel="stylesheet" href="/stile_utente.css"/>
+</head>
+<body>
+	<a id="logo" href="/"><img src="/logo.png" /></a>
+  <div class="contenitore">
+    <h1>Profilo Utente</h1>
+    <!-- Dettagli dell'utente -->
+    <div class="dettagli-utente">
+      <p><strong>Nome:</strong> <span th:text="${utente.name}"></span></p>
+      <p><strong>Cognome:</strong> <span th:text="${utente.surname}"></span></p>
+      <p><strong>Email:</strong> <span th:text="${utente.email}"></span></p>
+      <p><strong>Telefono:</strong> <span th:text="${utente.numeroTelefonico}"></span></p>
+    </div>
+
+    <!-- Azioni -->
+    <div class="pulsanti">
+      <a href="/prenotazione/leMiePrenotazioni"><button>Visualizza le tue prenotazioni</button></a>
+      <a href="/prenotazione/leMiePrenotazioni"><button>Visualizza i tuoi ordini</button></a>
+      <a th:href="@{'/utente/modifica/' + ${utente.id}}" class="btn btn-modifica"><button>Modifica i tuoi dati</button></a>
+    </div>
+  </div>
+</body>
 </html>

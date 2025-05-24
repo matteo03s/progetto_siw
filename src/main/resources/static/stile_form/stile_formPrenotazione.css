@@ -46,7 +46,6 @@ form { /* Seleziona tutti gli elementi <form> */
     flex: 1; /* Fa sì che il form occupi equamente lo spazio disponibile nel flex container */
 	border: 3px solid rgb(0, 111, 55) ;	
 	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
-
 }
 
 input::placeholder {
@@ -116,6 +115,7 @@ input[type="number"] { /* Seleziona gli input di tipo numero */
     cursor: pointer; /* Cambia il cursore in un puntatore al passaggio del mouse */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
 	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+	font-size: 1.1em; /* Imposta la dimensione del font a 1.1 volte la dimensione base */
 }
 #turno #annulla{ /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
     background-color: rgb(128, 0, 64); /* Imposta uno sfondo verde scuro per i bottoni */

@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,8 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.Prodotto;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ProdottoService;
 import jakarta.validation.Valid;
 
@@ -23,6 +29,8 @@ public class ProdottoController {
 	
 	@Autowired
 	private ProdottoService prodottoService;
+	@Autowired
+	private CredentialsService credentialsService;
 	
 	@GetMapping ("/prova")
 	public String getProva () {
@@ -44,6 +52,18 @@ public class ProdottoController {
 	
 	@GetMapping ("/menu")
 	public String getProdotti (Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication instanceof AnonymousAuthenticationToken) {
+			model.addAttribute("prodotti", this.prodottoService.getAllProdotti());
+			model.addAttribute("tipologia", new String ("prodotti"));
+			return "prodotti.html";
+		}
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+		if (credentials.getRole().equals(Credentials.PROVIDER_ROLE)) {
+			model.addAttribute("prodotti", this.prodottoService.getAllProdotti());
+			return "/admin/modificaProdotti.html";
+		}
 		model.addAttribute("prodotti", this.prodottoService.getAllProdotti());
 		model.addAttribute("tipologia", new String ("prodotti"));
 		return "prodotti.html";
@@ -93,24 +113,11 @@ public class ProdottoController {
 	}
 	
 	@GetMapping("/admin/ordinaProdotti")
-	public String adminOrdinaProdotti (@RequestParam String ordine, @RequestParam String tipologia, Model model) {
+	public String adminOrdinaProdotti (@RequestParam String ordine, Model model) {
 	    List<Prodotto> prodotti = null;
 	    
-	    System.out.println("Tipologia ricevuta: " + tipologia);  // Log per la tipologia
 	    System.out.println("Ordine selezionato: " + ordine);    // Log per l'ordine
 
-	    if (!("prodotti".equals(tipologia))) {
-	    	 // Ordina in base al criterio selezionato
-		    if ("nome".equals(ordine)) {
-		        prodotti = this.prodottoService.getByCategoriaOrderedByNome(tipologia);
-		    }
-		    else if ("prezzo".equals(ordine)) {
-		    	prodotti = this.prodottoService.getByCategoriaOrderedByPrezzo(tipologia);
-		    } else {
-		        prodotti = (List)this.prodottoService.getAllProdottiCategoria(tipologia); // Default (non ordinato)
-		    }
-	    }
-	    else {
 		    // Ordina in base al criterio selezionato
 		    if ("nome".equals(ordine)) {
 		        prodotti = this.prodottoService.getOrderedByNome();
@@ -121,9 +128,7 @@ public class ProdottoController {
 		    } else {
 		        prodotti = (List)this.prodottoService.getAllProdotti(); // Default (non ordinato)
 		    }
-	    }
 	    model.addAttribute("prodotti", prodotti);
-	    model.addAttribute("tipologia", tipologia);
 	    return "/admin/modificaProdotti.html";
 	}
 	
@@ -201,7 +206,6 @@ public class ProdottoController {
 	@GetMapping ("/admin/modificaProdotti")
 	public String modificaMenu(Model model) {
 		model.addAttribute("prodotti", this.prodottoService.getAllProdotti());
-		model.addAttribute("tipologia", new String ("prodotti"));
 		return "/admin/modificaProdotti.html";
 	}
 	
@@ -271,6 +275,10 @@ public class ProdottoController {
             prodottoEsistente.setUrlImage(prodottoForm.getUrlImage());
         } else if (prodottoForm.getUrlImage() != null && prodottoForm.getUrlImage().trim().isEmpty()) {
             prodottoEsistente.setUrlImage(null); // Permette di azzerare l'URL dell'immagine
+        }
+        
+        if (prodottoForm.getPrezzo() != null) {
+            prodottoEsistente.setPrezzo(prodottoForm.getPrezzo());
         }
 
         // I campi categoria e prezzo non sono nel form, quindi rimangono invariati

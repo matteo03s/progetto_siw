@@ -24,6 +24,15 @@ body {
 	border-radius: 300px;
 	border: 3px solid rgb(0, 111, 55) ;	
 	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+	transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+}
+
+#logo img:hover {
+	transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+}
+
+#logo img:active {
+    transform: scale(0.98); /* Riduce leggermente il bottone (2%) per un effetto di pressione */
 }
 
 /* Titolo della pagina */
@@ -60,7 +69,7 @@ legend {
 /* Label e input */
 label {
   display: block;
-  margin: 0px 0px 0px;
+  margin: 10px 0px 0px;
   font-weight: bold;
   color: #333;
 }
@@ -73,7 +82,7 @@ input::placeholder {
 
 button { /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
     padding: 10px 20px; /* Aggiunge 10px di padding sopra/sotto e 20px a sinistra/destra */
-    margin: 5px 10px; /* Aggiunge 5px di margine sopra/sotto e 10px a sinistra/destra */
+    margin: 10px 10px; /* Aggiunge 5px di margine sopra/sotto e 10px a sinistra/destra */
     background-color: rgb(0, 111, 55); /* Imposta uno sfondo verde scuro per i bottoni */
     color: white; /* Imposta il colore del testo a bianco */
     border: none; /* Rimuove il bordo predefinito dei bottoni */
@@ -81,16 +90,17 @@ button { /* Seleziona gli elementi <button> all'interno di un elemento con id="t
     cursor: pointer; /* Cambia il cursore in un puntatore al passaggio del mouse */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
 	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+	font-size: 1.1em; /* Imposta la dimensione del font a 1.1 volte la dimensione base */
 }
 
 #annulla{ /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
-    background-color: rgb(128, 0, 64); /* Imposta uno sfondo verde scuro per i bottoni */
+	background-color: rgb(128, 0, 64); /* Imposta uno sfondo verde scuro per i bottoni */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
 	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
 }
 
 button:hover { /* Seleziona i bottoni di #turno al passaggio del mouse */
-    background-color: rgba(68, 93, 50, 255); /* Cambia il colore di sfondo a un verde più scuro */
+	background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
     transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
 }
 

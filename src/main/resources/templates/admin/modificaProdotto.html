@@ -15,6 +15,11 @@
         <!-- Usa th:field per il binding automatico -->
         <input type="text" id="nome" th:field="${prodotto.nome}" ><br><br>
 
+		<label for="prezzo"><strong>Prezzo:</strong></label>
+		<!-- Usa th:field per il binding automatico -->
+		<input type="text" id="prezzo" th:field="${prodotto.prezzo}" ><br><br>
+
+		
         <label for="descrizione"><strong>Descrizione:</strong></label>
         <textarea id="descrizione" th:field="${prodotto.descrizione}" ></textarea><br><br>
 

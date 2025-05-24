@@ -72,9 +72,9 @@ body {
     width: auto; /* Mantiene le proporzioni dell'immagine */
 }
 
-/* Disabilita l'effetto hover sul link del logo */
+/* Disabilita l'effetto hover sul logo */
 .navbar ul li a#logo_home:hover {
-    background-color: transparent; /* Rimuove il cambio di sfondo al passaggio del mouse */
+    background-color: transparent; /* Nessun cambio di sfondo per il logo */
 }
 
 /* Stile per gli elementi <span> */
