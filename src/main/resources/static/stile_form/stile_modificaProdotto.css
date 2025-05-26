@@ -1,0 +1,131 @@
+/* Resetta i margini e i padding di default */
+* { /* Seleziona tutti gli elementi della pagina */
+    margin: 0; /* Imposta il margine esterno di tutti gli elementi a 0 */
+    padding: 0; /* Imposta il padding interno di tutti gli elementi a 0 */
+    box-sizing: border-box; /* Fa sì che padding e bordi siano inclusi nella larghezza/altezza totale degli elementi */
+}
+
+/* Imposta uno sfondo chiaro e un font leggibile per tutto il body */
+body { /* Seleziona l'elemento <body> della pagina */
+    font-family: Arial, sans-serif; /* Imposta il font a Arial o un font sans-serif generico */
+    background-color: white; /* Imposta lo sfondo del body a bianco */
+    margin: 0; /* Rimuove qualsiasi margine esterno dal body */
+    padding: 0; /* Rimuove qualsiasi padding interno dal body */
+    text-align: center; /* Centra il testo all'interno del body */
+	background-image: url('/pizze7.png');
+	background-size: 300px 300px; /* Immagine ridotta a 100x100 pixel */
+	background-repeat: repeat; /* Ripetizione in entrambe le direzioni */
+
+}
+
+/* Logo in alto a sinistra con un po' di margine */
+#logo img { /* Seleziona l'elemento <img> all'interno di un elemento con id="logo" */
+    width: 350px; /* Imposta la larghezza dell'immagine del logo a 350 pixel */
+    margin: 20px; /* Aggiunge un margine di 20 pixel su tutti i lati dell'immagine */
+    float: left; /* Fa fluttuare l'immagine a sinistra, permettendo al contenuto di avvolgerla */
+	border-radius: 300px;
+	border: 3px solid rgb(0, 111, 55) ;	
+	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+}
+
+/* Titolo principale della pagina */
+h1 { /* Seleziona tutti gli elementi <h1> */
+    margin-top: 10px; /* Aggiunge un margine superiore di 30 pixel al titolo */
+    margin-bottom: 10px; /* Aggiunge un margine inferiore di 30 pixel al titolo */
+	text-align: center; /* Allinea il testo all'interno del titolo al centro*/
+    font-size: 2em; /* Imposta la dimensione del font a 2 volte la dimensione base (circa 32px) */
+    color: #333; /* Imposta il colore del testo a un grigio scuro (#333) */
+}
+
+/* Form centrato con uno sfondo e bordo arrotondato */
+form { /* Seleziona tutti gli elementi <form> */
+	margin-top: 20px; /* Aggiunge un margine superiore di 30 pixel al titolo */
+	display: inline-block; /* Imposta il form come blocco inline per occupare solo lo spazio necessario */
+    background-color: rgb(238, 225, 202); /* Imposta uno sfondo beige chiaro per il form */
+    padding: 30px 40px; /* Aggiunge 30px di padding sopra/sotto e 40px a sinistra/destra */
+    border-radius: 10px; /* Arrotonda gli angoli del form con un raggio di 10 pixel */
+    text-align: left; /* Allinea il testo all'interno del form a sinistra */
+    flex: 1; /* Fa sì che il form occupi equamente lo spazio disponibile nel flex container */
+	border: 3px solid rgb(0, 111, 55) ;	
+	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+}
+
+/* Styling for each form field container */
+form div {
+    margin-bottom: 20px;
+}
+
+/* Labels for form fields (e.g., Nome:, Descrizione:) */
+form div span:first-of-type {
+    display: inline-block;
+    min-width: 80px;
+
+}
+
+/* Input fields for text, textarea, and file uploads */
+input[type="text"],
+textarea,
+input[type="file"],
+input[type="url"] {
+    padding: 8px; /* Aggiunge un padding interno di 8 pixel su tutti i lati */
+    width: 100%; /* Fa sì che l'input occupi il 100% della larghezza del contenitore */
+    border: 1px solid #ccc; /* Aggiunge un bordo grigio chiaro di 1 pixel */
+    border-radius: 5px; /* Arrotonda gli angoli dell'input con un raggio di 5 pixel */
+}
+
+/* Textarea specific styling for description */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Bottoni per 'Pranzo' e 'Cena' */
+#pulsanti button { /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
+    padding: 10px 20px; /* Aggiunge 10px di padding sopra/sotto e 20px a sinistra/destra */
+    margin: 5px 10px; /* Aggiunge 5px di margine sopra/sotto e 10px a sinistra/destra */
+    background-color: rgb(0, 111, 55); /* Imposta uno sfondo verde scuro per i bottoni */
+    color: white; /* Imposta il colore del testo a bianco */
+    border: none; /* Rimuove il bordo predefinito dei bottoni */
+    border-radius: 6px; /* Arrotonda gli angoli dei bottoni con un raggio di 6 pixel */
+    cursor: pointer; /* Cambia il cursore in un puntatore al passaggio del mouse */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+	font-size: 1.1em; /* Imposta la dimensione del font a 1.1 volte la dimensione base */
+}
+
+#pulsanti #annulla{ /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
+    background-color: rgb(128, 0, 64); /* Imposta uno sfondo verde scuro per i bottoni */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+}
+#pulsanti button:hover { /* Seleziona i bottoni di #turno al passaggio del mouse */
+    background-color: rgba(68, 93, 50, 255); /* Cambia il colore di sfondo a un verde più scuro */
+    transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+}
+
+#pulsanti button:active { /* Seleziona i bottoni di #turno quando vengono cliccati */
+    transform: scale(0.98); /* Riduce leggermente il bottone (2%) per un effetto di pressione */
+}
+
+/* Error message styling */
+#errore {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
+    display: none; /* Hidden by default, assuming JavaScript toggles visibility */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    input[type="text"],
+    textarea,
+    input[type="file"]
+	input[type="url"] {
+        width: 100%;
+    }
+}

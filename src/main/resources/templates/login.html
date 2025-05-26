@@ -2,18 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
+	<link rel="stylesheet" href="/stile_form/stile_register.css"/>
 </head>
 <body>
-    <h1>Login</h1>
+	<a id="logo" href="/"><img src="/logo.png" /></a>
     <form th:action="@{/login}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+		<h1>Login</h1>
+		<label for="username">Username:</label>
+        <input type="text" id="username"  placeholder="Inserisci il tuo username" name="username" required>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" placeholder="Inserisci la tua password" name="password" required>
         <button type="submit">Login</button>
-    </form>
-	<p>non ha un account?
-		<a href="/register"> registrati</a>
-	</p>
+		<a href="/"> <button id="annulla" type="button">Annulla</button></a>
+		<p>non hai un account?
+				<a href="/register"> <button type="button">registrati</button></a>
+		</p>
+	</form>
 </body>
 </html>

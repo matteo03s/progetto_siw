@@ -2,28 +2,29 @@
 <html>	
 	<head>
 		<title>INSERIMENTO PRODOTTO</title>
-		<link rel="stylesheet" href="/stile_progetto.css" />
+		<link rel="stylesheet" href="/stile_form/stile_modificaProdotto.css" />
 	</head>
 	
 	<body>
-		<a id="logo_richiesta" href="/"><img src="/logo.png" /></a>
-		<h1>Aggiungi un <h1 th:text="${prodotto.categoria}"></h1>
+		<a id="logo" href="/"><img src="/logo.png" /></a>
 		<form th:action="@{/admin/prodotto}" method="POST" th:object="${prodotto}">
+			<h1>Aggiungi un <h1 th:text="${prodotto.categoria}"></h1>
 			<div id="nome">
-				Nome: <span><input required type="text" th:field="${prodotto.nome}" /></span>
+				<strong>Nome: </strong><input required type="text" th:field="${prodotto.nome}" />
 			</div>
 			<div id="descrizione">
-				Descrizione: <span><input required type="text" th:field="${prodotto.descrizione}" /></span>
+				<strong>Descrizione:</strong><input required type="text" th:field="${prodotto.descrizione}" />
 			</div>
 			<div id="prezzo">
-				Prezzo: <span><input required type="text" th:field="${prodotto.prezzo}" /></span>
+				<strong>Prezzo:</strong><input required type="text" th:field="${prodotto.prezzo}" />
 			</div>
 			<div id="url">
 				<input type="hidden" th:field="${prodotto.categoria}" th:value="${categoria}" />
-				URL immagine: <span><input type="url" th:field="${prodotto.urlImage}" /></span>
+				<strong>URL immagine:</strong> <span><input type="url" th:field="${prodotto.urlImage}" /></span>
 			</div>
-			<div>
-				<span><button type="submit">Conferma</button></span>
+			<div id="pulsanti">
+				<button type="submit"><strong>Conferma</strong></button>
+				<button href="/admin/modificaProdotti"><strong>Annulla</strong></button>
 			</div>
 		</form>
 	</body>

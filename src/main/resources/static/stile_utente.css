@@ -1,0 +1,178 @@
+/* Reset margini e padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo della pagina */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 40px 0;
+  background-image: url('/pizze7.png');
+  background-size: 300px 300px; /* Immagine ridotta a 100x100 pixel */
+  background-repeat: repeat; /* Ripetizione in entrambe le direzioni */
+}
+
+/* Logo in alto a sinistra con un po' di margine */
+#logo img {
+    width: 350px;
+    margin: 20px;
+    float: left;
+	border-radius: 300px;
+	border: 3px solid rgb(0, 111, 55) ;	
+	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+	transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+}
+
+#logo img:hover {
+	transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+}
+
+#logo img:active {
+    transform: scale(0.98); /* Riduce leggermente il bottone (2%) per un effetto di pressione */
+}
+
+/* Titolo della pagina */
+h1 {
+  margin-bottom: 10px;
+  font-size: 2em;
+  color: #333;
+}
+
+/* contenitore stile card centrato */
+.contenitore {
+  margin-top: 20px;
+  display: inline-block;
+  background-color: rgb(238, 225, 202);
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: left;
+  border: 3px solid rgb(0, 111, 55) ;	
+  box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+}
+
+.dettagli-utente {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.dettagli-utente p {
+  margin: 8px 0;
+}
+.pulsanti {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.pulsanti button { /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
+    padding: 10px 20px; /* Aggiunge 10px di padding sopra/sotto e 20px a sinistra/destra */
+    margin: 5px 10px; /* Aggiunge 5px di margine sopra/sotto e 10px a sinistra/destra */
+    background-color: rgb(0, 111, 55); /* Imposta uno sfondo verde scuro per i bottoni */
+    color: white; /* Imposta il colore del testo a bianco */
+    border: none; /* Rimuove il bordo predefinito dei bottoni */
+    border-radius: 6px; /* Arrotonda gli angoli dei bottoni con un raggio di 6 pixel */
+    cursor: pointer; /* Cambia il cursore in un puntatore al passaggio del mouse */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+	font-size: 1.1em; /* Imposta la dimensione del font a 1.1 volte la dimensione base */
+}
+
+.pulsanti #annulla{ /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
+    background-color: rgb(128, 0, 64); /* Imposta uno sfondo verde scuro per i bottoni */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+}
+
+.pulsanti button:hover { /* Seleziona i bottoni di #turno al passaggio del mouse */
+	background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
+    transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+}
+
+.pulsanti button:active { /* Seleziona i bottoni di #turno quando vengono cliccati */
+    transform: scale(0.98); /* Riduce leggermente il bottone (2%) per un effetto di pressione */
+}
+
+/*********************************
+**sezione per la modifica utente**
+**********************************/
+/* Form centrato con uno sfondo e bordo arrotondato */
+form { /* Seleziona tutti gli elementi <form> */
+	display: inline-block; /* Imposta il form come blocco inline per occupare solo lo spazio necessario */
+    background-color: rgb(238, 225, 202); /* Imposta uno sfondo beige chiaro per il form */
+    padding: 30px 40px; /* Aggiunge 30px di padding sopra/sotto e 40px a sinistra/destra */
+    margin-top: 30px; /* Rimuove il margine superiore per allineare con il contenitore */
+    border-radius: 10px; /* Arrotonda gli angoli del form con un raggio di 10 pixel */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Aggiunge un'ombra leggera attorno al form */
+    text-align: left; /* Allinea il testo all'interno del form a sinistra */
+    flex: 1; /* Fa sì che il form occupi equamente lo spazio disponibile nel flex container */
+	border: 3px solid rgb(0, 111, 55) ;	
+	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+}
+
+input::placeholder {
+      font-style: italic; /* Testo del placeholder in corsivo */
+      color: #888; /* Colore grigio chiaro (opzionale per leggibilità) */
+      opacity: 0.7; /* Leggera trasparenza (opzionale) */
+}
+
+/* Stile comune per ogni campo del form */
+form div { /* Seleziona gli elementi <div> all'interno di <form> */
+    font-size: 1.1em; /* Imposta la dimensione del font a 1.1 volte la dimensione base */
+    margin-bottom: 20px; /* Aggiunge un margine inferiore di 20 pixel a ogni div */
+    color: #333; /* Imposta il colore del testo a grigio scuro (#333) */
+}
+
+/* Etichette dei campi come 'Nome:', 'Data:', ecc. */
+form div span:first-of-type { /* Seleziona il primo <span> all'interno di ogni <div> nel form */
+    display: block; /* Fa sì che lo span occupi l'intera larghezza come un blocco */
+    margin: 0px 0px 0px; /* Imposta margini a 0 su tutti i lati (ridondante, può essere omesso) */
+    font-weight: bold; /* Rende il testo dello span in grassetto */
+    color: #333; /* Imposta il colore del testo a grigio scuro (#333) */
+}
+
+/* Input di testo, numero e data */
+input[type="text"], /* Seleziona gli input di tipo testo */
+input[type="email"] { /* Seleziona gli input di tipo */
+    padding: 8px; /* Aggiunge un padding interno di 8 pixel su tutti i lati */
+    width: 100%; /* Fa sì che l'input occupi il 100% della larghezza del contenitore */
+    border: 1px solid #ccc; /* Aggiunge un bordo grigio chiaro di 1 pixel */
+    border-radius: 5px; /* Arrotonda gli angoli dell'input con un raggio di 5 pixel */
+}
+
+
+.pulsanti-mod {
+  display: inline-block;
+  gap: 10px;
+  align-items: center;
+}
+
+.pulsanti-mod button { /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
+    padding: 10px 20px; /* Aggiunge 10px di padding sopra/sotto e 20px a sinistra/destra */
+    margin: 5px 10px; /* Aggiunge 5px di margine sopra/sotto e 10px a sinistra/destra */
+    background-color: rgb(0, 111, 55); /* Imposta uno sfondo verde scuro per i bottoni */
+    color: white; /* Imposta il colore del testo a bianco */
+    border: none; /* Rimuove il bordo predefinito dei bottoni */
+    border-radius: 6px; /* Arrotonda gli angoli dei bottoni con un raggio di 6 pixel */
+    cursor: pointer; /* Cambia il cursore in un puntatore al passaggio del mouse */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+	font-size: 1.1em; /* Imposta la dimensione del font a 1.1 volte la dimensione base */
+}
+
+.pulsanti-mod #annulla{ /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
+    background-color: rgb(128, 0, 64); /* Imposta uno sfondo verde scuro per i bottoni */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+}
+
+.pulsanti-mod button:hover { /* Seleziona i bottoni di #turno al passaggio del mouse */
+	background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
+    transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+}
+
+.pulsanti-mod button:active { /* Seleziona i bottoni di #turno quando vengono cliccati */
+    transform: scale(0.98); /* Riduce leggermente il bottone (2%) per un effetto di pressione */
+}

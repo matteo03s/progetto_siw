@@ -2,12 +2,14 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Errore 403 - Metodo non consentito</title>
+    <title>Errore 404 - Metodo non consentito</title>
 	<link rel="stylesheet" href="/stileErrore.css"/>
 </head>
 <body>
-    <h1>Errore 403</h1>
-    <p>Non hai i permessi per accedere a questa pagina.</p>
+    <h1>Errore 500</h1>
+	<div class="error" th:if="${errorMessage}">
+					<p th:text="${errorMessage}"></p>
+				</div>
     <a class="button" href="/">Torna alla Home</a>
 </body>
 </html>

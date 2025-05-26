@@ -24,7 +24,12 @@ public class PrenotazioneController {
 	private PrenotazioneService prenotazioneService;
 	
 	/* lista prenotazioni dell'utente (username passato automaticamente grazie a principal) */
+
+	/*
 	@GetMapping ("/prenotazione/prenotazioni")
+
+	@GetMapping ("/prenotazione/leMiePrenotazioni")
+	*/
 	public String prenotazioniUtente (Model model, Principal principal) {
 		model.addAttribute("prenotazioni", this.prenotazioneService.getPrenotazioniUsername(principal.getName()));
 		return "/prenotazione/prenotazioni.html";

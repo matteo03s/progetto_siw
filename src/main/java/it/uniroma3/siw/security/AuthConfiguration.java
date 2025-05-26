@@ -63,8 +63,13 @@ public class AuthConfiguration {
 				.requestMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(Credentials.PROVIDER_ROLE)
 				.requestMatchers(HttpMethod.POST, "/prenotazione/**").authenticated()
 				.requestMatchers(HttpMethod.GET, "/prenotazione/**").authenticated()
+
 				.requestMatchers(HttpMethod.POST, "/ordine/**").authenticated()
 				.requestMatchers(HttpMethod.GET, "/ordine/**").authenticated()
+
+				.requestMatchers(HttpMethod.POST, "/utente/**").authenticated()
+				.requestMatchers(HttpMethod.GET, "/utente/**").authenticated()
+
 				// tutti gli utenti autenticati possono accedere alle pagine rimanenti
 				.anyRequest().permitAll()//authenticated()//permitAll()
 				// LOGIN: qui definiamo il login

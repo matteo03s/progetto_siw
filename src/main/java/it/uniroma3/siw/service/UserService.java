@@ -20,12 +20,14 @@ public class UserService {
   
 
     public User saveUser(User user) {
-		if (this.userRepository.findByEmail(user.getEmail()).isPresent()) {
-			throw new RuntimeException("Email già utilizza, cambialo");
-		}
-        return userRepository.save(user);  // Salva solo l'utente
+        // Verifica unicità email, escludendo l'utente corrente
+        User existingUser = userRepository.findByEmail(user.getEmail()).orElse(null);
+        if (existingUser != null && !existingUser.getId().equals(user.getId())) {
+            throw new RuntimeException("Email già utilizzata da un altro utente, cambiala");
+        }
+        return userRepository.save(user);
     }
-
+    
 	public void remove(@Valid User user) {
 		userRepository.delete(user);
 		
