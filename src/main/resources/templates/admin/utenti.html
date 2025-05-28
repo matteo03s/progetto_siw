@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Prenotazioni </title>
+		<link rel="stylesheet" href="/stile_elenco.css"/>
+	</head>
+	<body>
+		<a id="logo" href="/"> <img src="/logo.png"> </a>
+
+		<h1>Elenco utenti</h1>
+		<!-- Modulo di ordinamento 
+				<form action="/admin/ordinaUtenti" method="GET">
+					<label for="ordine">Ordina per:</label>
+					<select id="ordine" name="ordine">
+						<option value="nome">Username</option>
+						<option value="data">Data registrazione</option>
+					</select>
+					<button type="submit">Ordina</button>
+				</form>
+				-->
+		<span th:if="${utenti.isEmpty()}"></span>
+		<div id="lista">
+			<ul>
+				<li th:each="utente:${utenti}">
+					<p th:text="${utente.username}">Nome</p> 
+						<p><a th:if="${utente.user!=null}" class="visualizza" th:href="@{'/admin/utente/' + ${utente.user.id}}"> Visualizza profilo</a>
+					</p>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

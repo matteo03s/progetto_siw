@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Prenotazioni </title>
-		<link rel="stylesheet" href="/stile_prenotazioni.css"/>
+		<link rel="stylesheet" href="/stile_elenco.css"/>
 	</head>
 	<body>
 		<a id="logo" href="/"> <img src="/logo.png"> </a>
@@ -22,7 +22,7 @@
 					</select>
 					<button type="submit">Ordina</button>
 				</form>
--->		<span th:if="${prenotazioni.isEmpty()}"></span>
+-->		<span th:if="${prenotazioni.isEmpty()}">Non ci sono prenotazioni</span>
 		<div id="lista">
 			<ul>
 				<li th:each="prenotazione:${prenotazioni}">

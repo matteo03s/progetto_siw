@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>MENU</title>
-		<link rel="stylesheet" href="/stile_prodotti.css"/>
+		<link rel="stylesheet" href="/stile_elenco.css"/>
 	</head>
 	<body>
 
@@ -41,8 +41,8 @@
 					<div class="prodotto">
 					<img th:src="${prodotto.urlImage}" class="prodotto-img">
 					<div class="prodotto-dettagli">
-						<a class="nome" th:href="@{'/prodotto/' + ${prodotto.id}}"
-						  th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </a>
+						<p><a class="nome" th:href="@{'/prodotto/' + ${prodotto.id}}"
+						  th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </a></p>
 					 <span class="tipo" th:if="${tipologia == 'prodotti'}" th:text="${prodotto.categoria}">categoria</span>
 					 </div>
 					 </div>

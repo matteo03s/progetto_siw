@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>MENU</title>
-		<link rel="stylesheet" href="/stile_prodotti.css" />
+		<link rel="stylesheet" href="/stile_elenco.css" />
 	</head>
 	<body>
 		<!-- Divisione pulsanti per permettere di scegliere se
@@ -41,12 +41,12 @@
 					<div class="prodotto">
 					<img th:src="${prodotto.urlImage}" class="prodotto-img">
 						<div class="prodotto-dettagli">
-							<a class="nome" th:href="@{'/prodotto/' + ${prodotto.id}}"
-						  th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </a>
+							<p><a class="nome" th:href="@{'/prodotto/' + ${prodotto.id}}"
+						  th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </a></p>
 <!--						 <span class="tipo" th:if="${tipologia == 'prodotti'}" th:text="${prodotto.categoria}">categoria</span>
 							<p th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </p>
--->							<a class="modifica" th:href="@{'/admin/modificaProdotto/' + ${prodotto.id}}">Modifica</a>
-							<a class="cancella" th:href="@{'/admin/cancellaProdotto/' + ${prodotto.id}}">Cancella</a>
+-->							<p><a class="modifica" th:href="@{'/admin/modificaProdotto/' + ${prodotto.id}}">Modifica</a></p>
+							<p><a class="cancella" th:href="@{'/admin/cancellaProdotto/' + ${prodotto.id}}">Cancella</a></p>
 					 	<span class="tipo" th:text="${prodotto.categoria}">categoria</span>
 					 		
 						</div>

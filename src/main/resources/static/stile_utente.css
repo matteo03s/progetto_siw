@@ -19,6 +19,7 @@ body {
 #logo img {
     width: 350px;
     margin: 20px;
+	margin-left:50px;
     float: left;
 	border-radius: 300px;
 	border: 3px solid rgb(0, 111, 55) ;	
@@ -27,7 +28,7 @@ body {
 }
 
 #logo img:hover {
-	transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+	transform: scale(1.05); /* Ingrandisce il bottone del 10% al passaggio del mouse */
 }
 
 #logo img:active {

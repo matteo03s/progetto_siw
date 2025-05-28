@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Prenotazioni </title>
-		<link rel="stylesheet" href="/stile_prenotazioni.css"/>
+		<link rel="stylesheet" href="/stile_elenco.css"/>
 	</head>
 	<body>
 		<a id="logo" href="/"> <img src="/logo.png"> </a>
@@ -23,12 +23,15 @@
 		<span th:if="${prenotazioni.isEmpty()}"></span>
 		<div id="lista">
 			<ul>
-				<li th:each="prenotazione:${prenotazioni}">
-					<p th:text="'prenotato a nome ' + ${prenotazione.nome} +
+				<li class="prenotazione" th:each="prenotazione:${prenotazioni}">
+					<p>prenotazione a nome <a th:href="@{'/admin/utente/' + ${prenotazione.utente.id}}" th:text="${prenotazione.nome}"></a> per</p>
+					<p th:text=" ${prenotazione.posti} + ' persone, per il giorno ' +
+										${prenotazione.data} + ' a ' + ${prenotazione.turno} "></p> 
+<!--					<p th:text="'prenotato a nome ' + ${prenotazione.nome} +
 					' per '+ ${prenotazione.posti} + ' persone, per il giorno ' +
-					${prenotazione.data} + ' a ' + ${prenotazione.turno} +
-					' prenotata dall\'utente ' + ${prenotazione.utente.email}">Nome e posti</p>
-<!--					<span><a th:href="@{'/admin/contatta/' + ${prenotazione.utente.id}}" th:text="${prenotazione.utente.email}"> </a></span> 
+					${prenotazione.data} + ' a ' + ${prenotazione.turno}"></p> 
+					+ ' prenotata dall\'utente ' + ${prenotazione.utente.email}">Nome e posti</p>
+					<span><a th:href="@{'/admin/contatta/' + ${prenotazione.utente.id}}" th:text="${prenotazione.utente.email}"> </a></span> 
 -->				</li>
 			</ul>
 		</div>

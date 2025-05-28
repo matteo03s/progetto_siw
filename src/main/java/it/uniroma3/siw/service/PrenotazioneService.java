@@ -54,6 +54,11 @@ public class PrenotazioneService {
     	return prenotazioneRepository.findByUtenteEmail(email);
     }
     
+    public List <Prenotazione> getPrenotazioniUtente (User user) {
+    	String email = user.getEmail();
+    	return prenotazioneRepository.findByUtenteEmail(email);
+    }
+    
     // Metodo per creare una nuova prenotazione
     public String creaPrenotazione(Prenotazione prenotazione, String username) {
     	

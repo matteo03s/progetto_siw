@@ -19,10 +19,8 @@
 
     <!-- Azioni -->
     <div class="pulsanti">
-      <a href="/prenotazione/leMiePrenotazioni"><button>Visualizza le tue prenotazioni</button></a>
-      <a href="/prenotazione/leMiePrenotazioni"><button>Visualizza i tuoi ordini</button></a>
-      <a th:href="@{'/utente/modifica/' + ${utente.id}}" class="btn btn-modifica"><button>Modifica i tuoi dati</button></a>
-	  <a th:href="@{'/utente/modificaPassword/' + ${utente.id}}" class="btn btn-modifica"><button>Modifica password</button></a>
+      <a th:href="@{'/admin/prenotazioni/' + ${utente.id}}"><button>Visualizza le sue prenotazioni</button></a>
+
     </div>
 	<div class="error" th:if="${errorMessage}">
 			<p th:text="${errorMessage}"></p>
