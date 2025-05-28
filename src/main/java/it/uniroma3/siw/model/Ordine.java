@@ -2,6 +2,7 @@ package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Ordine {
@@ -21,14 +23,20 @@ public class Ordine {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	
 	private String nome;
-	private int numeroTelefonico;
+	
+    //@Pattern(regexp = "\\d{10}")
+    private String numeroTelefonico;
 	
 	@NotBlank
 	private String indirizzo;
 	private Float tolale;
+	/*
 	@Future
+	private LocalDate giornoConsegna;
+	*/
+	
 	private LocalDate giornoConsegna;
 	private LocalTime orarioConsegna;
 	
@@ -37,7 +45,6 @@ public class Ordine {
 	
 	@OneToMany (mappedBy="ordine")
 	private List <VoceOrdine> vociOrdine;
-	
 	
 	
 	
@@ -53,10 +60,10 @@ public class Ordine {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public int getNumeroTelefonico() {
+	public String getNumeroTelefonico() {
 		return numeroTelefonico;
 	}
-	public void setNumeroTelefonico(int numeroTelefonico) {
+	public void setNumeroTelefonico(String numeroTelefonico) {
 		this.numeroTelefonico = numeroTelefonico;
 	}
 	public String getIndirizzo() {
@@ -120,6 +127,19 @@ public class Ordine {
 		return "Ordine [id=" + id + ", nome=" + nome + ", numeroTelefonico=" + numeroTelefonico + ", indirizzo="
 				+ indirizzo + ", tolale=" + tolale + ", giornoConsegna=" + giornoConsegna + ", orarioConsegna="
 				+ orarioConsegna + ", utente=" + utente + ", vociOrdine=" + vociOrdine + "]";
+	}
+	
+	public float calculateTotal() {
+		
+		if(vociOrdine.isEmpty())
+			return 0;
+		
+		float t = 0;
+		for(VoceOrdine vo: vociOrdine) {
+			t= t+ vo.getTotParziale();
+		}
+		
+		return t;
 	}
 	
 }

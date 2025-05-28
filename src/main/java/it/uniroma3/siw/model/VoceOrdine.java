@@ -89,4 +89,8 @@ public class VoceOrdine {
 		return "VoceOrdine [id=" + id + ", totParziale=" + totParziale + ", quantità=" + quantità + ", ordine=" + ordine
 				+ ", prodotto=" + prodotto + "]";
 	}
+	
+	public void calcolaTotParziale() {
+		this.totParziale= this.quantità* this.prodotto.getPrezzo();
+	}
 }
