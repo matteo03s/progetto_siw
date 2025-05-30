@@ -66,6 +66,8 @@ public class AuthConfiguration {
 
 				.requestMatchers(HttpMethod.POST, "/ordine/**").authenticated()
 				.requestMatchers(HttpMethod.GET, "/ordine/**").authenticated()
+				.requestMatchers(HttpMethod.POST, "/").authenticated()
+				.requestMatchers(HttpMethod.GET, "/").authenticated()
 
 				.requestMatchers(HttpMethod.POST, "/utente/**").authenticated()
 				.requestMatchers(HttpMethod.GET, "/utente/**").authenticated()

@@ -46,6 +46,13 @@ public class OrdineService {
 			return ordinerepository.save(ordine);
 	}
 	
+	public Ordine getOrdinepiùRecente() {
+		return ordinerepository.findFirstByOrderByIdDesc();
+	}
 	
+	public void eliminaOrdinePerID(Long id) {
+		ordinerepository.deleteById(id);
+		return;
+	}
 	
 }

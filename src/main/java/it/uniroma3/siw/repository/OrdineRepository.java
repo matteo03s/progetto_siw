@@ -16,6 +16,8 @@ public interface OrdineRepository extends CrudRepository <Ordine, Long> {
 //	public List <Prenotazione> findByUtenteCredentialsUsername (String username);
 	public List <Ordine> findByUtenteEmail(String email);
 	public Ordine findByGiornoConsegnaAndOrarioConsegna(LocalDate data, LocalTime orario);
+	public Ordine findFirstByOrderByIdDesc();
+	public void deleteById(Long id);
 
 
 	

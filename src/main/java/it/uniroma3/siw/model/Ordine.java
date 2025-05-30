@@ -31,7 +31,7 @@ public class Ordine {
 	
 	@NotBlank
 	private String indirizzo;
-	private Float tolale;
+	private Float totale;
 	/*
 	@Future
 	private LocalDate giornoConsegna;
@@ -72,11 +72,11 @@ public class Ordine {
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo = indirizzo;
 	}
-	public Float getTolale() {
-		return tolale;
+	public Float getTotale() {
+		return totale;
 	}
-	public void setTolale(Float tolale) {
-		this.tolale = tolale;
+	public void setTotale(Float tolale) {
+		this.totale = tolale;
 	}
 	public LocalDate getGiornoConsegna() {
 		return giornoConsegna;
@@ -104,7 +104,7 @@ public class Ordine {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(giornoConsegna, id, indirizzo, nome, numeroTelefonico, orarioConsegna, tolale, utente,
+		return Objects.hash(giornoConsegna, id, indirizzo, nome, numeroTelefonico, orarioConsegna, totale, utente,
 				vociOrdine);
 	}
 	@Override
@@ -119,15 +119,16 @@ public class Ordine {
 		return Objects.equals(giornoConsegna, other.giornoConsegna) && Objects.equals(id, other.id)
 				&& Objects.equals(indirizzo, other.indirizzo) && Objects.equals(nome, other.nome)
 				&& numeroTelefonico == other.numeroTelefonico && Objects.equals(orarioConsegna, other.orarioConsegna)
-				&& Objects.equals(tolale, other.tolale) && Objects.equals(utente, other.utente)
+				&& Objects.equals(totale, other.totale) && Objects.equals(utente, other.utente)
 				&& Objects.equals(vociOrdine, other.vociOrdine);
 	}
 	@Override
 	public String toString() {
 		return "Ordine [id=" + id + ", nome=" + nome + ", numeroTelefonico=" + numeroTelefonico + ", indirizzo="
-				+ indirizzo + ", tolale=" + tolale + ", giornoConsegna=" + giornoConsegna + ", orarioConsegna="
+				+ indirizzo + ", tolale=" + totale + ", giornoConsegna=" + giornoConsegna + ", orarioConsegna="
 				+ orarioConsegna + ", utente=" + utente + ", vociOrdine=" + vociOrdine + "]";
 	}
+	
 	
 	public float calculateTotal() {
 		
@@ -135,10 +136,9 @@ public class Ordine {
 			return 0;
 		
 		float t = 0;
-		for(VoceOrdine vo: vociOrdine) {
+		for(VoceOrdine vo: this.vociOrdine) {
 			t= t+ vo.getTotParziale();
 		}
-		
 		return t;
 	}
 	
