@@ -288,3 +288,23 @@ button[name="Annulla"] {
 	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
 }
 
+.error-message {
+    font-weight: bold;
+    color: red;
+}
+
+.b{
+  background-color: rgb(238, 225,202);
+  padding: 20px; /* Spazio interno */
+  border-radius: 10px; /* Bordi arrotondati, opzionale */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra */
+  display: inline-block; /* Adatta il div al contenuto */
+  border: 3px solid rgb(0, 111, 55); /* Bordo grigio chiaro di 1px */
+  border-radius: 5px; /* Angoli arrotondati di 5px */
+}
+
+
+table {
+    border-collapse: separate;
+    border-spacing: 10px; /* Imposta lo spazio tra le celle (orizzontale e verticale) */
+}

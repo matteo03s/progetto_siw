@@ -55,4 +55,8 @@ public class OrdineService {
 		return;
 	}
 	
+	public Ordine getOrdineById(Long id) {
+		return this.ordinerepository.finfById(id);
+	}
+	
 }

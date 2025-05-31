@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head> 
     <title>Riepilogo ordine</title>
-    <link rel="stylesheet" href="/stile_formOrdini.css"/>
+    <link rel="stylesheet" href="/stile_ordine/stile_formOrdini.css"/>
 </head>
 <body>
     <nav class="navbar">
@@ -29,7 +29,7 @@
             </li> 
         </ul>
     </nav>
-    
+    <div class=" b">   
     <h1>Riepilogo dell'Ordine</h1>
     
     <h2>Dettagli dell'Ordine</h2>
@@ -42,8 +42,8 @@
         <thead>
             <tr>
                 <th>Prodotto</th>
-                <th>Quantità</th>
-                <th>Prezzo Unitario</th>
+                <th>Qt.</th>
+                <th>Prezzo</th>
                 <th>Subtotale</th>
             </tr>
         </thead>
@@ -63,7 +63,7 @@
     <h2>Dettagli di Consegna</h2>
  
     <p><strong>Data Consegna:</strong> <span th:text="${ordine.giornoConsegna}"></span></p>	
-    <p><strong>Ora Consegna:</strong> <span th:text="${ordine.orarioConsegna}"></span></p>
+    <p><strong>Orario Consegna:</strong> <span th:text="${ordine.orarioConsegna}"></span></p>
 	<p><strong>Indirizzo:</strong> <span th:text="${ordine.indirizzo}"></span></p>
 	<!--
 	<form th:action="@{/ordine/confermaOrdine}" method="post" th:object="${ordine}">
@@ -77,8 +77,14 @@
 	<form th:action="@{/ordine/annullaOrdine}" method="post" th:object="${ordine}">
 	    <input type="hidden" name="id" th:value="${ordine.id}" /> 
 	    <button type="submit" name="Annulla">Annulla Ordine</button>
-	</form>>
-
+	</form>
+	<!--
+	<form th:action="@{/ordine/modificaOrdine}" method="post" th:object="${ordine}">
+	    <input type="hidden" name="id" th:value="${ordine.id}" /> 
+	    <button type="submit" name="Modifica">Modifica Ordine</button>
+	</form>
+	-->
+    </div>
 
 </body>
 </html>

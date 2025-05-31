@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title> Nuovo ordine</title>
-		<link rel="stylesheet" href="/stile_formOrdini.css"/>
+		<link rel="stylesheet" href="/stile_ordine/stile_formOrdini.css"/>
 	</head>
 		<body>
 				<nav class="navbar">
@@ -27,11 +27,14 @@
 					</ul>
 				</nav>
 				
-				<div th:if="${errore}" class="error-message">
-				    <p th:text="${errore}"></p>
-				</div>
+
 					
 				<div class="form-container">
+					
+					<div th:if="${errore}" class="error-message">
+					    <p th:text="${errore}"></p>
+					</div>
+					
 					<form th:action="@{/ordine/riepilogoOrdine}" th:object="${ordine}" method="post">
 						<div>
 						    <label for="nome"> <strong> Nome Cliente:</strong> </label>

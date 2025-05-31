@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>OrdinoHomePage</title>
+		<title>MOdificaOrdine</title>
 		<link rel="stylesheet" href="/stiloso.css"/>
 		
 	</head>
@@ -29,14 +29,63 @@
 					</ul>
 				</nav>
 
+					<div class="form-container">
+						
+						<div th:if="${errore}" class="error-message">
+						    <p th:text="${errore}"></p>
+						</div>
+						
+						<form th:action="@{/ordine/riepilogoOrdine}" th:object="${ordine}" method="post">
+							<div>
+							    <label for="nome"> <strong> Nome Cliente:</strong> </label>
+							    <span th:text="${utente.name}" ></span>
+							</div>
 
-		<p>ma se io volessi permettere ad un utente di 
-			effettuare un ordine, come dovrei fare? fino 
-			ad ora ho solo implementato la classe ordine, non so 
-			se devo implementare anche delle classi che indichino le 
-			voci dell'ordine o se mi basta avere la classe ordine con 
-			una relazione uno a molti con i prodotti, così da poter 
-			inserire i prodotti dell'rdine all'interno di una lista</p>
+							<div>
+							    <label for="cognome"> <strong>Cognome cliente:</strong></label>
+							      <span th:text="${utente.surname}" ></span>
+							</div>
+
+							<div>
+								<label for="numeroTelefonico"> <strong> Numero telefonico:</strong></label>
+								<span th:text="${utente.numeroTelefonico}" ></span>
+							</div>				
+							<div> 
+								<label for="via"> <strong> Indirizzo Consegna:</strong></label>
+
+								 <span th:text="${ordine.indirizzo}" ></span>
+								
+							</div>	
+								
+							<div>
+							    <label for="oraConsegna"> <strong> Orario consegna:</strong></label>
+							    <span th: text="ordine.orarioConsegna">
+							</div>											
+							
+						    <h3>Seleziona i prodotti e specifica la quantità:</h3>
+							    <table>
+							        <tr>
+							            <th>Nome Prodotto</th>
+							            <th>Quantità</th>
+							        </tr>
+							        <tr th:each="prodotto : ${prodotti}">
+							            <td th:text="${prodotto.nome}"></td>
+							            <td>
+							                <input type="number" th:name="'quantita_' + ${prodotto.id}" min="0" value="${ord}" />
+							            </td>
+										<!-- 
+										<td>
+								            <img th:src="${prodotto.urlImage}" alt="Immagine prodotto" style="max-width: 100px; max-height: 100px;" />
+										</td>
+										-->
+							        </tr>
+							    </table>
+							
+						    <button type="submit">Riepilogo</button>
+						</form>
+				</div>				
+
+
 	</body>
 </html>
 	

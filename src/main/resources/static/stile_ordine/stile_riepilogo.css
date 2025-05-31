@@ -1,0 +1,128 @@
+/* Resetta i margini e i padding di default */
+* { /* Seleziona tutti gli elementi della pagina */
+    margin: 0; /* Imposta il margine esterno di tutti gli elementi a 0 */
+    padding: 0; /* Imposta il padding interno di tutti gli elementi a 0 */
+    box-sizing: border-box; /* Fa sì che padding e bordi siano inclusi nella larghezza/altezza totale degli elementi */
+}
+
+/* Imposta uno sfondo chiaro e un font leggibile per tutto il body */
+body { /* Seleziona l'elemento <body> della pagina */
+    font-family: Arial, sans-serif; /* Imposta il font a Arial o un font sans-serif generico */
+    margin: 0; /* Rimuove qualsiasi margine esterno dal body */
+    padding: 0; /* Rimuove qualsiasi padding interno dal body */
+    text-align: center; /* Centra il testo all'interno del body */
+	background-image: url('/pizze7.png');
+	background-size: 300px 300px; /* Immagine ridotta a 100x100 pixel */
+	background-repeat: repeat; /* Ripetizione in entrambe le direzioni */
+}
+
+
+
+
+
+/* Stile per la navbar */
+.navbar {
+    position: fixed; /* Fissa la navbar in alto */
+    top: 0;
+    left: 0; /* Estende la navbar al bordo sinistro */
+    right: 0; /* Estende la navbar al bordo destro */
+    width: 100%; /* Occupa l'intera larghezza della pagina */
+    background-color: rgb(0, 111, 55); /* Colore di sfondo della navbar */
+    z-index: 1000; /* Assicura che la navbar sia sopra gli altri elementi */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Aggiunge un'ombra sottile per profondità */
+}
+
+/* Stile per la lista della navbar */
+.navbar ul {
+    display: flex; /* Dispone gli elementi in orizzontale */
+    justify-content: space-between; /* Distribuisce gli elementi uniformemente */
+    align-items: center; /* Allinea verticalmente al centro */
+    list-style: none; /* Rimuove i punti della lista */
+    padding: 0 20px; /* Padding laterale */
+    height: 135px; /* Altezza della navbar per accogliere il logo di 125px */
+}
+
+/* Stile per gli elementi della lista */
+.navbar ul li {
+    flex: 1; /* Fa sì che ogni elemento occupi la stessa larghezza */
+    text-align: center; /* Centra il testo */
+    height: 100%; /* Occupa l'intera altezza della navbar */
+    display: flex; /* Per allineare il contenuto */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra orizzontalmente */
+}
+
+/* Stile per i link della navbar */
+.navbar ul li a {
+    color: #fff; /* Colore del testo */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    font-size: 26px; /* Dimensione del testo */
+    display: block; /* Rende il link cliccabile su tutta l'area */
+    width: 100%; /* Occupa l'intera larghezza dell'li */
+    height: 100%; /* Occupa l'intera altezza dell'li */
+    display: flex; /* Usa flex per centrare il testo */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra orizzontalmente */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Animazione fluida */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); /* Ombra leggera per migliorare il contrasto */
+}
+
+/* Effetto hover sui link */
+.navbar ul li a:hover {
+    background-color: rgb(0, 96, 48); /* Colore di sfondo al passaggio del mouse */
+    transform: scale(1.05); /* Leggero effetto di ingrandimento */
+}
+
+/* Stile per l'elemento del logo */
+.navbar ul li #logo_home {
+    display: flex; /* Per centrare l'immagine */
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100%; /* Occupa l'intera altezza della navbar */
+}
+
+/* Stile per l'immagine del logo */
+.navbar ul li #logo_home img {
+    max-height: 125px; /* Altezza del logo */
+    width: auto; /* Mantiene le proporzioni */
+    transition: transform 0.3s ease; /* Animazione per l'hover */
+}
+
+/* Effetto hover sul logo */
+.navbar ul li a#logo_home:hover img {
+    transform: scale(1.1); /* Ingrandisce leggermente il logo al passaggio del mouse */
+}
+
+/* Disabilita l'effetto di sfondo hover sul logo */
+.navbar ul li a#logo_home:hover {
+    background-color: transparent; /* Nessun cambio di sfondo per il logo */
+}
+
+/* Media query per la responsività */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column; /* Cambia la direzione degli elementi */
+        height: auto; /* Altezza automatica per adattarsi al contenuto */
+        padding: 10px; /* Padding ridotto */
+    }
+
+    .navbar ul li {
+        width: 100%; /* Gli elementi occupano tutta la larghezza */
+        height: 60px; /* Altezza ridotta per ogni elemento */
+    }
+
+    .navbar ul li a {
+        font-size: 20px; /* Testo leggermente più piccolo per schermi piccoli */
+        display: flex; /* Mantiene il centramento */
+        align-items: center; /* Centra verticalmente */
+        justify-content: center; /* Centra orizzontalmente */
+    }
+
+    .navbar ul li #logo_home img {
+        max-height: 80px; /* Logo più piccolo per schermi piccoli */
+    }
+
+    body {
+        padding-top: 350px; /* Spazio maggiore per il contenuto sotto la navbar */
+    }
+}

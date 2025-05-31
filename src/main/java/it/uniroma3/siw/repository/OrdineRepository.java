@@ -18,6 +18,7 @@ public interface OrdineRepository extends CrudRepository <Ordine, Long> {
 	public Ordine findByGiornoConsegnaAndOrarioConsegna(LocalDate data, LocalTime orario);
 	public Ordine findFirstByOrderByIdDesc();
 	public void deleteById(Long id);
+	public Ordine finfById(Long id);
 
 
 	
