@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,7 +45,7 @@ public class Ordine {
 	@ManyToOne
 	private User utente;
 	
-	@OneToMany (mappedBy="ordine")
+	@OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL)
 	private List <VoceOrdine> vociOrdine;
 	
 	

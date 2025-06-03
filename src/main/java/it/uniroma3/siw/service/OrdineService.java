@@ -3,6 +3,7 @@ package it.uniroma3.siw.service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class OrdineService {
 	}
 	
 	public Ordine getOrdineById(Long id) {
-		return this.ordinerepository.finfById(id);
+		return this.ordinerepository.findById(id).get();
 	}
 	
 }
