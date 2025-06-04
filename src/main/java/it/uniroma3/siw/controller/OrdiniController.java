@@ -210,7 +210,7 @@ public class OrdiniController {
 		//model.addAttribute("utente", user);
 		return "/ordine/modificaOrdine.html";
 	}
-
+	
 
 
 	@PostMapping("/ordine/riepilogoOrdineModificato")
@@ -283,6 +283,13 @@ public class OrdiniController {
 		model.addAttribute("ordine", ordine);
 		return "/ordine/riepilogoOrdine.html";
 	}
+	
+	
+	@GetMapping("/admin/ordini")
+	public String ordiniRegistrati(Model model) {
+		model.addAttribute("ordini",ordineservice.getAllByOrderByGiornoConsegnaAsc());
+		return "/admin/ordini.html";
+	} 
 
 
 
