@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import it.uniroma3.siw.service.OrdineService;
 import it.uniroma3.siw.service.ProdottoService;
 import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.service.VoceOrdineService;
+import jakarta.validation.Valid;
 
 @Controller
 public class OrdiniController {
@@ -86,7 +88,7 @@ public class OrdiniController {
 	}
 
 	// Metodo POST: Salva l'ordine con le voci d'ordine
-
+	/*
 	@PostMapping("/ordine/riepilogoOrdine")
 	public String newOrdine(@ModelAttribute("ordine") Ordine ordine,
 			@RequestParam Map<String, String> allParams,
@@ -186,6 +188,72 @@ public class OrdiniController {
 		return "/ordine/riepilogoOrdine"; // Procedi alla pagina di successo
 
 	}
+	 */
+
+	@PostMapping("/ordine/riepilogoOrdine")
+	public String newOrdine(@Valid @ModelAttribute("ordine") Ordine ordine,
+			@RequestParam Map<String, String> allParams,
+			Model model, Principal principal, BindingResult bindingResult) {
+		String nomeUtente= principal.getName();
+		Credentials userCredentials= credentialService.getCredentials(nomeUtente);
+		User user= userCredentials.getUser();
+		List<VoceOrdine> vociOrdine = new ArrayList<>();
+		List<Prodotto> prodotti = prodottoService.getOrderedByCategoria(); // Lista prodotti	
+		
+		for (Map.Entry<String, String> entry : allParams.entrySet()) {
+			String paramName = entry.getKey();
+			if (paramName.startsWith("quantita_")) {
+				String idStr = paramName.substring("quantita_".length());
+				try {
+					Long productId = Long.parseLong(idStr);
+					int quantita = Integer.parseInt(entry.getValue());
+					if (quantita > 0) {
+						Prodotto prodotto = prodottoService.getProdottoById(productId);
+						if (prodotto != null) {
+							VoceOrdine voceOrdine = new VoceOrdine();
+							voceOrdine.setProdotto(prodotto);
+							voceOrdine.setOrdine(ordine);
+							voceOrdine.setQuantità(quantita);
+							voceOrdine.calcolaTotParziale();
+							vociOrdine.add(voceOrdine);
+						}
+					}
+				} catch (NumberFormatException e) {
+
+					model.addAttribute("errore", "Quantità o ID prodotto non valido. Assicurati di inserire numeri validi.");
+					model.addAttribute("utente", user);
+					model.addAttribute("prodotti", prodotti);
+					return "/ordine/formNewOrdine.html";
+
+				}
+			}
+		}
+		if(vociOrdine.isEmpty()) {
+			model.addAttribute("errore", "Seleziona almeno un prodotto");
+			model.addAttribute("utente", user);
+			model.addAttribute("prodotti", prodotti);
+			return "/ordine/formNewOrdine.html";
+
+		}
+		
+		ordine.setVociOrdine(vociOrdine);
+		ordine.setTotale(ordine.calculateTotal());
+		ordine.setGiornoConsegna(LocalDate.now());
+		ordine.setUtente(user);
+		if (ordineservice.getBygiornoConsegnaAndorarioConsegna(ordine.getGiornoConsegna(), ordine.getOrarioConsegna()) != null) {
+			String errore= "Esiste già un' ordine: prova a cambaire ora!";
+			model.addAttribute("errore", errore);
+			model.addAttribute("utente", user);
+			model.addAttribute("prodotti", prodotti);
+			return "/ordine/formNewOrdine.html";
+		}
+		
+		//salvataggio dell' ordine e delle voci d'ordine
+		this.ordineservice.save(ordine);
+		
+		model.addAttribute("ordine", ordine); 
+		return"/ordine/riepilogoOrdine.html";
+	}
 
 
 
@@ -210,7 +278,7 @@ public class OrdiniController {
 		//model.addAttribute("utente", user);
 		return "/ordine/modificaOrdine.html";
 	}
-	
+
 
 
 	@PostMapping("/ordine/riepilogoOrdineModificato")
@@ -283,8 +351,8 @@ public class OrdiniController {
 		model.addAttribute("ordine", ordine);
 		return "/ordine/riepilogoOrdine.html";
 	}
-	
-	
+
+
 	@GetMapping("/admin/ordini")
 	public String ordiniRegistrati(Model model) {
 		model.addAttribute("ordini",ordineservice.getAllByOrderByGiornoConsegnaAsc());

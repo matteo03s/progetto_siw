@@ -17,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Ordine {
@@ -31,7 +32,8 @@ public class Ordine {
     //@Pattern(regexp = "\\d{10}")
     private String numeroTelefonico;
 	
-	@NotBlank
+    @NotBlank(message = "L'indirizzo è obbligatorio")
+    @Size(max = 100, message = "L'indirizzo non può superare 100 caratteri")
 	private String indirizzo;
 	private Float totale;
 	/*
