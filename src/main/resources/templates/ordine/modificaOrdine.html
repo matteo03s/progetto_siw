@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Modifica Ordine</title>
+	<link rel="stylesheet" href="/stile_ordine/stile_formOrdini.css"/>
+		
+	</head>
+	<body>
+
+				<nav class="navbar">
+					<ul>
+						<li><a href="/prodotto">Il nostro menù</a></li>
+						<li><a href="/pizza">Le nostre pizze</a></li>
+						<li><a href="/sfizio">Gli immancabili sfizi</a></li>
+						<li><a id="logo_home" href="/"><img src="/logo.png"></a></li> 
+						<li><a href="/prenotazione/formNewPrenotazione">Vieni a mangiare da noi</a></li>
+						<li><a href="/prenotazione/formNewPrenotazione">Te la portiamo anche a casa!</a></li>
+						<li> <div id="login">
+						    <span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</span>
+						    <p th:if="${userDetails == null}" class="login-link">
+						        <a href="/login">Login</a> </p>
+						    <p th:if="${userDetails == null}" class="register-link">
+						        <span>Non hai un account?</span> <a href="/register">Registrati</a></p>
+						    <p th:if="${userDetails != null}" class="logout-link">
+						        <a href="/logout">Logout</a>
+						    </p>
+						</div></li> 
+					</ul>
+				</nav>
+
+					<div class="form-container">
+
+						<div th:if="${errore}" class="error-message">
+						    <p th:text="${errore}"></p>
+						</div>
+						
+						<form th:action="@{/ordine/riepilogoOrdineModificato}" th:object="${ordine}" method="post">
+							<div>
+							    <label for="nome"> <strong> Nome Cliente:</strong> </label>
+							    <span th:text="${ordine.utente.name}" ></span>
+							</div>
+
+							<div>
+							    <label for="cognome"> <strong>Cognome cliente:</strong></label>
+							      <span th:text="${ordine.utente.surname}" ></span>
+							</div>
+
+							<div>
+								<label for="numeroTelefonico"> <strong> Numero telefonico:</strong></label>
+								<span th:text="${ordine.utente.numeroTelefonico}" ></span>
+							</div>				
+							<div> 
+								<label for="via"> <strong> Indirizzo Consegna:</strong></label>
+
+								 <span th:text="${ordine.indirizzo}" ></span>
+								
+							</div>	
+
+							<div>
+							    <label for="oraConsegna"> <strong> Orario consegna:</strong></label>
+							    <span th:text="${ordine.orarioConsegna}">
+							</div>											
+			
+						    <h3>Seleziona i prodotti e specifica la quantità:</h3>
+							    <table>
+							        <tr>
+							            <th>Nome Prodotto</th>
+							            <th>Quantità</th>
+							        </tr>
+							        <tr th:each="pq : ${prodotti}">
+							            <td th:text="${pq.key.nome}"></td>
+							            <td>
+							                <input type="number" th:name="'quantita_' + ${pq.key.id}" min="0" th:value="${pq.value}" />
+							            </td>
+										<!-- 
+										<td>
+								            <img th:src="${prodotto.urlImage}" alt="Immagine prodotto" style="max-width: 100px; max-height: 100px;" />
+										</td>
+										-->
+							        </tr>
+							    </table>
+							<input type="hidden" name="id" th:value="${ordine.id}" /> 
+							<button type="submit" name="Riepilogo">Riepilogo</button></button>
+						</form>
+				</div>				
+
+
+	</body>
+</html>
+	

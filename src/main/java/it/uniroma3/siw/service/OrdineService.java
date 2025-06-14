@@ -3,6 +3,7 @@ package it.uniroma3.siw.service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,17 @@ public class OrdineService {
 			return ordinerepository.save(ordine);
 	}
 	
+	public Ordine getOrdinepiùRecente() {
+		return ordinerepository.findFirstByOrderByIdDesc();
+	}
 	
+	public void eliminaOrdinePerID(Long id) {
+		ordinerepository.deleteById(id);
+		return;
+	}
+	
+	public Ordine getOrdineById(Long id) {
+		return this.ordinerepository.findById(id).get();
+	}
 	
 }

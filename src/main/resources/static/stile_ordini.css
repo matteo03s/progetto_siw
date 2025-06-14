@@ -1,0 +1,258 @@
+/* Reset delle impostazioni di base per evitare conflitti tra i browser */
+* {
+    margin: 0; /* Rimuove i margini predefiniti di tutti gli elementi */
+    padding: 0; /* Rimuove il padding predefinito di tutti gli elementi */
+    box-sizing: border-box; /* Include padding e bordi nella larghezza/altezza totale */
+}
+
+/* Corpo della pagina */
+body {
+    font-family: 'Arial', sans-serif; /* Imposta il font a Arial o sans-serif */
+    background-color: #f4f4f9; /* Sfondo grigio chiaro per la pagina */
+    color: #333; /* Colore del testo grigio scuro */
+    line-height: 1.6; /* Altezza della linea per migliorare la leggibilità */
+    padding: 20px; /* Aggiunge 20px di padding attorno al body */
+    background-image: url('/pizze7.png');
+    background-size: 300px 300px; /* Immagine ridotta a 300x300 pixel */
+    background-repeat: repeat; /* Ripetizione in entrambe le direzioni */
+}
+
+/* Logo */
+#logo img {
+    max-width: 200px; /* Limita la larghezza massima del logo a 200px */
+    display: block; /* Rende l'immagine un elemento a blocco */
+    margin: 0 auto; /* Centra l'immagine orizzontalmente */
+    border-radius: 300px;
+    border: 3px solid rgb(0, 111, 55);    
+    box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+}
+
+/* Pulsanti a sinistra */
+.left-buttons {
+    display: flex; /* Usa Flexbox per allineare i pulsanti */
+    flex-direction: column; /* Impila i pulsanti verticalmente */
+    gap: 15px; /* Spazio di 15px tra i pulsanti */
+}
+
+/* Pulsanti a destra */
+.right-buttons {
+    display: flex; /* Usa Flexbox per allineare i pulsanti */
+    flex-direction: column; /* Impila i pulsanti verticalmente */
+    gap: 15px; /* Spazio di 15px tra i pulsanti */
+}
+
+/* Sezione di ordinamento */
+form {
+    display: flex; /* Usa Flexbox per allineare gli elementi del form */
+    justify-content: center; /* Centra gli elementi del form orizzontalmente */
+    align-items: center; /* Allinea gli elementi verticalmente al centro */
+    gap: 10px; /* Spazio di 10px tra label, select e button */
+    margin: 10px auto; /* Margine sopra/sotto e centra orizzontalmente */
+    font-size: 1.15rem; /* Dimensione del font per form */
+}
+
+/* Titolo della pagina */
+h1 {
+    text-align: center; /* Centra il testo del titolo */
+    color: #333; /* Colore grigio scuro per il titolo */
+    font-size: 2rem; /* Dimensione del font di 2rem (circa 32px) */
+    margin-top: 10px; /* Margine superiore di 10px */
+}
+
+/* Messaggio quando la lista è vuota */
+span {
+    display: block; /* Rende lo span un elemento a blocco */
+    color: #888; /* Colore grigio chiaro per il messaggio */
+    margin-bottom: 20px; /* Margine inferiore di 20px */
+    margin-top: 2px; /* Margine superiore di 2px */
+}
+
+form label {
+    font-weight: bold; /* Rende il testo della label in grassetto */
+    margin-right: 10px; /* Margine destro di 10px per separare dalla select */
+}
+
+form select {
+    background-color: rgb(238, 225, 202); /* Sfondo beige per la select */
+    padding: 5px; /* Padding interno di 5px */
+    font-size: 1.15rem; /* Dimensione del font di 1rem (circa 16px) */
+    border: 1px solid #ccc; /* Bordo grigio chiaro di 1px */
+    border-radius: 5px; /* Angoli arrotondati di 5px */
+}
+
+form button {
+    padding: 5px 10px; /* Padding di 5px sopra/sotto, 10px sinistra/destra */
+    font-size: 1.3rem; /* Dimensione del font di 1rem */
+    background-color: rgb(0, 111, 55); /* Sfondo verde scuro */
+    color: white; /* Testo bianco */
+    border: none; /* Rimuove il bordo */
+    border-radius: 5px; /* Angoli arrotondati di 5px */
+    cursor: pointer; /* Cursore a puntatore al passaggio del mouse */
+}
+
+form button:hover {
+    background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
+}
+
+/* Bottoni per le categorie */
+.left-buttons button, .right-buttons button {
+    padding: 15px 30px; /* Padding per pulsanti grandi */
+    margin: 15px; /* Margine di 15px su tutti i lati */
+    background-color: rgb(0, 111, 55); /* Sfondo verde scuro */
+    color: white; /* Testo bianco */
+    border: none; /* Rimuove il bordo */
+    border-radius: 6px; /* Angoli arrotondati di 6px */
+    cursor: pointer; /* Cursore a puntatore */
+    font-size: 1.5rem; /* Dimensione del font per pulsanti grandi */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transizioni per sfondo e trasformazione */
+}
+
+.left-buttons button:hover, .right-buttons button:hover {
+    background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
+    transform: scale(1.1); /* Ingrandisce del 10% */
+}
+
+.left-buttons button:active, .right-buttons button:active {
+    transform: scale(0.98); /* Riduce del 2% quando cliccato */
+}
+
+/* Lista dei prodotti */
+#lista {
+    margin-top: 30px; /* Margine superiore di 30px */
+}
+
+ul[name="lista"]{
+    list-style-type: none; /* Rimuove i punti elenco dalla lista */
+    padding: 0; /* Rimuove il padding predefinito della lista */
+}
+
+#lista li.item{
+    background-color: rgb(238, 225, 202); /* Sfondo beige per ogni elemento della lista */
+    margin: 10px 0; /* Margine sopra/sotto di 10px */
+    padding: 15px; /* Padding interno di 15px */
+    border-radius: 5px; /* Angoli arrotondati di 5px */    
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transizioni per sfondo e trasformazione */
+    box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+}
+
+#lista li.item:hover {
+    background-color: rgb(223, 200, 155); /* Beige più scuro al passaggio del mouse */
+    transform: translateY(-5px); /* Solleva l'elemento di 5px */
+}
+
+.prodotto {
+    display: flex; /* Usa Flexbox per allineare immagine e dettagli */
+    align-items: center; /* Allinea verticalmente al centro */
+    justify-content: space-between; /* Spazio tra immagine e testo */
+    width: 100%; /* Contenitore largo al 100% */
+    padding: 10px; /* Padding interno di 10px */
+    box-sizing: border-box; /* Include padding nelle dimensioni */
+}
+
+.prodotto-img {
+    width: 100%; /* Larghezza al 100% del contenitore */
+    height: 100%; /* Altezza proporzionata */
+    max-width: 100px; /* Larghezza massima di 100px */
+    max-height: 100px; /* Altezza massima di 100px */
+    object-fit: cover; /* Riempie il contenitore mantenendo le proporzioni */
+    margin-right: 20px; /* Margine destro di 20px */
+    border-radius: 5px; /* Angoli arrotondati di 5px */
+    display: block; /* Rende l'immagine un elemento a blocco */
+}
+
+.prodotto-dettagli {
+    flex-grow: 1; /* Fa crescere il contenitore per occupare lo spazio disponibile */
+    display: flex; /* Usa Flexbox per il testo */
+    flex-direction: column; /* Imposta gli elementi in colonna */
+}
+
+#lista a.nome {
+    text-decoration: none; /* Rimuove la sottolineatura dal link */
+    color: #333; /* Colore grigio scuro */
+    font-size: 1.1rem; /* Dimensione del font di 1.1rem */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+#lista p {
+    text-decoration: none; /* Rimuove la sottolineatura (ridondante per <p>) */
+    color: #333; /* Colore grigio scuro */
+    font-size: 1.1rem; /* Dimensione del font di 1.1rem */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+#lista a.cancella {
+    text-decoration: none; /* Rimuove la sottolineatura dal link */
+    color: #333; /* Colore grigio scuro */
+    font-size: 1.1rem; /* Dimensione del font di 1.1rem */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+#lista span.tipo {
+    text-decoration: none; /* Rimuove la sottolineatura (ridondante per <span>) */
+    font-size: 0.9rem; /* Dimensione del font di 0.9rem */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+#lista a:hover {
+    color: rgb(0, 111, 55); /* Colore verde scuro al passaggio del mouse */
+}
+
+button {
+    padding: 10px 20px; /* Aggiunge 10px di padding sopra/sotto e 20px a sinistra/destra */
+    margin: 5px 10px; /* Aggiunge 5px di margine sopra/sotto e 10px a sinistra/destra */
+    background-color: rgb(0, 111, 55); /* Imposta uno sfondo verde scuro per i bottoni */
+    color: white; /* Imposta il colore del testo a bianco */
+    border: none; /* Rimuove il bordo predefinito dei bottoni */
+    border-radius: 6px; /* Arrotonda gli angoli dei bottoni con un raggio di 6 pixel */
+    cursor: pointer; /* Cambia il cursore in un puntatore al passaggio del mouse */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+    box-shadow: 0 0 5px 1px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+}
+
+/* Lista delle voci dell'ordine */
+ul[name="vociOrdine"] {
+    list-style: none; /* Rimuove i punti della lista */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 600px; /* Larghezza massima per centrare il contenuto */
+    margin: 0 auto; /* Centra la lista */
+}
+
+ul[name="vociOrdine"] li {
+    display: flex; /* Usa flexbox per allineare i contenuti */
+    justify-content: space-between; /* Spazio tra nome/quantità e prezzo */
+    align-items: center; /* Allinea verticalmente al centro */
+    padding: 0; /* Nessun padding */
+    margin: 0; /* Nessun margine */
+}
+
+ul[name="vociOrdine"] p {
+    margin: 0; /* Rimuove margini di default */
+    font-size: 16px; /* Dimensione del testo */
+    font-weight: 500; /* Leggermente più spesso per il nome prodotto */
+    color: #333; /* Colore del testo scuro */
+}
+
+ul[name="vociOrdine"] span {
+    font-size: 16px; /* Dimensione del testo per il prezzo */
+    font-weight: 600; /* Più spesso per il prezzo */
+	color: #333;
+}
+
+/* Responsive per schermi piccoli */
+@media (max-width: 480px) {
+    ul[name="vociOrdine"] li {
+        flex-direction: column; /* Impila gli elementi in verticale */
+        align-items: flex-start; /* Allinea a sinistra */
+    }
+
+    ul[name="vociOrdine"] p {
+        font-size: 14px; /* Riduce la dimensione del testo */
+    }
+
+    ul[name="vociOrdine"] span {
+        font-size: 14px;
+        margin-top: 4px; /* Spazio tra nome e prezzo */
+    }
+}

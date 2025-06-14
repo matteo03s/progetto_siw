@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ordini </title>
+		<link rel="stylesheet" href="/stile_ordini.css"/>
+	</head>
+	<body>
+		<a id="logo" href="/"> <img src="/logo.png"> </a>
+		<!-- 
+		<div th:if="${descrizione!=null}">
+			<p th:text="${descrizione}"></p>
+		</div>
+		-->	
+		<h1>Elenco prenotazioni</h1>
+		<!-- 
+		
+				<form action="/admin/ordinaPrenotazioni" method="GET">
+					<label for="ordine">Ordina per:</label>
+					<select id="ordine" name="ordine">
+						<option value="nome">Nome</option>
+						<option value="data">Data</option>
+						<option value="posti">Posti</option>
+					</select>
+					<button type="submit">Ordina</button>
+				</form>
+		-->
+		
+		<span th:if="${ordini.isEmpty()}"></span>
+		<div id="lista">
+			<ul id="lista">
+				<li class="item" th:each="ordine:${ordini}">
+					<div class="ordine-dettagli">
+					    <strong>Nome utente:</strong>
+					    <span th:text="${ordine.nome}"></span>
+					    <strong>Numero telefonico:</strong>
+					    <span th:text="${ordine.numeroTelefonico}"></span>
+						<strong>Dettagli ordine:</strong>
+						<ul name="vociOrdine"> 
+						    <li name="dettagli" th:each="voceOrdine : ${ordine.vociOrdine}">
+						        <p th:text="${voceOrdine.prodotto.nome} + ' x ' + ${voceOrdine.quantità} "></p>
+								<span th:text=" ${voceOrdine.prodotto.prezzo} + '€'"> </span>
+						    </li>
+						</ul>
+						<strong>Totale:</strong>
+					    <span th:text="${ordine.totale} + '€'"></span>
+						<strong>Indirizzo:</strong>
+						<span th:text="${ordine.indirizzo}"></span>
+					    <strong>Giorno della consegna:</strong>
+					    <span th:text="${ordine.giornoConsegna}"></span>
+					    <strong>Orario consegna:</strong>
+					    <span th:text="${ordine.orarioConsegna}"></span>
+						<!-- 
+					    <strong>Contatta:</strong>
+					    <a th:href="@{'/admin/contatta/' + ${ordine.utente.id}}" th:text="${ordine.utente.email}"></a>
+						-->
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+	</body>
+</html>

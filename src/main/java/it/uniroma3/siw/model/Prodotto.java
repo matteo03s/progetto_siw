@@ -81,7 +81,7 @@ public class Prodotto {
 			Prodotto other = (Prodotto) obj;
 			return Objects.equals(categoria, other.categoria) && Objects.equals(descrizione, other.descrizione)
 					&& Objects.equals(id, other.id) && Objects.equals(nome, other.nome)
-					&& Objects.equals(prezzo, other.prezzo) && Objects.equals(urlImage, other.urlImage);
+					&& Objects.equals(prezzo, other.prezzo) ;
 		}
 		@Override
 		public String toString() {

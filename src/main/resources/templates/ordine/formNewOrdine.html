@@ -2,9 +2,9 @@
 <html>
 	<head>
 		<title> Nuovo ordine</title>
-		<link rel="stylesheet" href="/stile_formOrdini.css"/>
+		<link rel="stylesheet" href="/stile_ordine/stile_formOrdini.css"/>
 	</head>
-	<body>
+		<body>
 				<nav class="navbar">
 					<ul>
 						<li><a href="/prodotto">Il nostro menù</a></li>
@@ -27,56 +27,73 @@
 					</ul>
 				</nav>
 				
-				<div th:if="${errore}" class="error-message">
-				    <p th:text="${errore}"></p>
-				</div>
-				
-				
-					<form th:action="@{/ordine/ordiniFatti}" th:object="${ordine}" method="post">
+
+					
+				<div class="form-container">
+	
+					<div th:if="${errore}" class="error-message">
+					    <p th:text="${errore}"></p>
+					</div>
+		
+					
+					<form th:action="@{/ordine/riepilogoOrdine}" th:object="${ordine}" method="post">
+						
+		    	      <div th:if="${#fields.hasGlobalErrors()}">
+					        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p> 						      </div>
+
 						<div>
-						    <label for="nome">Nome cliente:</label>
+						    <label for="nome"> <strong> Nome Cliente:</strong> </label>
 						    <span th:text="${utente.name}" ></span>
 						</div>
 
 						<div>
-						    <label for="cognome">Cognome cliente:</label>
+						    <label for="cognome"> <strong>Cognome cliente:</strong></label>
 						      <span th:text="${utente.surname}" ></span>
+							  <input type="hidden" id="nome" th:field="${ordine.nome}" th:value="${utente.name} + ' ' + ${utente.surname}" />
 						</div>
 
 						<div>
-							<label for="numeroTelefonico">Numero telefonico:</label>
+							<label for="numeroTelefonico"> <strong> Numero telefonico:</strong></label>
 							<span th:text="${utente.numeroTelefonico}" ></span>
+							<input type="hidden" id="numeroTelefonico" th:field="${ordine.numeroTelefonico}" th:value="${utente.numeroTelefonico}" />
 						</div>				
-						
-							<label for="via"> Indirizzo Consegna:</label>
+						<div> 
+							<label for="via"> <strong> Indirizzo Consegna:</strong></label>
 
-							<input type="text" id="via" th:field="*{indirizzo}" required pattern=".{1,100}" title="Inserisci un indirizzo valido (massimo 100 caratteri)" placeholder="Inserisci l'indirizzo di consegna"/>
+							<input type="text" id="via" name="via" required pattern=".{1,100}" title="Inserisci un indirizzo valido (massimo 100 caratteri)" 
+							placeholder="Inserisci l'indirizzo di consegna" th:field="${ordine.indirizzo}" />
+							<span th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}"></span>
+
 							
-						</div>	
+						</div>		
 							
 						<div>
-						    <label for="oraConsegna">Ora di consegna:</label>
-						    <input type="time" id="oraConsegna" name="oraConsegna" >
+						    <label for="oraConsegna"> <strong> Orario consegna:</strong></label>
+						    <input type="time" id="oraConsegna" name="oraConsegna" th:field="${ordine.orarioConsegna}" />
 						</div>											
 						
 					    <h3>Seleziona i prodotti e specifica la quantità:</h3>
-					    <table>
-					        <tr>
-					            <th>Nome Prodotto</th>
-					            <th>Quantità</th>
-					        </tr>
-					        <tr th:each="prodotto : ${prodotti}">
-					            <td th:text="${prodotto.nome}"></td>
-					            <td>
-					                <input type="number" th:name="'quantita_' + ${prodotto.id}" min="0" value="0" />
-					            </td>
-					        </tr>
-					    </table>
-
-					    <button type="submit">Salva ordine</button>
+						    <table>
+						        <tr>
+						            <th>Nome Prodotto</th>
+						            <th>Quantità</th>
+						        </tr>
+						        <tr th:each="prodotto : ${prodotti}">
+						            <td th:text="${prodotto.nome}"></td>
+						            <td>
+						                <input type="number" th:name="'quantita_' + ${prodotto.id}" min="0" value="0" />
+						            </td>
+									<!-- 
+									<td>
+							            <img th:src="${prodotto.urlImage}" alt="Immagine prodotto" style="max-width: 100px; max-height: 100px;" />
+									</td>
+									-->
+						        </tr>
+						    </table>
+						
+					    <button type="submit">Riepilogo</button>
 					</form>
-			</div>
-				
+			</div>	
 	</body>
 </html>
 	
