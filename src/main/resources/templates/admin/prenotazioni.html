@@ -9,7 +9,8 @@
 		<div th:if="${descrizione!=null}">
 			<p th:text="${descrizione}"></p>
 		</div>
-		<h1>Elenco prenotazioni</h1>
+		<h1 th:if="${!prenotazioni.isEmpty()}">Elenco prenotazioni</h1>
+		<div class="form-container">
 		<!-- Modulo di ordinamento -->
 				<form action="/admin/ordinaPrenotazioni" method="GET">
 					<label for="ordine">Ordina per:</label>
@@ -20,7 +21,14 @@
 					</select>
 					<button type="submit">Ordina</button>
 				</form>
-		<span th:if="${prenotazioni.isEmpty()}"></span>
+						<form action="/admin/cercaPrenotazioni" method="GET">
+								<label for="filtro">Cerca:</label>
+								<input type="text" id="filtro"  placeholder="cosa cerchi?" name="filtro">
+							<button type="submit">Cerca</button>
+						</form>
+						<span th:if="${prenotazioni.isEmpty()}">Non ci sono prenotazioni</span>
+				<span th:if="${numero}" th:text="'sono stati trovati ' + ${numero} + ' elementi'"></span>
+				</div>
 		<div id="lista">
 			<ul>
 				<li class="prenotazione" th:each="prenotazione:${prenotazioni}">

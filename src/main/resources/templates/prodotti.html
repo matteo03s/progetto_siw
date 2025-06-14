@@ -20,11 +20,11 @@
 			            <a href="/menu/bevanda"> <button>Bevande</button> </a>								        </div>
 			    </div>
 
-				<h1 th:text="'Elenco ' + ${tipologia}"></h1>		
+				<h1 th:if="${!prodotti.isEmpty()}" th:text="'Elenco ' + ${tipologia}"></h1>		
+			<div class="form-container">					
 				<!-- Mostra messaggio se la lista prodotti è vuota -->
 				<span th:if="${prodotti.isEmpty()}">No products available.</span>
-
-			    <form action="/ordinaProdotti" method="GET">
+				<form action="/ordinaProdotti" method="GET">
 					<input type="hidden" name="tipologia" th:value="${tipologia}" />
 			        <label for="ordine">Ordina per:</label>
 			        <select id="ordine" name="ordine">
@@ -34,7 +34,15 @@
 			        </select>
 			        <button type="submit">Ordina</button>
 			    </form>
-
+				
+				<form action="/cercaProdotti" method="GET">
+						<label for="filtro">Cerca:</label>
+						<input type="text" id="filtro"  placeholder="cosa cerchi?" name="filtro">
+						<input type="hidden" name="tipologia" th:value="${tipologia}" />
+					<button type="submit">Cerca</button>
+				</form>
+		<span th:if="${numero}" th:text="'sono stati trovati ' + ${numero} + ' elementi'"></span>
+		</div>
 		<div id="lista">
 			<ul>
 				<li th:each="prodotto : ${prodotti}">

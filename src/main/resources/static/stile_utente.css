@@ -18,7 +18,7 @@ body {
 /* Logo in alto a sinistra con un po' di margine */
 #logo img {
     width: 350px;
-    margin: 20px;
+    margin: 20px 20px;
 	margin-left:50px;
     float: left;
 	border-radius: 300px;
@@ -54,12 +54,21 @@ h1 {
   box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
 }
 
-.dettagli-utente {
+.dettagli {
   margin-bottom: 20px;
   text-align: left;
 }
-.dettagli-utente p {
+.dettagli p {
   margin: 8px 0;
+}
+.dettagli img {
+	max-width: 300px; /* Larghezza fissa per tutte le immagini */
+	    max-height: 300px; /* Altezza fissa uguale alla larghezza per ottenere un quadrato */
+	    margin-top: 20px; /* Mantieni il margine destro */
+	    border-radius: 5px; /* Mantieni gli angoli arrotondati */
+	    display: block; /* Mantieni l'immagine come elemento a blocco */
+	    object-fit: cover; /* Ritaglia l'immagine per riempire il contenitore senza distorsioni */
+	    overflow: hidden; /* Nasconde eventuali parti dell'immagine che escono dal contenitore */
 }
 .pulsanti {
   display: flex;

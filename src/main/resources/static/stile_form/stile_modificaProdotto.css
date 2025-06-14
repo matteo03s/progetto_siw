@@ -18,14 +18,23 @@ body { /* Seleziona l'elemento <body> della pagina */
 
 }
 
-/* Logo in alto a sinistra con un po' di margine */
-#logo img { /* Seleziona l'elemento <img> all'interno di un elemento con id="logo" */
-    width: 350px; /* Imposta la larghezza dell'immagine del logo a 350 pixel */
-    margin: 20px; /* Aggiunge un margine di 20 pixel su tutti i lati dell'immagine */
-    float: left; /* Fa fluttuare l'immagine a sinistra, permettendo al contenuto di avvolgerla */
+#logo img {
+    width: 350px;
+    margin: 20px ;
+	margin-left:50px;
+    float: left;
 	border-radius: 300px;
 	border: 3px solid rgb(0, 111, 55) ;	
 	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+	transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
+}
+
+#logo img:hover {
+	transform: scale(1.05); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+}
+
+#logo img:active {
+    transform: scale(0.98); /* Riduce leggermente il bottone (2%) per un effetto di pressione */
 }
 
 /* Titolo principale della pagina */

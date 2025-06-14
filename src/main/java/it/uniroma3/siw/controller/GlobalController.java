@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,5 +40,11 @@ public class GlobalController {
       model.addAttribute("errorMessage", "Non esiste nulla con questo id.");
       return "/error/500.html";
   }
-
+  
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  public String handleDataIntegrityViolation (DataIntegrityViolationException ex, Model model) {
+      model.addAttribute("errorMessage", ex.getMostSpecificCause().getMessage());
+      return "/error/500.html";
+  }
+  
 }

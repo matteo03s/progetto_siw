@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.security.Principal;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,4 +99,18 @@ public class PrenotazioneController {
 		model.addAttribute("prenotazioni", utente.getPrenotazioni());
 		return "/admin/prenotazioni.html";
 	}
+	
+    @GetMapping ("/admin/cercaPrenotazioni")
+    public String adminFiltraPrenotazioni (@RequestParam String filtro, Model model) {
+    	List <Prenotazione> prenotazioni = new LinkedList<Prenotazione>();
+    	
+    	for (Prenotazione p: this.prenotazioneService.getAll()){
+    		if (p.getNome().toLowerCase().contains(filtro.toLowerCase()))
+    			prenotazioni.add(p);
+    	}
+
+    	model.addAttribute ("numero", prenotazioni.size());
+    	model.addAttribute ("prenotazioni", prenotazioni);
+    	return "/admin/prenotazioni.html"; 
+    }
 }

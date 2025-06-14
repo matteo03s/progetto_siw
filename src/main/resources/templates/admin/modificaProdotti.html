@@ -18,7 +18,9 @@
 					            <a href="/admin/newDolce"> <button>Inserisci nuovo dolce</button> </a>
 					            <a href="/admin/newBevanda"> <button>Inserisci nuova bevanda</button> </a>								        </div>
 					    </div>
-		<h1> Elenco prodotti </h1>
+		<h1 th:if="${!prodotti.isEmpty()}"> Elenco prodotti </h1>
+												
+		<div class="form-container">
 		<!-- Mostra messaggio se la lista prodotti è vuota -->
 		<span th:if="${prodotti.isEmpty()}">No products available.</span>
 
@@ -33,7 +35,14 @@
 				</select>
 				<button type="submit">Ordina</button>
 			</form>
-	<!--	</div> -->
+			<form action="/admin/cercaProdotti" method="GET">
+									<label for="filtro">Cerca:</label>
+									<input type="text" id="filtro"  placeholder="cosa cerchi?" name="filtro">
+								<button type="submit">Cerca</button>
+							</form>
+							<span th:if="${numero}" th:text="'sono stati trovati ' + ${numero} + ' elementi'"></span>
+									
+	</div>
 
 		<div id="lista">
 			<ul>

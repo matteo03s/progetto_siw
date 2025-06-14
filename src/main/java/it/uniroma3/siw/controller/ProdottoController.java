@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -286,5 +287,50 @@ public class ProdottoController {
         // Salva l'entità esistente (aggiorna il record esistente)
         prodottoService.save(prodottoEsistente);
         return "redirect:/admin/modificaProdotti";
+    }
+    
+    @GetMapping ("/cercaProdotti")
+    public String filtraProdotti (@RequestParam String filtro, @RequestParam String tipologia, Model model) {
+    	List <Prodotto> prodotti = new LinkedList<Prodotto>();
+    	List <Prodotto> totali = new LinkedList<Prodotto>();
+    	String tipo = null;
+    	
+    	if (!("prodotti".equals(tipologia))) {
+	    	if(("pizze".equals(tipologia)))
+	    		tipo = "pizza";
+	    	if(("sfizi".equals(tipologia)))
+	    		tipo = "sfizio";
+	    	if(("dolci".equals(tipologia)))
+	    		tipo = "sfizio";
+	    	if(("bevande".equals(tipologia)))
+	    		tipo = "bevanda";
+	    	totali = (List<Prodotto>) this.prodottoService.getAllProdottiCategoria(tipo);
+    	}
+    	else
+    		totali = (List<Prodotto>) this.prodottoService.getAllProdotti();
+    	
+    	for (Prodotto p: totali) {
+    		if (p.getNome().toLowerCase().contains(filtro.toLowerCase()))
+    			prodotti.add(p);
+    	}
+
+    	model.addAttribute ("numero", prodotti.size());
+    	model.addAttribute ("tipologia", tipologia);
+    	model.addAttribute ("prodotti", prodotti);
+    	return "prodotti.html"; 
+    }
+    
+    @GetMapping ("/admin/cercaProdotti")
+    public String adminFiltraProdotti (@RequestParam String filtro, Model model) {
+    	List <Prodotto> prodotti = new LinkedList<Prodotto>();
+    	
+    	for (Prodotto p: this.prodottoService.getAllProdotti()) {
+    		if (p.getNome().toLowerCase().contains(filtro.toLowerCase()))
+    			prodotti.add(p);
+    	}
+
+    	model.addAttribute ("numero", prodotti.size());
+    	model.addAttribute ("prodotti", prodotti);
+    	return "/admin/modificaProdotti.html"; 
     }
 }

@@ -34,7 +34,7 @@ body {
     margin: 0 auto; /* Centra l'immagine orizzontalmente */
 	border-radius: 300px;
 	border: 3px solid rgb(0, 111, 55) ;	
-	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+		box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
 	transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
 }
 
@@ -60,15 +60,33 @@ body {
     gap: 15px; /* Spazio di 15px tra i pulsanti */
 }
 
+.form-container {
+	margin: 10px;
+	justify-content: center; /* Centra gli elementi del form orizzontalmente */
+	display: block; /* Usa Flexbox per allineare gli elementi del form */
+	background-color: rgb(238, 225, 202);
+	padding: 10px ;
+	border-radius: 20px;
+	text-align: center;
+	border: 3px solid rgb(0, 111, 55) ;	
+	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+	margin-bottom: 20px;	
+}
+
+.form-container span {
+	display: block; /* Rende lo span un elemento a blocco */
+	text-align: center; /* Centra il testo dello span */
+	color: rgb(0, 111, 55);
+	margin-top:0;
+}
 /* Sezione di ordinamento */
 form {
-    display: flex; /* Usa Flexbox per allineare gli elementi del form */
+	display: inline-block; /* Usa Flexbox per allineare gli elementi del form */
     justify-content: center; /* Centra gli elementi del form orizzontalmente */
     align-items: center; /* Allinea gli elementi verticalmente al centro */
     gap: 10px; /* Spazio di 10px tra label, select e button */
-    margin: 20px auto; /* Margine sopra/sotto e centra orizzontalmente */
+    margin: 5px 50px; /* Margine sopra/sotto e centra orizzontalmente */
 	font-size: 1.15rem; /* Dimensione del font per form*/
-
 }
 
 /* Titolo della pagina */
@@ -84,7 +102,7 @@ span {
     display: block; /* Rende lo span un elemento a blocco */
     text-align: center; /* Centra il testo dello span */
     color: #888; /* Colore grigio chiaro per il messaggio */
-    margin-top: 20px; /* Margine superiore di 20px */
+    margin-top: 10px; /* Margine superiore di 20px */
 }
 
 form label {
@@ -93,11 +111,18 @@ form label {
 }
 
 form select {
+	border: 3px solid rgb(0, 111, 55) ;
     background-color: rgb(238, 225, 202); /* Sfondo beige per la select */
     padding: 5px; /* Padding interno di 5px */
     font-size: 1.15rem; /* Dimensione del font di 1rem (circa 16px) */
-    border: 1px solid #ccc; /* Bordo grigio chiaro di 1px */
+/*    border: 1px solid #ccc; /* Bordo grigio chiaro di 1px */
     border-radius: 5px; /* Angoli arrotondati di 5px */
+}
+
+input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 form button {
@@ -110,8 +135,13 @@ form button {
     cursor: pointer; /* Cursore a puntatore al passaggio del mouse */
 }
 
-form button:hover {
-    background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
+button:hover { /* Seleziona i bottoni di #turno al passaggio del mouse */
+	background-color: rgb(0, 79, 39); /* Verde più scuro al passaggio del mouse */
+    transform: scale(1.1); /* Ingrandisce il bottone del 10% al passaggio del mouse */
+}
+
+button:active { /* Seleziona i bottoni di #turno quando vengono cliccati */
+    transform: scale(0.98); /* Riduce leggermente il bottone (2%) per un effetto di pressione */
 }
 
 /* Bottoni per le categorie */
@@ -139,20 +169,23 @@ form button:hover {
 /* Lista dei prodotti */
 #lista {
     margin-top: 30px; /* Margine superiore di 30px */
+	
 }
 
 #lista ul {
+
     list-style-type: none; /* Rimuove i punti elenco dalla lista */
     padding: 0; /* Rimuove il padding predefinito della lista */
 }
 
 #lista li {
-    background-color: rgb(238, 225, 202); /* Sfondo beige per ogni elemento della lista */
-    margin: 10px 0; /* Margine sopra/sotto di 10px */
-    padding: 15px; /* Padding interno di 15px */
-    border-radius: 5px; /* Angoli arrotondati di 5px */    
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transizioni per sfondo e trasformazione */
+	border: 3px solid rgb(0, 111, 55) ;	
 	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
+    background-color: rgb(238, 225, 202); /* Sfondo beige per ogni elemento della lista */
+    margin: 15px 0; /* Margine sopra/sotto di 10px */
+    padding: 15px; /* Padding interno di 15px */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transizioni per sfondo e trasformazione */
+	border-radius: 10px; /* Angoli arrotondati di 5px */    
 }
 
 
@@ -175,16 +208,14 @@ form button:hover {
 }
 
 .prodotto-img {
-    width: 100%; /* Larghezza al 100% del contenitore */
-    height: 100%; /* Altezza proporzionata */
-    max-width: 100px; /* Larghezza massima di 100px */
-    max-height: 100px; /* Altezza massima di 100px */
-    object-fit: cover; /* Riempie il contenitore mantenendo le proporzioni */
-    margin-right: 20px; /* Margine destro di 20px */
-    border-radius: 5px; /* Angoli arrotondati di 5px */
-    display: block; /* Rende l'immagine un elemento a blocco */
+    width: 100px; /* Larghezza fissa per tutte le immagini */
+    height: 100px; /* Altezza fissa uguale alla larghezza per ottenere un quadrato */
+    margin-right: 20px; /* Mantieni il margine destro */
+    border-radius: 5px; /* Mantieni gli angoli arrotondati */
+    display: block; /* Mantieni l'immagine come elemento a blocco */
+    object-fit: cover; /* Ritaglia l'immagine per riempire il contenitore senza distorsioni */
+    overflow: hidden; /* Nasconde eventuali parti dell'immagine che escono dal contenitore */
 }
-
 .prodotto-dettagli {
     flex-grow: 1; /* Fa crescere il contenitore per occupare lo spazio disponibile */
     display: flex; /* Usa Flexbox per il testo */
