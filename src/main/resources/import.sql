@@ -12,7 +12,7 @@
 --Inserisci l'admin username=gestore pw=pwadmin
 INSERT INTO credentials (username, password, role) VALUES ('gestore', '$2a$10$JOX7nLjPEbvs/iUIp9D0b.S7MLOfKtsn1yzUr2ZsRgwN1d60v7SCa', 'PROVIDER');
 --Inserisci un utente base username=utente pw=utente
-INSERT INTO credentials (username, password, role) VALUES ('utente', '$2a$10$hw5JU.q4XinVleq1CVhQmeaQDReYjOdNllI3V2aILT03q6OpRJPym', 'UTENTE');
+INSERT INTO credentials (username, password, role) VALUES ('utente', '$2a$10$/1qzoQAwjUf/GA2Tgwz/m.SuaueQODPzaSWjsfnX8O9Ty5KAZ.HLK', 'UTENTE');
 
 
 -- Prima pizza

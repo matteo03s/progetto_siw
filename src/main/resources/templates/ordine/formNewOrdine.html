@@ -4,7 +4,7 @@
 		<title> Nuovo ordine</title>
 		<link rel="stylesheet" href="/stile_ordine/stile_formOrdini.css"/>
 	</head>
-		<body>
+	<body>
 				<nav class="navbar">
 					<ul>
 						<li><a href="/prodotto">Il nostro menù</a></li>
@@ -49,13 +49,13 @@
 						<div>
 						    <label for="cognome"> <strong>Cognome cliente:</strong></label>
 						      <span th:text="${utente.surname}" ></span>
-							  <input type="hidden" id="nome" th:field="${ordine.nome}" th:value="${utente.name} + ' ' + ${utente.surname}" />
+							  <input type="hidden" id="nome" name="nome" th:value="${utente.name} + ' ' + ${utente.surname}" />
 						</div>
 
 						<div>
 							<label for="numeroTelefonico"> <strong> Numero telefonico:</strong></label>
 							<span th:text="${utente.numeroTelefonico}" ></span>
-							<input type="hidden" id="numeroTelefonico" th:field="${ordine.numeroTelefonico}" th:value="${utente.numeroTelefonico}" />
+							<input type="hidden" id="numeroTelefonico" name="numeroTelefonico" th:value="${utente.numeroTelefonico}" />
 						</div>				
 						<div> 
 							<label for="via"> <strong> Indirizzo Consegna:</strong></label>
