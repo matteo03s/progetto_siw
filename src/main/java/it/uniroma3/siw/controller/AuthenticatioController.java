@@ -45,6 +45,12 @@ public class AuthenticatioController {
 		return "login.html";
 	}
 	
+	@GetMapping(value = {"/login?error=true"})
+	public String showErrorLogin(Model model) {
+		model.addAttribute("errorMessage", "username o password errati");
+		return "login.html";
+	}
+	
 	@GetMapping("/register")
 	public String showRegister(Model model) {
 		model.addAttribute("user", new User());

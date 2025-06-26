@@ -76,7 +76,7 @@ public class AuthConfiguration {
 				.anyRequest().permitAll()//authenticated()//permitAll()
 				// LOGIN: qui definiamo il login
 				.and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/success", true)
-				.failureUrl("/login?error=true")
+				.failureUrl("/login?error=true").permitAll()
 				// LOGOUT: qui definiamo il logout
 				.and().logout()
 				// il logout è attivato con una richiesta GET a "/logout"

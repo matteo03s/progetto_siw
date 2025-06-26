@@ -16,6 +16,8 @@ body {
   background-repeat: repeat; /* Ripetizione in entrambe le direzioni */
 }
 
+.error { color: red; }
+
 #logo img {
     width: 350px;
     margin: 20px 20px;
