@@ -11,6 +11,7 @@
 		<div th:if="${descrizione!=null}">
 			<p th:text="${descrizione}"></p>
 		</div>
+		<div class="form-container">
 		<h1>Elenco prenotazioni</h1>
 		<!-- Modulo di ordinamento 
 				<form action="/ordinaPrenotazioni" method="GET">
@@ -23,12 +24,15 @@
 					<button type="submit">Ordina</button>
 				</form>
 -->		<span th:if="${prenotazioni.isEmpty()}">Non ci sono prenotazioni</span>
-		<div id="lista">
+</div>		
+<div id="lista">
 			<ul>
 				<li th:each="prenotazione:${prenotazioni}">
-					<p th:text="'prenotato a nome ' + ${prenotazione.nome} +
-					' per '+ ${prenotazione.posti} + ' persone, per il giorno ' +
-					${prenotazione.data} + ' a ' + ${prenotazione.turno}">Nome e posti</p>
+					<p th:text="'prenotato a nome ' + ${prenotazione.nome}"></p>
+									<hr>
+					<p th:text=" ${prenotazione.posti} + ' persone'"></p>
+					<br>
+					<p th:text="${prenotazione.data} + ' a ' + ${prenotazione.turno}"></p>
 				</li>
 			</ul>
 		</div>

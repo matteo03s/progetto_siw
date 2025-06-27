@@ -22,9 +22,13 @@ public interface ProdottoRepository extends CrudRepository <Prodotto, Long> {
 	//ordina i prodotti per prezzo discendente
 	public List <Prodotto> findAllByOrderByPrezzoDesc();
 	public List<Prodotto> findAllByOrderByNomeAsc();
-	public List<Prodotto> findAllByOrderByCategoriaAsc();	
+	public List<Prodotto> findAllByOrderByNomeDesc();
+	public List<Prodotto> findAllByOrderByCategoriaAsc();
+	public List<Prodotto> findAllByOrderByCategoriaDesc();
 	// Metodo per trovare tutti i prodotti di una specifica categoria e ordinarli per prezzo
     public List<Prodotto> findByCategoriaOrderByPrezzoAsc(String categoria);
+    public List<Prodotto> findByCategoriaOrderByPrezzoDesc(String categoria);
     // Metodo per trovare tutti i prodotti di una specifica categoria e ordinarli per prezzo
     public List<Prodotto> findByCategoriaOrderByNomeAsc(String categoria);
+    public List<Prodotto> findByCategoriaOrderByNomeDesc(String categoria);
 }

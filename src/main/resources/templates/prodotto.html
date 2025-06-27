@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-  <meta charset="UTF-8">
-  <title th:text="${prodotto.categoria}"></title>
-  <link rel="stylesheet" href="/stile_utente.css"/>
+	<meta charset="UTF-8">
+	<title th:text="${prodotto.categoria}"></title>
+	<link rel="stylesheet" href="/stile_log.css" />
 </head>
+
 <body>
 	<a id="logo" href="/menu"><img src="/logo.png" /></a>
-  <div class="contenitore">
-<h1 th:text="${prodotto.nome}"> Nome prodotto </h1>
-    <!-- Dettagli del prodotto -->
-    <div class="dettagli">
-      <p><strong>Nome:</strong> <span th:text="${prodotto.nome}"></span></p>
-      <p><strong>Prezzo:</strong> <span th:text="${prodotto.prezzo} + '€'"></span></p>
-      <p><strong>Descrizione:</strong> <span th:text="${prodotto.descrizione}"></span></p>
-      <p><img th:src="${prodotto.urlImage}"></p>
-    </div>
-	</body>
+	<div class="contenitore">
+		<h1 th:text="${prodotto.nome}"> Nome prodotto </h1>
+		<!-- Dettagli del prodotto -->
+		<div class="dettagli">
+			<p><strong>Nome:</strong> <span th:text="${prodotto.nome}"></span></p>
+			<p><strong>Prezzo:</strong> <span th:text="${prodotto.prezzo} + '€'"></span></p>
+			<p><strong>Descrizione:</strong> <span th:text="${prodotto.descrizione}"></span></p>
+			<p><strong>Categoria:</strong> <span th:text="${prodotto.categoria}"></span></p>			
+			<hr>
+			
+			<!-- divisione immagini prodotto -->
+			<div th:if="${prodotto.immagine != null}">
+				<img th:src="@{/immagine/{id}(id=${prodotto.immagine.id})}" alt="Immagine Prodotto" />
+			</div>
+		</div>
+	</div>
+</body>
+
 </html>

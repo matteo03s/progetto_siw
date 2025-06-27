@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +52,7 @@ public class ProdottoController {
 		return "prodotto.html";
 	}
 	
+	@Transactional
 	@GetMapping ("/menu")
 	public String getProdotti (Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -63,19 +65,18 @@ public class ProdottoController {
 		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 		if (credentials.getRole().equals(Credentials.PROVIDER_ROLE)) {
 			model.addAttribute("prodotti", this.prodottoService.getAllProdotti());
-			return "/admin/modificaProdotti.html";
+			return "/admin/prodotto/modificaProdotti.html";
 		}
 		model.addAttribute("prodotti", this.prodottoService.getAllProdotti());
 		model.addAttribute("tipologia", new String ("prodotti"));
 		return "prodotti.html";
 	}
 	
+	@Transactional
 	@GetMapping("/ordinaProdotti")
-	public String ordinaProdotti (@RequestParam String ordine, @RequestParam String tipologia, Model model) {
+	public String ordinaProdotti (@RequestParam String ordine, @RequestParam String tipoRicerca, @RequestParam String tipologia, Model model) {
 	    List<Prodotto> prodotti = null;
 	    String tipo = null;
-	    System.out.println("Tipologia ricevuta: " + tipologia);  // Log per la tipologia
-	    System.out.println("Ordine selezionato: " + ordine);    // Log per l'ordine
 
 	    if (!("prodotti".equals(tipologia))) {
 	    	if(("pizze".equals(tipologia)))
@@ -83,15 +84,22 @@ public class ProdottoController {
 	    	if(("sfizi".equals(tipologia)))
 	    		tipo = "sfizio";
 	    	if(("dolci".equals(tipologia)))
-	    		tipo = "sfizio";
+	    		tipo = "dolce";
 	    	if(("bevande".equals(tipologia)))
 	    		tipo = "bevanda";
-	    	 // Ordina in base al criterio selezionato
+
+	    	// Ordina in base al criterio selezionato
 		    if ("nome".equals(ordine)) {
-		        prodotti = this.prodottoService.getByCategoriaOrderedByNome(tipo);
+		    	if (tipoRicerca.equals("ascendente"))
+		    		prodotti = this.prodottoService.getByCategoriaOrderedByNomeAsc(tipo);
+		    	else
+		    		prodotti = this.prodottoService.getByCategoriaOrderedByNomeDesc(tipo);
 		    }
 		    else if ("prezzo".equals(ordine)) {
-		    	prodotti = this.prodottoService.getByCategoriaOrderedByPrezzo(tipo);
+		    	if (tipoRicerca.equals("ascendente"))
+		    		prodotti = this.prodottoService.getByCategoriaOrderedByPrezzoAsc(tipo);
+		    	else
+		    		prodotti = this.prodottoService.getByCategoriaOrderedByPrezzoDesc(tipo);
 		    } else {
 		        prodotti = (List)this.prodottoService.getAllProdottiCategoria(tipo); // Default (non ordinato)
 		    }
@@ -99,11 +107,20 @@ public class ProdottoController {
 	    else {
 		    // Ordina in base al criterio selezionato
 		    if ("nome".equals(ordine)) {
-		        prodotti = this.prodottoService.getOrderedByNome();
+		    	if (tipoRicerca.equals("ascendente"))
+		    		prodotti = this.prodottoService.getOrderedByNomeAsc();
+		    	else
+		    		prodotti = this.prodottoService.getOrderedByNomeDesc();
 		    } else if ("categoria".equals(ordine)) {
-		        prodotti = this.prodottoService.getOrderedByCategoria();
+		    	if (tipoRicerca.equals("ascendente"))
+		    		prodotti = this.prodottoService.getOrderedByCategoriaAsc();
+		    	else
+		    		prodotti = this.prodottoService.getOrderedByCategoriaDesc();
 		    } else if ("prezzo".equals(ordine)) {
-		    	prodotti = this.prodottoService.getOrderedByPrezzo();
+		    	if (tipoRicerca.equals("ascendente"))
+		    		prodotti = this.prodottoService.getOrderedByPrezzoAsc();
+		    	else
+		    		prodotti = this.prodottoService.getOrderedByPrezzoDesc();
 		    } else {
 		        prodotti = (List)this.prodottoService.getAllProdotti(); // Default (non ordinato)
 		    }
@@ -114,53 +131,54 @@ public class ProdottoController {
 	}
 	
 	@GetMapping("/admin/ordinaProdotti")
-	public String adminOrdinaProdotti (@RequestParam String ordine, Model model) {
+	public String adminOrdinaProdotti (@RequestParam String ordine, @RequestParam String tipoRicerca, Model model) {
 	    List<Prodotto> prodotti = null;
 	    
-	    System.out.println("Ordine selezionato: " + ordine);    // Log per l'ordine
-
-		    // Ordina in base al criterio selezionato
-		    if ("nome".equals(ordine)) {
-		        prodotti = this.prodottoService.getOrderedByNome();
-		    } else if ("categoria".equals(ordine)) {
-		        prodotti = this.prodottoService.getOrderedByCategoria();
-		    } else if ("prezzo".equals(ordine)) {
-		    	prodotti = this.prodottoService.getOrderedByPrezzo();
-		    } else {
-		        prodotti = (List)this.prodottoService.getAllProdotti(); // Default (non ordinato)
-		    }
+	    // Ordina in base al criterio selezionato
+	    if ("nome".equals(ordine)) {
+	    	if (tipoRicerca.equals("ascendente"))
+	    		prodotti = this.prodottoService.getOrderedByNomeAsc();
+	    	else
+	    		prodotti = this.prodottoService.getOrderedByNomeDesc();
+	    } else if ("categoria".equals(ordine)) {
+	    	if (tipoRicerca.equals("ascendente"))
+	    		prodotti = this.prodottoService.getOrderedByCategoriaAsc();
+	    	else
+	    		prodotti = this.prodottoService.getOrderedByCategoriaDesc();
+	    } else if ("prezzo".equals(ordine)) {
+	    	if (tipoRicerca.equals("ascendente"))
+	    		prodotti = this.prodottoService.getOrderedByPrezzoAsc();
+	    	else
+	    		prodotti = this.prodottoService.getOrderedByPrezzoDesc();
+	    } else {
+	        prodotti = (List)this.prodottoService.getAllProdotti(); // Default (non ordinato)
+	    }
 	    model.addAttribute("prodotti", prodotti);
-	    return "/admin/modificaProdotti.html";
-	}
-	
-	@GetMapping ("/admin/formInserimentoMenu")
-	public String formNewInserimentoMenu (Model model) {
-		model.addAttribute("prodotto", new Prodotto());
-		return "/admin/formInserimentoMenu.html";
+	    return "/admin/prodotto/modificaProdotti.html";
 	}
 	
 	@GetMapping ("/admin/formNewProdotto")
 	public String formNewProdotto (Model model) {
 		model.addAttribute("prodotto", new Prodotto());
-		return "/admin/formNewProdotto.html";
+		return "/admin/prodotto/formNewProdotto.html";
 	}
 		
-
+	@Transactional
 	@GetMapping ("/menu/pizza")
 	public String getPizze (Model model) {
 		model.addAttribute("prodotti", this.prodottoService.getAllPizze());
 		model.addAttribute("tipologia", new String ("pizze"));
 		return "prodotti.html";
 	}
-	
+
 	@GetMapping ("/admin/newPizza")
 	public String formNewPizza(Model model) {
 		Prodotto p = new Prodotto();
 		p.setCategoria("pizza");
 		model.addAttribute("prodotto", p);
-		return "/admin/formNewProdotto.html";
+		return "/admin/prodotto/formNewProdotto.html";
 	}
-	
+	@Transactional
 	@GetMapping ("/menu/sfizio")
 	public String getSfizi (Model model) {
 		model.addAttribute("prodotti", this.prodottoService.getAllSfizi());
@@ -172,9 +190,9 @@ public class ProdottoController {
 		Prodotto p = new Prodotto();
 		p.setCategoria("sfizio");
 		model.addAttribute("prodotto", p);
-		return "/admin/formNewProdotto.html";
+		return "/admin/prodotto/formNewProdotto.html";
 	}
-	
+	@Transactional
 	@GetMapping ("/menu/dolce")
 	public String getDolci (Model model) {
 		model.addAttribute("prodotti", this.prodottoService.getAllDolci());
@@ -186,9 +204,9 @@ public class ProdottoController {
 		Prodotto p = new Prodotto();
 		p.setCategoria("dolce");
 		model.addAttribute("prodotto", p);
-		return "/admin/formNewProdotto.html";
+		return "/admin/prodotto/formNewProdotto.html";
 	}
-	
+	@Transactional
 	@GetMapping ("/menu/bevanda")
 	public String getBevande (Model model) {
 		model.addAttribute("prodotti", this.prodottoService.getAllBevande());
@@ -201,13 +219,13 @@ public class ProdottoController {
 		Prodotto p = new Prodotto();
 		p.setCategoria("bevanda");
 		model.addAttribute("prodotto", p);
-		return "/admin/formNewProdotto.html";
+		return "/admin/prodotto/formNewProdotto.html";
 	}
 	
 	@GetMapping ("/admin/modificaProdotti")
 	public String modificaMenu(Model model) {
 		model.addAttribute("prodotti", this.prodottoService.getAllProdotti());
-		return "/admin/modificaProdotti.html";
+		return "/admin/prodotto/modificaProdotti.html";
 	}
 	
 	@GetMapping ("/admin/cancellaProdotto/{id}")
@@ -220,41 +238,31 @@ public class ProdottoController {
 	public String modificaProdotto (@PathVariable ("id") Long id, Model model) {
 		Prodotto prodotto = this.prodottoService.getProdottoById(id);
 		model.addAttribute("prodotto", prodotto);
-		return "/admin/modificaProdotto.html";
+		return "/admin/prodotto/modificaProdotto.html";
 	}
 	
 	@PostMapping ("/admin/prodotto")
 	public String newProdotto (@Valid @ModelAttribute("prodotto") Prodotto prodotto, BindingResult bindingResult, Model model){
 		if (bindingResult.hasErrors()) {
-			return "/admin/formNewProdotto.html";
+			return "/admin/prodotto/formNewProdotto.html";
 		}
 		this.prodottoService.save(prodotto);
 		model.addAttribute("prodotto", prodotto);
-		return "redirect:/admin/modificaProdotti";// + prodotto.getId();
+		return "redirect:/admin/modificaProdotto/" + prodotto.getId();
 	}
-	
-//	@PostMapping("/admin/prodotti/{id}")
-//    public String modificaProdotto(@PathVariable("id") Long id, @Valid @ModelAttribute("prodotto") Prodotto prodotto, BindingResult bindingResult) {
-//		if (bindingResult.hasErrors()) {
-//			return "/admin/modificaProdotto.html";
-//		}
-//		prodotto.setId(id);
-//        prodottoService.save(prodotto);
-//        return "redirect:/admin/modificaProdotti"; // Redireziona alla lista dopo la modifica
-//    }
 
 
     @PostMapping("/admin/prodotti/{id}")
     public String modificaProdotto(@PathVariable("id") Long id, 
                                   @ModelAttribute("prodotto") Prodotto prodottoForm, 
                                   BindingResult bindingResult) {
-        // Validazione manuale per consentire campi vuoti
-        if (prodottoForm.getNome() != null && prodottoForm.getNome().trim().isEmpty()) {
-            bindingResult.rejectValue("nome", "error.nome", "Il nome non può essere vuoto");
-        }
+//        // Validazione manuale per consentire campi vuoti
+//        if (prodottoForm.getNome() != null && prodottoForm.getNome().trim().isEmpty()) {
+//            bindingResult.rejectValue("nome", "error.nome", "Il nome non può essere vuoto");
+//        }
 
         if (bindingResult.hasErrors()) {
-            return "/admin/modificaProdotto.html";
+            return "/admin/prodotto/modificaProdotto.html";
         }
 
         // Carica il prodotto esistente dal database
@@ -272,12 +280,7 @@ public class ProdottoController {
         } else if (prodottoForm.getDescrizione() != null && prodottoForm.getDescrizione().trim().isEmpty()) {
             prodottoEsistente.setDescrizione(null); // Permette di azzerare la descrizione
         }
-        if (prodottoForm.getUrlImage() != null && !prodottoForm.getUrlImage().trim().isEmpty()) {
-            prodottoEsistente.setUrlImage(prodottoForm.getUrlImage());
-        } else if (prodottoForm.getUrlImage() != null && prodottoForm.getUrlImage().trim().isEmpty()) {
-            prodottoEsistente.setUrlImage(null); // Permette di azzerare l'URL dell'immagine
-        }
-        
+
         if (prodottoForm.getPrezzo() != null) {
             prodottoEsistente.setPrezzo(prodottoForm.getPrezzo());
         }
@@ -289,6 +292,7 @@ public class ProdottoController {
         return "redirect:/admin/modificaProdotti";
     }
     
+    @Transactional
     @GetMapping ("/cercaProdotti")
     public String filtraProdotti (@RequestParam String filtro, @RequestParam String tipologia, Model model) {
     	List <Prodotto> prodotti = new LinkedList<Prodotto>();
@@ -301,7 +305,7 @@ public class ProdottoController {
 	    	if(("sfizi".equals(tipologia)))
 	    		tipo = "sfizio";
 	    	if(("dolci".equals(tipologia)))
-	    		tipo = "sfizio";
+	    		tipo = "dolce";
 	    	if(("bevande".equals(tipologia)))
 	    		tipo = "bevanda";
 	    	totali = (List<Prodotto>) this.prodottoService.getAllProdottiCategoria(tipo);
@@ -321,16 +325,23 @@ public class ProdottoController {
     }
     
     @GetMapping ("/admin/cercaProdotti")
-    public String adminFiltraProdotti (@RequestParam String filtro, Model model) {
+    public String adminFiltraProdotti (@RequestParam String filtro, @RequestParam String tipoRicerca, Model model) {
     	List <Prodotto> prodotti = new LinkedList<Prodotto>();
     	
     	for (Prodotto p: this.prodottoService.getAllProdotti()) {
-    		if (p.getNome().toLowerCase().contains(filtro.toLowerCase()))
-    			prodotti.add(p);
+    		if (tipoRicerca.equals("nome")) {
+    			if (p.getNome().toLowerCase().contains(filtro.toLowerCase()))
+        			prodotti.add(p);
+    		}
+    		
+    		else {
+    			if (p.getCategoria().toLowerCase().contains(filtro.toLowerCase()))
+        			prodotti.add(p);
+    		}
     	}
 
     	model.addAttribute ("numero", prodotti.size());
     	model.addAttribute ("prodotti", prodotti);
-    	return "/admin/modificaProdotti.html"; 
+    	return "/admin/prodotto/modificaProdotti.html"; 
     }
 }

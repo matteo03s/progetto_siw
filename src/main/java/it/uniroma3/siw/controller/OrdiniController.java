@@ -79,7 +79,7 @@ public class OrdiniController {
 		User user= userCredentials.getUser();
 		Ordine ordine = new Ordine(); // Nuovo ordine vuoto
 
-		List<Prodotto> prodotti = prodottoService.getOrderedByCategoria(); // Lista prodotti
+		List<Prodotto> prodotti = prodottoService.getOrderedByCategoriaAsc(); // Lista prodotti
 
 		model.addAttribute("ordine", ordine);
 		model.addAttribute("prodotti", prodotti);
@@ -198,7 +198,7 @@ public class OrdiniController {
 		Credentials userCredentials= credentialService.getCredentials(nomeUtente);
 		User user= userCredentials.getUser();
 		List<VoceOrdine> vociOrdine = new ArrayList<>();
-		List<Prodotto> prodotti = prodottoService.getOrderedByCategoria(); // Lista prodotti	
+		List<Prodotto> prodotti = prodottoService.getOrderedByCategoriaAsc(); // Lista prodotti	
 		
 		for (Map.Entry<String, String> entry : allParams.entrySet()) {
 			String paramName = entry.getKey();
@@ -364,7 +364,7 @@ public class OrdiniController {
 	//Metodo ausiliario
 	public Map<Prodotto, Integer> getMappaProdottoQuantitàDiUnOrdine(Ordine o) {
 		Map<Prodotto, Integer> pro_qt= new HashMap<>();
-		for(Prodotto p: this.prodottoService.getOrderedByCategoria()) {
+		for(Prodotto p: this.prodottoService.getOrderedByCategoriaAsc()) {
 			pro_qt.put(p, 0);
 		}
 

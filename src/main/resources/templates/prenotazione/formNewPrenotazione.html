@@ -2,11 +2,12 @@
 <html>
 	<head>
 		<title>Nuova Prenotazione</title>
-		<link rel="stylesheet" href="/stile_form/stile_formPrenotazione.css"/>
+		<link rel="stylesheet" href="/stile_log.css"/>
 	</head>
 	<body>
 		<a id="logo" href="/"><img src="/logo.png" /></a>
 
+		<div class="form-container">
 		
 		<form th:action="@{/prenotazione/prenotazione}" method="POST" th:object="${prenotazione}">
 			<h1>Aggiungi una prenotazione</h1>
@@ -22,7 +23,7 @@
 				<strong>Posti:</strong> <span><input required type="number" min="0" placeholder="Inserisci il numero di persone" th:field="${prenotazione.posti}" /></span>
 				<span th:if="${#fields.hasErrors('posti')}"th:errors="*{posti}"></span>
 			</div>
-			
+			<br>
 			<div id="turno">
 			        <!-- Campo hidden che memorizza il valore del turno -->
 			        <input type="hidden" th:field="${prenotazione.turno}" />
@@ -62,6 +63,7 @@
 			            <p>Venerdì - Domenica: 12:00 – 15:00 / 19:00 – 23:00</p>
 			    </div>
 		</form>
+		</div>
 
 
 

@@ -49,22 +49,37 @@ public class ProdottoService {
 		return prodottoRepository.findByCategoria("bevanda");
 	}
 	
-	public List <Prodotto> getOrderedByPrezzo () {
+	public List <Prodotto> getOrderedByPrezzoAsc () {
 		return prodottoRepository.findAllByOrderByPrezzoAsc();
 	}
-	public List <Prodotto> getOrderedByNome () {
+	public List <Prodotto> getOrderedByNomeAsc () {
 		return prodottoRepository.findAllByOrderByNomeAsc();
 	}
-	public List<Prodotto> getOrderedByCategoria() {
+	public List<Prodotto> getOrderedByCategoriaAsc () {
 		return prodottoRepository.findAllByOrderByCategoriaAsc();
 	}
-	public List<Prodotto> getByCategoriaOrderedByPrezzo(String categoria) {	
+	public List<Prodotto> getByCategoriaOrderedByPrezzoAsc(String categoria) {	
 		return prodottoRepository.findByCategoriaOrderByPrezzoAsc(categoria);
 	}
-	public List<Prodotto> getByCategoriaOrderedByNome(String categoria) {	
+	public List<Prodotto> getByCategoriaOrderedByNomeAsc(String categoria) {	
 		return prodottoRepository.findByCategoriaOrderByNomeAsc(categoria);
 	}
 	
+	public List <Prodotto> getOrderedByPrezzoDesc () {
+		return prodottoRepository.findAllByOrderByPrezzoDesc();
+	}
+	public List <Prodotto> getOrderedByNomeDesc () {
+		return prodottoRepository.findAllByOrderByNomeDesc();
+	}
+	public List<Prodotto> getOrderedByCategoriaDesc() {
+		return prodottoRepository.findAllByOrderByCategoriaDesc();
+	}
+	public List<Prodotto> getByCategoriaOrderedByPrezzoDesc(String categoria) {	
+		return prodottoRepository.findByCategoriaOrderByPrezzoDesc(categoria);
+	}
+	public List<Prodotto> getByCategoriaOrderedByNomeDesc(String categoria) {	
+		return prodottoRepository.findByCategoriaOrderByNomeDesc(categoria);
+	}
 	public List <Prodotto> getVetrina () {
 		List <Prodotto> vetrina = new ArrayList<>();
 		List <Prodotto> pizze = this.getAllPizze();

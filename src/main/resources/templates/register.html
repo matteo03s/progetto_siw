@@ -3,60 +3,47 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Registrazione utente</title>
-	<link rel="stylesheet" href="/stile_form/stile_register.css"/>
+	<link rel="stylesheet" href="/stile_log.css"/>
 </head>
 <body>
 	<a id="logo" href="/"><img src="/logo.png" /></a>
+<div class="form-container">	
+	<form th:action="@{/register}" th:method="post">
+		<h1>Registrazione</h1>
+		<p>Hai già un account?<a href="/login"> <button type="button">login</button></a></p>
+	    <!-- ===== Sezione dati anagrafici ===== -->
+    	<fieldset th:object="${user}">
+	        <legend>Dati personali</legend>
+		        <label>Nome*: <input type="text" placeholder="Inserisci il tuo nome" th:field="*{name}"          /></label>
+       			<label>Cognome: <input type="text" placeholder="Inserisci il tuo cognome" th:field="*{surname}"/></label>
+        		<label>Email*: <input type="email"  placeholder="Inserisci la tua email" th:field="*{email}"/></label>
+				<label>Numero di telefono: <input type="text" placeholder="Inserisci il tuo numero di telefono" th:field="*{numeroTelefonico}" th:value="*{numeroTelefonico != null ? numeroTelefonico : ''}" /></label><br/>
 
-<form th:action="@{/register}" th:method="post">
-	<h1>Registrazione</h1>
+        		<!-- Errori relativi a User -->
+        		<div th:if="${#fields.hasErrors('*')}" style="color:red">
+            	<p th:each="e : ${#fields.errors('*')}" th:text="${e}">Errore</p>
+        		</div>
+   		</fieldset>
 
-	<p>Hai già un account?
-					<a href="/login"> <button type="button">login</button></a>
-				</p>
-    <!-- ===== Sezione dati anagrafici ===== -->
-    <fieldset th:object="${user}">
-		
-        <legend>Dati personali</legend>
+    	<!-- ===== Sezione credenziali ===== -->
+    	<fieldset th:object="${credentials}">
+        	<legend>Credenziali di accesso</legend>
+		        <label>Username*: <input type="text"     placeholder="Inserisci un username" th:field="*{username}" /></label>
+        		<label>Password*: <input type="password" placeholder="Inserisci una password" th:field="*{password}" /></label>
+				<label>Conferma password*: <input type="password" placeholder="Conferma la password" name="confermaPassword" /></label>	
+		        <!-- Errori relativi a Credentials -->
+        		<div th:if="${#fields.hasErrors('*')}" style="color:red" th:errors="*{username}"></div>
+    	</fieldset>
 
-        <label>Nome*: <input type="text" placeholder="Inserisci il tuo nome" th:field="*{name}"          /></label><br/>
-        <label>Cognome: <input type="text" placeholder="Inserisci il tuo cognome" th:field="*{surname}"/></label><br/>
-        <label>Email*: <input type="email"  placeholder="Inserisci la tua email" th:field="*{email}"/></label><br/>
-<!--        <label>Telefono: <input type="text" th:field="*{numeroTelefonico}"/></label><br/>
--->		<label>Numero di telefono: <input type="text" placeholder="Inserisci il tuo numero di telefono" th:field="*{numeroTelefonico}" th:value="*{numeroTelefonico != null ? numeroTelefonico : ''}" /></label><br/>
-
-        <!-- Errori relativi a User -->
-        <div th:if="${#fields.hasErrors('*')}" style="color:red">
-            <p th:each="e : ${#fields.errors('*')}" th:text="${e}">Errore</p>
-        </div>
-    </fieldset>
-
-    <!-- ===== Sezione credenziali ===== -->
-    <fieldset th:object="${credentials}">
-        <legend>Credenziali di accesso</legend>
-
-        <label>Username*: <input type="text"     placeholder="Inserisci un username" th:field="*{username}" /></label><br/>
-        <label>Password*: <input type="password" placeholder="Inserisci una password" th:field="*{password}" /></label><br/>
-		<label>Conferma password*: <input type="password" placeholder="Conferma la password" name="confermaPassword" /></label><br/>
-<!--		<label>Conferma Password*: <input type="password" th:field="*{password}" /></label><br/>
-	-->		
-        <!-- Errori relativi a Credentials -->
-        <div th:if="${#fields.hasErrors('*')}" style="color:red" th:errors="*{username}">
-<!--<p th:each="e : ${#fields.errors('*')}" th:text="${e}">Errore</p>
--->        </div>
-    </fieldset>
-
-    <!-- Token CSRF -->
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-
-    <button type="submit">Registrati</button>
-	<a href="/"> <button id="annulla" type="button">Annulla</button></a>
-	<div class="error" th:if="${errorMessage}">
-		<p th:text="${errorMessage}"></p>
-	</div>
-</form>
-
-
-
+	    <!-- Token CSRF -->
+	    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+	
+	    <button type="submit">Registrati</button>
+		<a href="/"> <button id="annulla" type="button">Annulla</button></a>
+		<div class="error" th:if="${errorMessage}">
+			<p th:text="${errorMessage}"></p>
+		</div>
+	</form>
+</div>
 </body>
 </html>
