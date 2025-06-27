@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -41,6 +42,7 @@ public class Ordine {
 	private LocalDate giornoConsegna;
 	*/
 	
+
 	private LocalDate giornoConsegna;
 	private LocalTime orarioConsegna;
 	
@@ -49,6 +51,8 @@ public class Ordine {
 	
 	@OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL)
 	private List <VoceOrdine> vociOrdine;
+	
+
 	
 	
 	

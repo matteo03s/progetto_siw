@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -194,22 +195,56 @@ public class OrdiniController {
 	public String newOrdine(@Valid @ModelAttribute("ordine") Ordine ordine,
 			@RequestParam Map<String, String> allParams,
 			Model model, Principal principal, BindingResult bindingResult) {
+
 		String nomeUtente= principal.getName();
 		Credentials userCredentials= credentialService.getCredentials(nomeUtente);
 		User user= userCredentials.getUser();
 		List<VoceOrdine> vociOrdine = new ArrayList<>();
 		List<Prodotto> prodotti = prodottoService.getOrderedByCategoria(); // Lista prodotti	
+
+
+		// Validazione automatica
+	    if (bindingResult.hasErrors()) {
+	        model.addAttribute("utente", user);
+	        model.addAttribute("prodotti", prodotti);
+	        model.addAttribute("errore", "Errore nei dati inseriti. Controlla i campi e riprova.");
+	        return "/ordine/formNewOrdine.html";
+	    }
 		
+	    
+		// Confronto della data di consegna con la data odierna
+	    if (ordine.getGiornoConsegna().isBefore(LocalDate.now())) {
+	        model.addAttribute("errore", "La data di consegna non può essere precedente a oggi.");
+	        model.addAttribute("utente", user);
+	        model.addAttribute("prodotti", prodotti);
+	        return "/ordine/formNewOrdine.html";
+	    }
+	    
+	 // Confronto dell'orario di consegna
+	    LocalTime maxTime = LocalTime.of(23, 0); // 23:00
+	    LocalTime minTime= LocalTime.of(11, 0);	 // 11:00
+	    if (ordine.getOrarioConsegna() != null && ordine.getOrarioConsegna().isAfter(maxTime)
+	    		|| ordine.getOrarioConsegna().isBefore(minTime)) {
+	        model.addAttribute("errore", "L'orario di consegna non è accettabile: fai un ordine tra le 11:00 e le 23:00.");
+	        model.addAttribute("utente", user);
+	        model.addAttribute("prodotti", prodotti);
+	        return "/ordine/formNewOrdine.html";
+	    }
+		
+		
+		
+		//prendo tutte le coppire " quantita_idProdotto" - "quantita" 
 		for (Map.Entry<String, String> entry : allParams.entrySet()) {
-			String paramName = entry.getKey();
+			String paramName = entry.getKey();					// prendo la chiave: "quantita_id"
 			if (paramName.startsWith("quantita_")) {
-				String idStr = paramName.substring("quantita_".length());
+				String idStr = paramName.substring("quantita_".length());		// prendo solo "id"
 				try {
-					Long productId = Long.parseLong(idStr);
-					int quantita = Integer.parseInt(entry.getValue());
-					if (quantita > 0) {
+					Long productId = Long.parseLong(idStr);						//conversione id da string a long
+					int quantita = Integer.parseInt(entry.getValue());			//conversione quantità relativo a quel prodotto da string a int
+					if (quantita > 0) {											//se maggiore di zero rapresenta un ordine selezionato dal' utente
 						Prodotto prodotto = prodottoService.getProdottoById(productId);
 						if (prodotto != null) {
+							//aggiungo una nuova voce ordine
 							VoceOrdine voceOrdine = new VoceOrdine();
 							voceOrdine.setProdotto(prodotto);
 							voceOrdine.setOrdine(ordine);
@@ -235,7 +270,7 @@ public class OrdiniController {
 			return "/ordine/formNewOrdine.html";
 
 		}
-		
+
 		ordine.setVociOrdine(vociOrdine);
 		ordine.setTotale(ordine.calculateTotal());
 		ordine.setGiornoConsegna(LocalDate.now());
@@ -247,16 +282,35 @@ public class OrdiniController {
 			model.addAttribute("prodotti", prodotti);
 			return "/ordine/formNewOrdine.html";
 		}
-		
+
 		//salvataggio dell' ordine e delle voci d'ordine
 		this.ordineservice.save(ordine);
-		
+
 		model.addAttribute("ordine", ordine); 
-		return"/ordine/riepilogoOrdine.html";
+		ordineservice.save(ordine);
+
+		return "redirect:/ordine/riepilogo/" + ordine.getId();
 	}
 
 
+	@GetMapping("/ordine/riepilogo/{id}")
+	public String mostraRiepilogoOrdine(@PathVariable("id") Long id, Model model) {
+		// Validate ID
+		if (id == null || id <= 0) {
+			model.addAttribute("errore", "ID ordine non valido.");
+			return "/errore.html"; // Assumes an error page exists
+		}
 
+		// Recupera l'ordine dal database
+		Ordine ordine = ordineservice.getOrdineById(id);
+		if (ordine == null) {
+			model.addAttribute("errore", "Ordine non trovato.");
+			return "/errore.html";
+		}
+
+		model.addAttribute("ordine", ordine);
+		return "/ordine/riepilogoOrdine.html";
+	}
 
 	@PostMapping("/ordine/annullaOrdine")
 	public String annullaOrdine(@RequestParam("id")Long id) {
@@ -266,16 +320,13 @@ public class OrdiniController {
 
 	@PostMapping("/ordine/modificaOrdine")
 	public String modificaOrdine(@RequestParam Long id, Model model) {
-		/*
-		String nomeUtente= principal.getName();
-		Credentials userCredentials= credentialService.getCredentials(nomeUtente);
-		User user= userCredentials.getUser();
-		 */
+
 		Ordine o=this.ordineservice.getOrdineById(id);
+		//mappa per la visualizzazioni dei prodotti nel form
 		Map<Prodotto, Integer> pro_qt=  this.getMappaProdottoQuantitàDiUnOrdine(o); 
 		model.addAttribute("ordine", o); 
 		model.addAttribute("prodotti",pro_qt);
-		//model.addAttribute("utente", user);
+
 		return "/ordine/modificaOrdine.html";
 	}
 
@@ -287,69 +338,96 @@ public class OrdiniController {
 
 		// Recupera l'ordine
 		Ordine ordine = this.ordineservice.getOrdineById(id);
-		boolean allZero= true;
+		if (ordine == null) {
+			model.addAttribute("errore", "Ordine non trovato per l'ID: " + id);
+			return "/ordine/modificaOrdine.html";
+		}
+		//booleano per la verifica di un ordine vuoto
+		boolean allZero = true;
+
 
 		// Inizializza la lista se null
 		if (ordine.getVociOrdine() == null) {
 			ordine.setVociOrdine(new ArrayList<>());
 		}
 
+		// Lista temporanea per raccogliere le voci da rimuovere
+		List<VoceOrdine> vociDaRimuovere = new ArrayList<>();
+
 		// Gestione dei parametri (es. quantità per prodotto)
+		//mappa: "quantita_idProdotto" "quantità"
 		for (Map.Entry<String, String> entry : allParams.entrySet()) {
-			String paramName = entry.getKey();
+			//coppia "quantità" "prodotto"
+			String paramName = entry.getKey();	//ottengo la chiave quantita_idProdotto
 			if (paramName.startsWith("quantita_")) {
-				String idStr = paramName.substring("quantita_".length());
+				String idStr = paramName.substring("quantita_".length());		//prendo solo l'id del prodtto
 				try {
-					Long productId = Long.parseLong(idStr);
+					Long productId = Long.parseLong(idStr);						//conversione da string a long
 					int quantita = Integer.parseInt(entry.getValue());
+
+					//per evitare che si creino ordini senza prodotti
 					if (quantita > 0) {
-						allZero= false;
-						Prodotto prodotto = prodottoService.getProdottoById(productId);
-						if (prodotto != null) {
-							boolean trovato = false;
-							for (VoceOrdine v : ordine.getVociOrdine()) {
-								if (v.getProdotto().getId().equals(productId)) {
-									v.setQuantità(quantita);
-									v.calcolaTotParziale();
-									trovato = true;
-									break;
-								}
+						allZero = false;
+					}
+
+					Prodotto prodotto = prodottoService.getProdottoById(productId);
+					if (prodotto == null) {
+						model.addAttribute("errore", "Prodotto non trovato: ID=" + productId);
+						model.addAttribute("ordine", ordine);
+						model.addAttribute("prodotti", this.getMappaProdottoQuantitàDiUnOrdine(ordine));
+						return "/ordine/modificaOrdine.html";
+					}
+
+					//una volta trovato il prodotto lo aggiungo alla lista di voci ordine oppure aggiorno tale lista
+					boolean trovato = false;
+					for (VoceOrdine voce : ordine.getVociOrdine()) {
+						if (voce.getProdotto() != null && voce.getProdotto().getId().equals(productId)) {
+							if (quantita > 0) {
+								voce.setQuantità(quantita);
+								voce.calcolaTotParziale();
+							} else {
+								voce.setQuantità(0);
+								vociDaRimuovere.add(voce);
 							}
-							if (!trovato) {
-								VoceOrdine voceOrdine = new VoceOrdine();
-								voceOrdine.setProdotto(prodotto);
-								voceOrdine.setOrdine(ordine);
-								voceOrdine.setQuantità(quantita);
-								voceOrdine.calcolaTotParziale();
-								ordine.getVociOrdine().add(voceOrdine);
-							}
+							trovato = true;
+							break;
 						}
 					}
+
+					if (!trovato && quantita > 0) {
+						VoceOrdine voceOrdine = new VoceOrdine();
+						voceOrdine.setProdotto(prodotto);
+						voceOrdine.setOrdine(ordine);
+						voceOrdine.setQuantità(quantita);
+						voceOrdine.calcolaTotParziale();
+						ordine.getVociOrdine().add(voceOrdine);
+					}
+
 				} catch (NumberFormatException e) {
-					Ordine o= this.ordineservice.getOrdineById(id);
-					Map<Prodotto, Integer> pro_qt=  this.getMappaProdottoQuantitàDiUnOrdine(o);
-					model.addAttribute("errore", "Quantità non valida.");
-					model.addAttribute("ordine", o);
-					model.addAttribute("prodotti", pro_qt);
+					model.addAttribute("errore", "Quantità non valida per il prodotto: " + idStr);
+					model.addAttribute("ordine", ordine);
+					model.addAttribute("prodotti", this.getMappaProdottoQuantitàDiUnOrdine(ordine));
 					return "/ordine/modificaOrdine.html";
 				}
 			}
 		}
-		if(allZero) {
-			Ordine o= this.ordineservice.getOrdineById(id);
-			Map<Prodotto, Integer> pro_qt=  this.getMappaProdottoQuantitàDiUnOrdine(o);
+
+		// Rimuove le voci marcate per l'eliminazione
+		ordine.getVociOrdine().removeAll(vociDaRimuovere);
+
+		// Verifica se l'ordine è vuoto
+		if (allZero) {
 			model.addAttribute("errore", "Ordine vuoto: nessun prodotto inserito");
-			model.addAttribute("ordine", o);
-			model.addAttribute("prodotti", pro_qt);
+			model.addAttribute("ordine", ordine);
+			model.addAttribute("prodotti", this.getMappaProdottoQuantitàDiUnOrdine(ordine));
 			return "/ordine/modificaOrdine.html";
 		}
 
+		// Calcola il totale e salva l'ordine
 		ordine.setTotale(ordine.calculateTotal());
-		// Salva l'ordine modificato
 		this.ordineservice.save(ordine);
 
-		model.addAttribute("ordine", ordine);
-		return "/ordine/riepilogoOrdine.html";
+		return "redirect:/ordine/riepilogo/" + id;
 	}
 
 
