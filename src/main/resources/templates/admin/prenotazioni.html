@@ -9,8 +9,9 @@
 		<div th:if="${descrizione!=null}">
 			<p th:text="${descrizione}"></p>
 		</div>
-		<h1 th:if="${!prenotazioni.isEmpty()}">Elenco prenotazioni</h1>
+		
 		<div class="form-container">
+			<h1 th:if="${!prenotazioni.isEmpty()}">Elenco prenotazioni</h1>
 		<!-- Modulo di ordinamento -->
 				<form action="/admin/ordinaPrenotazioni" method="GET">
 					<label for="ordine">Ordina per:</label>
@@ -32,9 +33,11 @@
 		<div id="lista">
 			<ul>
 				<li class="prenotazione" th:each="prenotazione:${prenotazioni}">
-					<p>prenotazione a nome <a th:href="@{'/admin/utente/' + ${prenotazione.utente.id}}" th:text="${prenotazione.nome}"></a> per</p>
-					<p th:text=" ${prenotazione.posti} + ' persone, per il giorno ' +
-										${prenotazione.data} + ' a ' + ${prenotazione.turno} "></p> 
+					<p>prenotazione a nome: <a th:href="@{'/admin/utente/' + ${prenotazione.utente.id}}" th:text="${prenotazione.nome}"></a></p>
+					<hr>
+					<p th:text=" ${prenotazione.posti} + ' persone'"></p>
+										<br>
+										<p th:text="${prenotazione.data} + ' a ' + ${prenotazione.turno}"></p>
 <!--					<p th:text="'prenotato a nome ' + ${prenotazione.nome} +
 					' per '+ ${prenotazione.posti} + ' persone, per il giorno ' +
 					${prenotazione.data} + ' a ' + ${prenotazione.turno}"></p> 

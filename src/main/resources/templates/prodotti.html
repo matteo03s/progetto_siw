@@ -1,61 +1,78 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>MENU</title>
-		<link rel="stylesheet" href="/stile_elenco.css"/>
-	</head>
-	<body>
 
-		<!-- Divisione pulsanti per permettere di scegliere se
+<head>
+	<title>MENU</title>
+	<link rel="stylesheet" href="/stile_elenco.css" />
+</head>
+
+<body>
+
+	<!-- Divisione pulsanti per permettere di scegliere se
 			mostrare una tipologia specifica di prodotto -->
-			<div class="header-container">
-			        <div class="left-buttons">
-			            <a href="/menu/pizza"> <button>Pizze</button> </a>
-			            <a href="/menu/sfizio"> <button>Sfizi</button> </a>	</div>
-			        <div id="logo">
-			            <a href="/" ><img src="/logo.png" alt="Logo"></a>
-			        </div>
-			        <div class="right-buttons">
-			            <a href="/menu/dolce"> <button>Dolci</button> </a>
-			            <a href="/menu/bevanda"> <button>Bevande</button> </a>								        </div>
-			    </div>
+	<div class="header-container">
+		<div class="left-buttons">
+			<a href="/menu/pizza"> <button>Pizze</button> </a>
+			<a href="/menu/sfizio"> <button>Sfizi</button> </a>
+		</div>
+		<div id="logo">
+			<a href="/"><img src="/logo.png" alt="Logo"></a>
+		</div>
+		<div class="right-buttons">
+			<a href="/menu/dolce"> <button>Dolci</button> </a>
+			<a href="/menu/bevanda"> <button>Bevande</button> </a>
+		</div>
+	</div>
 
-				<h1 th:if="${!prodotti.isEmpty()}" th:text="'Elenco ' + ${tipologia}"></h1>		
-			<div class="form-container">					
-				<!-- Mostra messaggio se la lista prodotti è vuota -->
-				<span th:if="${prodotti.isEmpty()}">No products available.</span>
-				<form action="/ordinaProdotti" method="GET">
-					<input type="hidden" name="tipologia" th:value="${tipologia}" />
-			        <label for="ordine">Ordina per:</label>
-			        <select id="ordine" name="ordine">
-			            <option value="nome">Nome</option>
-			            <option value="prezzo">Prezzo</option>
-			            <option th:if="${tipologia == 'prodotti'}" value="categoria">Categoria</option>
-			        </select>
-			        <button type="submit">Ordina</button>
-			    </form>
-				
-				<form action="/cercaProdotti" method="GET">
-						<label for="filtro">Cerca:</label>
-						<input type="text" id="filtro"  placeholder="cosa cerchi?" name="filtro">
-						<input type="hidden" name="tipologia" th:value="${tipologia}" />
-					<button type="submit">Cerca</button>
-				</form>
+	
+	<div class="form-container">
+		<h1 th:if="${!prodotti.isEmpty()}" th:text="'Elenco ' + ${tipologia}"></h1>
+		<!-- Mostra messaggio se la lista prodotti è vuota -->
+		<span th:if="${prodotti.isEmpty()}">No products available.</span>
+		<form action="/ordinaProdotti" method="GET">
+			<input type="hidden" name="tipologia" th:value="${tipologia}" />
+			<label for="ordine">Ordina per:</label>
+			<select id="ordine" name="ordine">
+				<option value="nome">Nome</option>
+				<option value="prezzo">Prezzo</option>
+				<option th:if="${tipologia == 'prodotti'}" value="categoria">Categoria</option>
+			</select>
+			<label for="tipoRicerca">Ricerca per:</label>
+			<select id="tipoRicerca" name="tipoRicerca">
+				<option value="ascendente">Ascendente</option>
+				<option value="discendente">Discendente</option>
+			</select>
+			<button type="submit">Ordina</button>
+		</form>
+
+		<form action="/cercaProdotti" method="GET">
+			<label for="filtro">Cerca:</label>
+			<input type="text" id="filtro" placeholder="cosa cerchi?" name="filtro">
+			<input type="hidden" name="tipologia" th:value="${tipologia}" />
+			<button type="submit">Cerca</button>
+		</form>
 		<span th:if="${numero}" th:text="'sono stati trovati ' + ${numero} + ' elementi'"></span>
-		</div>
-		<div id="lista">
-			<ul>
-				<li th:each="prodotto : ${prodotti}">
-					<div class="prodotto">
-					<img th:src="${prodotto.urlImage}" class="prodotto-img">
-					<div class="prodotto-dettagli">
+	</div>
+	<div id="lista">
+		<ul>
+			<li th:each="prodotto : ${prodotti}">
+				<div class="oggetto">
+
+					<div class="oggetto-dettagli">
 						<p><a class="nome" th:href="@{'/prodotto/' + ${prodotto.id}}"
-						  th:text="${prodotto.nome} + ' ' + ${prodotto.prezzo} + '€'"> nome e prezzo </a></p>
-					 <span class="tipo" th:if="${tipologia == 'prodotti'}" th:text="${prodotto.categoria}">categoria</span>
-					 </div>
-					 </div>
-				</li>
-			</ul>
-		</div>
-	</body>
+								th:text="${prodotto.nome} + ' (' + ${prodotto.prezzo} + '€)'"> nome e prezzo </a></p>
+						<span class="tipo" th:if="${tipologia == 'prodotti'}"
+							th:text="${prodotto.categoria}">categoria</span>
+						<hr>
+						<!-- divisione immagini prodotto -->
+						<div th:if="${prodotto.immagine != null}" class="prodotto-img">
+							<img th:src="@{/immagine/{id}(id=${prodotto.immagine.id})}" alt="Immagine Prodotto" />
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+
 </html>

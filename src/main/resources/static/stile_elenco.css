@@ -94,7 +94,6 @@ h1 {
     text-align: center; /* Centra il testo del titolo */
     color: #333; /* Colore grigio scuro per il titolo */
     font-size: 2rem; /* Dimensione del font di 2rem (circa 32px) */
-    margin-top: 20px; /* Margine superiore di 20px */
 }
 
 /* Messaggio quando la lista è vuota */
@@ -173,21 +172,24 @@ button:active { /* Seleziona i bottoni di #turno quando vengono cliccati */
 }
 
 #lista ul {
+    display: flex; /* Mantieni Flexbox */
+    flex-wrap: wrap; /* Permetti agli elementi di andare a capo */
+    list-style-type: none; /* Rimuove i punti elenco */
+    padding: 0; /* Rimuove il padding */
 
-    list-style-type: none; /* Rimuove i punti elenco dalla lista */
-    padding: 0; /* Rimuove il padding predefinito della lista */
 }
 
 #lista li {
-	border: 3px solid rgb(0, 111, 55) ;	
-	box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra marcata su ogni lato */
-    background-color: rgb(238, 225, 202); /* Sfondo beige per ogni elemento della lista */
-    margin: 15px 0; /* Margine sopra/sotto di 10px */
-    padding: 15px; /* Padding interno di 15px */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transizioni per sfondo e trasformazione */
-	border-radius: 10px; /* Angoli arrotondati di 5px */    
+    flex: 0 1 calc(25% - 30px); /* 25% di larghezza meno i margini (15px a sinistra + 15px a destra) */
+    border: 3px solid rgb(0, 111, 55);    
+    box-shadow: 0 0 20px 7.5px rgb(167,134,100); /* Ombra */
+    background-color: rgb(238, 225, 202); /* Sfondo beige */
+    margin: 15px; /* Margine di 15px su tutti i lati */
+    padding: 15px; /* Padding interno */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transizioni */
+    border-radius: 10px; /* Angoli arrotondati */
+    box-sizing: border-box; /* Include padding e bordi nella larghezza */
 }
-
 
 #lista li p{
 	display: inline-block; /* Usa Flexbox per allineare i figli orizzontalmente */
@@ -198,25 +200,29 @@ button:active { /* Seleziona i bottoni di #turno quando vengono cliccati */
     transform: translateY(-5px); /* Solleva l'elemento di 5px */
 }
 
-.prodotto {
-    display: flex; /* Usa Flexbox per allineare immagine e dettagli */
-    align-items: center; /* Allinea verticalmente al centro */
-    justify-content: space-between; /* Spazio tra immagine e testo */
-    width: 100%; /* Contenitore largo al 100% */
-    padding: 10px; /* Padding interno di 10px */
-    box-sizing: border-box; /* Include padding nelle dimensioni */
+.oggetto {
+    display: flex;
+    flex-direction: column; /* Metti immagine sopra e testo sotto */
+    text-align: center;      /* Centra il testo dentro il box */
+	align-items: center;     /* centra orizzontalmente tutto (immagine + testo) */
+	justify-content: center; /* opzionale: centra anche verticalmente */
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-.prodotto-img {
-    width: 100px; /* Larghezza fissa per tutte le immagini */
-    height: 100px; /* Altezza fissa uguale alla larghezza per ottenere un quadrato */
-    margin-right: 20px; /* Mantieni il margine destro */
+.oggetto-dettagli img {
+    width: 90%; /* Larghezza fissa per tutte le immagini */
+    aspect-ratio: 1 / 1; /* Forza il rapporto larghezza:altezza a 1:1 */
+	margin: 0 auto;
     border-radius: 5px; /* Mantieni gli angoli arrotondati */
     display: block; /* Mantieni l'immagine come elemento a blocco */
     object-fit: cover; /* Ritaglia l'immagine per riempire il contenitore senza distorsioni */
     overflow: hidden; /* Nasconde eventuali parti dell'immagine che escono dal contenitore */
+	box-shadow: 0 0 10px 5px rgb(167,134,100);
 }
-.prodotto-dettagli {
+.oggetto-dettagli {
     flex-grow: 1; /* Fa crescere il contenitore per occupare lo spazio disponibile */
     display: flex; /* Usa Flexbox per il testo */
     flex-direction: column; /* Imposta gli elementi in colonna */
@@ -234,6 +240,12 @@ button:active { /* Seleziona i bottoni di #turno quando vengono cliccati */
     color: #333; /* Colore grigio scuro */
     font-size: 1.1rem; /* Dimensione del font di 1.1rem */
     font-weight: bold; /* Testo in grassetto */
+}
+
+#lista a.nome{
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-size: 1.3rem; /* Dimensione del font di 1.1rem */
+	font-weight: bolder; /* Testo in grassetto */
 }
 
 #lista a.modifica {
@@ -265,7 +277,21 @@ button { /* Seleziona gli elementi <button> all'interno di un elemento con id="t
 	box-shadow: 0 0 5px 1px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
 
 }
+hr {
+    border: none;
+	border-radius: 10px;
+    height: 1.5px;
+    background-color: rgb(0, 111, 55);
+    margin-bottom: 15px;
+}
 
+#lista p.tipo {
+	float: right;
+	color: #888; /* Colore grigio chiaro per il messaggio */
+	text-decoration: none; /* Rimuove la sottolineatura (ridondante per <span>) */
+	    font-size: 0.9rem; /* Dimensione del font di 0.9rem */
+	    font-weight: bold; /* Testo in grassetto */
+}
 /* Styling per il layout responsive */
 @media (max-width: 768px) {
     .header-container {

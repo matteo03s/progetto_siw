@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Nuovo prodotto</title>
+	<link rel="stylesheet" href="/stile_log.css" />
+</head>
+
+<body>
+	<a id="logo" href="/"><img src="/logo.png" /></a>
+	<div class="form-container">
+		<form th:action="@{/admin/prodotto}" method="POST" th:object="${prodotto}">
+			<h1>Aggiungi un <h1 th:text="${prodotto.categoria}"></h1>
+				<div id="nome">
+					<strong>Nome: </strong><input required type="text" th:field="${prodotto.nome}" />
+				</div>
+				<div id="descrizione">
+					<strong>Descrizione:</strong><input required type="text" th:field="${prodotto.descrizione}" />
+				</div>
+				<div id="prezzo">
+					<strong>Prezzo:</strong><input required type="text" th:field="${prodotto.prezzo}" />
+				</div>
+				<input type="hidden" th:field="${prodotto.categoria}" th:value="${categoria}" />
+				<div id="pulsanti">
+					<button type="submit"><strong>Conferma</strong></button>
+					<a href="/admin/modificaProdotti"><button type="button"
+							id="annulla"><strong>Annulla</strong></button></a>
+				</div>
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,115 +1,104 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>HOME PIZZAZA</title>
-		<link rel="stylesheet" href="/stile_index.css"/>
-	</head>
-	<body>
-		<nav class="navbar">
-			<ul>
-				<li><a href="/menu">Il nostro menù</a></li>
-				<li><a href="/menu/pizza">Le nostre pizze</a></li>
+
+<head>
+	<title>HOME PIZZAZA</title>
+	<link rel="stylesheet" href="/stile_index.css" />
+</head>
+
+<body>
+	<nav class="navbar">
+		<ul>
+			<li><a href="/menu">Il nostro menù</a></li>
+			<li><a href="/prenotazione/leMiePrenotazioni">Visualizza le tue prenotazioni</a></li>
+			<!--				<li><a href="/menu/pizza">Le nostre pizze</a></li>
 				<li><a href="/menu/sfizio">Gli immancabili sfizi</a></li>
-				<li><a id="logo_home" href="/"><img src="/logo2.png"></a></li> <!-- Logo al centro -->
-				<li><a href="/prenotazione/prenotazione">Visualizza le tue prenotazioni</a></li>
-				<li><a href="/ordine/formNewOrdine">Te la portiamo anche a casa!</a></li>
-<!--				<li><a href="/dolce">Per i più golosi</a></li>
+-->
+			<li><a id="logo_home" href="/"><img src="/logo.png"></a></li> <!-- Logo al centro -->
+			<li><a href="/ordine/formNewOrdine">Visualizza i tuoi<br>ordini</a></li>
+			<!--				<li><a href="/dolce">Per i più golosi</a></li>
 				<li><a href="/bevanda">Con cosa accompagnamo sto cibo?</a></li>
--->				<li> <div id="login">
+-->
+			<li>
+				<div id="login">
 					<a href="/utente">
-					<span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</span>
+						<span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome
+							utente</span>
 					</a>
 					<p th:if="${userDetails == null}" class="login-link">
-				        <a href="/login">Login</a> </p>
-				    <p th:if="${userDetails == null}" class="register-link">
-				        <span>Non hai un account?</span> <a href="/register">Registrati</a></p>
-				    <p th:if="${userDetails != null}" class="logout-link">
-				        <a href="/logout">Logout</a>
-				    </p>
-				</div></li> 
-			</ul>
-		</nav>
-		
-<!--		<div id="richiesta">Cosa vuoi fare?</div>
-		<div id="possibli">
-		<p><a href="/prodotto"><button>Il nostro menù</button></a></p>
-		<p><a href="/pizza"><button>Le nostre pizze</button></a></p>
-		<p><a href="/sfizio"><button>Gli immancabili sfizi</button></a></p>
-		<p><a href="/dolce"><button>Per i più golosi</button></a></p>
-		<p><a href="/bevanda"><button>Con cosa accompagnamo sto cibo?</button></a></p>
-		<p><a href="/admin/formInserimentoMenu"><button>Inserisci nuovo prodotto</button></a></p>
-		<p><a href="/prenotazione/formNewPrenotazione"><button>Vieni a mangiare da noi</button></a></p>
-		<p><a href="/prenotazione/formNewPrenotazione"><button>Te la portiamo anche a casa!</button></a></p>
-		<p><a href="/prenotazione/prenotazioni"><button>Visualizza prenotazioni</button></a></p>
-		</div> -->
-		<div id="pulsanti">
-		  <a href="/prenotazione/formNewPrenotazione" class="half-btn left">
-		    Vieni a mangiare da noi
-		  </a>
-		  <a href="/ordine/formNewOrdine" class="half-btn right">
-		    Te la portiamo anche a casa!
-		  </a>
-		</div>
-			
-		<main>
-		    <section class="carousel">
-		        <h2>Alcune nostre specialità</h2>
-
-				<div class="carousel-track">
-				    <th:block th:each="prodotto : ${prodotti}">
-				        <figure>
-				            <img th:src="${prodotto.urlImage}" th:alt="${prodotto.nome}">
-				            <figcaption th:text="${prodotto.nome}"></figcaption>
-				        </figure>
-				    </th:block>
+						<a href="/login">Login</a>
+					</p>
+					<p th:if="${userDetails == null}" class="register-link">
+						<span>Non hai un account?</span> <a href="/register">Registrati</a>
+					</p>
+					<p th:if="${userDetails != null}" class="logout-link">
+						<a href="/logout">Logout</a>
+					</p>
 				</div>
-		    </section>
-		
-		<section class="chi siamo">
-			<h2>Chi siamo?</h2>
-			<p>Pizzaza nasce dall'idea di rendere</p>
-		</section>	
-			
-		</main>
+			</li>
+		</ul>
+	</nav>
 
-		
-		
-		<span th:if="${userDetails != null}" th:text="${userDetails.username}">Nome utente</span>
-		<span th:if="${userDetails == null}">Utente non autenticato</span>
+	<div id="pulsanti">
+		<a href="/prenotazione/formNewPrenotazione" class="half-btn left">
+			Vieni a mangiare da noi
+		</a>
+		<a href="/ordine/formNewOrdine" class="half-btn right">
+			Te la portiamo anche a casa!
+		</a>
+	</div>
+
+	<main>
+		<section class="carousel">
+			<h2>Alcune nostre specialità</h2>
+
+			<div class="carousel-track">
+				<th:block th:each="prodotto : ${prodotti}">
+					<div th:if="${prodotto.immagine != null}" class="oggetto-img">
+						<figure>
+							<img th:src="@{/immagine/{id}(id=${prodotto.immagine.id})}"
+								alt="Foto di {{prodotto.nome}}" />
+							<figcaption th:text="${prodotto.nome}"></figcaption>
+						</figure>
+				</th:block>
+			</div>
+		</section>
+
+	</main>
+
+
+
+	<span th:if="${userDetails != null}" th:text="${userDetails.username}">Nome utente</span>
+	<span th:if="${userDetails == null}">Utente non autenticato</span>
+	</div>
+
+
+
+	<footer>
+		<div class="footer-container">
+			<div class="footer-info">
+				<h3>Pizzaza</h3>
+				<p><strong>Orario:</strong></p>
+				<p>Lunedì siamo chiusi</p>
+				<p>Martedì – Giovedì: 19:00 – 23:00</p>
+				<p>Venerdì - Domenica 12:00 – 15:00 / 19:00 – 23:00</p>
+			</div>
+
+			<div class="footer-contact">
+				<p><strong>Telefono:</strong> +39 0123456789</p>
+				<p><strong>Indirizzo:</strong> Via vasca navale 178, Roma</p>
+			</div>
+
+			<div class="footer-contact">
+				<p><strong>Chi siamo:</strong> </p>
+				<p>Studenti del corso di sistemi informativi sul web AA 2024-2025</p>
+				mat.saravo@stud.uniroma3.it
+				ed.tubera@stud.uniroma3.it
+
+			</div>
 		</div>
-		
-		
-		
-		<footer>
-		    <div class="footer-container">
-		        <div class="footer-info">
-		            <h3>Pizzaza</h3>
-		            <p><strong>Orario:</strong></p>
-		            <p>Lunedì siamo chiusi</p>
-					<p>Martedì – Giovedì: 19:00 – 23:00</p>
-		            <p>Venerdì - Domenica 12:00 – 15:00 / 19:00 – 23:00</p>
-		        </div>
-		        
-		        <div class="footer-contact">
-		            <p><strong>Telefono:</strong> +39 065574532</p>
-		            <p><strong>Indirizzo:</strong> Lungotevere di Pietra Papa, 55, 00146 Roma</p>
-		            <a href="mailto:info@arvolo.it">Indirizzo e-mail</a>
-		            <div class="social-links">
-		                <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-		                <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
-		                <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
-		            </div>
-		        </div>
+	</footer>
 
-		        <div class="footer-newsletter">
-		            <p>Ricevi le nostre Offerte e Novità</p>
-		            <form>
-		                <input type="email" placeholder="Inserisci il tuo indirizzo e-mail" required>
-		                <button type="submit">Registrati</button>
-		            </form>
-		        </div>
-		    </div>
-		</footer>
+</body>
 
-	</body>
 </html>

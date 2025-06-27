@@ -39,7 +39,7 @@ public class UtenteController {
 		}
 		User utente = credentials.getUser();
 		model.addAttribute("utente", utente);
-		return "/utente.html";
+		return "/utente/utente.html";
 	}
 	
 	@GetMapping ("/admin/utenti")
@@ -66,7 +66,7 @@ public class UtenteController {
 			return "/error/accessoNegato.html";
 		if (utenteCorrente.getId().equals(id)) {
 			model.addAttribute("utente", utenteCorrente);
-			return "/modificaUtente.html";
+			return "/utente/modificaUtente.html";
 		}
 		else
 			return "/error/accessoNegato.html";
@@ -116,7 +116,7 @@ public class UtenteController {
         } catch (RuntimeException e) {
             model.addAttribute("errorMessage", e.getMessage()); // Aggiunge il messaggio di errore
             model.addAttribute("utente", utenteEsistente); // Preserva i dati del form
-            return "/modificaUtente.html"; // Restituisce il form con l'errore
+            return "/utente/modificaUtente.html"; // Restituisce il form con l'errore
         }
     }
 	
@@ -129,7 +129,7 @@ public class UtenteController {
 			return "/error/accessoNegato.html";
 		if (utenteCorrente.getId().equals(id)) {
 			model.addAttribute("utente", utenteCorrente);
-			return "/modificaPassword.html";
+			return "/utente/modificaPassword.html";
 		}
 		else
 			return "/error/accessoNegato.html";
@@ -151,12 +151,12 @@ public class UtenteController {
 		if (!(this.passwordEncoder.matches(vecchia, credentials.getPassword()))) {
 			model.addAttribute("errorMessage", "la password non corrisponde a quella vecchia");
 			model.addAttribute("utente", utenteCorrente);
-			return "/modificaPassword.html";
+			return "/utente/modificaPassword.html";
 		}
 		if (!(nuova.equals(conferma))) {
 			model.addAttribute("errorMessage", "la nuova password non corrisponde alla conferma");
 			model.addAttribute("utente", utenteCorrente);
-			return "/modificaPassword.html";
+			return "/utente/modificaPassword.html";
 		}
 		
 		 try {
@@ -167,7 +167,7 @@ public class UtenteController {
 	        } catch (RuntimeException e) {
 	            model.addAttribute("errorMessage", e.getMessage()); // Aggiunge il messaggio di errore
 	            model.addAttribute("utente", utenteCorrente); // Preserva i dati del form
-	            return "/modificaPassword.html"; // Restituisce il form con l'errore
+	            return "/utente/modificaPassword.html"; // Restituisce il form con l'errore
 	        }
 	}
 }

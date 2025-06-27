@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Modifica Prodotto</title>
+	<link rel="stylesheet" href="/stile_log.css">
+</head>
+
+<body>
+	<a id="logo" href="/"><img src="/logo.png" /></a>
+	<div class="form-container">
+		<!-- Usa th:object per associare il form all'oggetto prodotto -->
+		<form th:action="@{'/admin/prodotti/' + ${prodotto.id}}" th:object="${prodotto}" method="POST"
+			enctype="multipart/form-data">
+			<h1>Modifica Prodotto</h1>
+			<label for="nome"><strong>Nome:</strong></label>
+			<!-- Usa th:field per il binding automatico -->
+			<input type="text" id="nome" th:field="${prodotto.nome}">
+
+			<label for="prezzo"><strong>Prezzo:</strong></label>
+			<!-- Usa th:field per il binding automatico -->
+			<input type="text" id="prezzo" th:field="${prodotto.prezzo}">
+
+			<label for="descrizione"><strong>Descrizione:</strong></label>
+			<textarea id="descrizione" th:field="${prodotto.descrizione}"></textarea>
+
+			<div id="pulsanti">
+				<button type="submit">Salva modifiche</button>
+				<a href="/admin/modificaProdotti"> <button id="annulla" type="button">Annulla</button></a>
+			</div>
+			<!-- Visualizza gli errori di validazione -->
+			<div th:if="${#fields.hasErrors('*')}" style="color:red">
+				<p th:each="e : ${#fields.errors('*')}" th:text="${e}">Errore</p>
+			</div>
+
+		</form>
+		<hr>
+		<a th:href="@{'/admin/modificaImmagineProdotto/' + ${prodotto.id}}">
+			<button type="button">Modifica immagine</button>
+		</a>
+
+	</div>
+</body>
+
+</html>

@@ -4,9 +4,11 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -27,7 +29,9 @@ public class Prodotto {
 		@Column (nullable = false)
 		@NotNull
 		private Float prezzo;
-		private String urlImage;
+
+	    @OneToOne(fetch = FetchType.LAZY)
+	    private Immagine immagine;
 		
 
 		public Long getId() {
@@ -60,15 +64,16 @@ public class Prodotto {
 		public void setPrezzo(Float prezzo) {
 			this.prezzo = prezzo;
 		}
-		public String getUrlImage() {
-			return urlImage;
+		
+		public Immagine getImmagine() {
+			return immagine;
 		}
-		public void setUrlImage(String urlImage) {
-			this.urlImage = urlImage;
+		public void setImmagine(Immagine immagine) {
+			this.immagine = immagine;
 		}
 		@Override
 		public int hashCode() {
-			return Objects.hash(categoria, descrizione, id, nome, prezzo, urlImage);
+			return Objects.hash(categoria, descrizione, id, nome, prezzo);
 		}
 		@Override
 		public boolean equals(Object obj) {
@@ -86,7 +91,7 @@ public class Prodotto {
 		@Override
 		public String toString() {
 			return "Prodotto [id=" + id + ", nome=" + nome + ", categoria=" + categoria + ", descrizione=" + descrizione
-					+ ", prezzo=" + prezzo + ", urlImage=" + urlImage + "]";
+					+ ", prezzo=" + prezzo + "]";
 		}
 		
 }

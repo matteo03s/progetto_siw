@@ -2,28 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Modifica Prodotto</title>
-	<link rel="stylesheet" href="/stile_utente.css">
+    <title>Modifica Utente</title>
+	<link rel="stylesheet" href="/stile_log.css">
 </head>
 <body>
 	<a id="logo" href="/"><img src="/logo.png" /></a>
-    
+	<div class="form-container">
     <!-- Usa th:object per associare il form all'oggetto prodotto -->
     <form th:action="@{'/utente/modifica/' + ${utente.id}}" th:object="${utente}" method="POST" enctype="multipart/form-data">
 		<h1>Modifica Utente</h1>
-		<span>*se lasciato vuoto verrà mantenuto il valore precedente</span> <br><br>
+		<span>*se lasciato vuoto verrà mantenuto il valore precedente</span>
 		<label for="name"><strong>Nome*:</strong></label>
         <!-- Usa th:field per il binding automatico -->
-        <input type="text" id="nome" placeholder="Modifica nome" th:field="${utente.name}" ><br><br>
+        <input type="text" id="nome" placeholder="Modifica nome" th:field="${utente.name}" >
 
         <label for="surname"><strong>Cognome:</strong></label>
-		<input type="text" id="cognome" placeholder="Modifica cognome" th:field="${utente.surname}" ><br><br>
+		<input type="text" id="cognome" placeholder="Modifica cognome" th:field="${utente.surname}" >
 
 		<label for="email"><strong>Email*:</strong></label>
-		<input type="email" id="email" placeholder="Modifica email" th:field="${utente.email}" ><br><br>
+		<input type="email" id="email" placeholder="Modifica email" th:field="${utente.email}" >
 
 		<label for="numeroTelefonico"><strong>Numero di telefono*:</strong></label>
-		<input type="text" id="telefono" placeholder="Modifica numero di telefono" th:field="${utente.numeroTelefonico}" ><br><br>
+		<input type="text" id="telefono" placeholder="Modifica numero di telefono" th:field="${utente.numeroTelefonico}" >
 
 		<div class="pulsanti-mod">
         	<button type="submit">Salva modifiche</button>
@@ -38,6 +38,7 @@
 			</div>
 
     </form>
+	</div>
 
 
 
