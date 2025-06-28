@@ -274,19 +274,7 @@ table {
         font-size: 1.6rem;
     }
 }
-button[name="Conferma"]  {
-	background-color: green; /* Imposta uno sfondo verde scuro per i bottoni */
-    color: white;
-	transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
-	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
-}
 
-button[name="Annulla"] {
-	background-color: rgb(128, 0, 64); /* Imposta uno sfondo verde scuro per i bottoni */
-	color: white;
-	transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
-	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
-}
 
 .error-message {
     font-weight: bold;
@@ -307,4 +295,122 @@ button[name="Annulla"] {
 table {
     border-collapse: separate;
     border-spacing: 10px; /* Imposta lo spazio tra le celle (orizzontale e verticale) */
+}
+
+
+.button-conferma {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #28a745; /* Verde per un look moderno */
+    color: #ffffff; /* Testo bianco per contrasto */
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    border-radius: 8px; /* Angoli arrotondati */
+    font-family: 'Segoe UI', Arial, sans-serif; /* Font moderno */
+    font-size: 16px;
+    font-weight: 500; /* Peso medio per il testo */
+    line-height: 1.5; /* Altezza della linea per leggibilità */
+    text-align: center;
+    border: 2px solid transparent; /* Bordo trasparente per transizioni */
+    transition: all 0.3s ease; /* Transizione fluida per tutte le proprietà */
+    cursor: pointer; /* Indica che è cliccabile */
+}
+
+.button-conferma:hover {
+    background-color: #218838; /* Verde più scuro al passaggio del mouse */
+    border-color: #1e7e34; /* Bordo visibile al passaggio */
+    transform: translateY(-2px); /* Leggero sollevamento */
+}
+
+.button-conferma:active {
+    background-color: #1e7e34; /* Ancora più scuro quando cliccato */
+    transform: translateY(0); /* Ritorna alla posizione originale */
+}
+
+.button-conferma:focus {
+    outline: none; /* Rimuove il contorno predefinito */
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3); /* Ombra per accessibilità */
+}
+
+
+
+
+
+
+.button-modifica {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #8B4513; /* Marrone medio per un look professionale */
+    color: #ffffff; /* Testo bianco per contrasto */
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    border-radius: 8px; /* Angoli arrotondati */
+    font-family: 'Segoe UI', Arial, sans-serif; /* Font moderno */
+    font-size: 16px;
+    font-weight: 500; /* Peso medio per il testo */
+    line-height: 1.5; /* Altezza della linea per leggibilità */
+    text-align: center;
+    border: 2px solid transparent; /* Bordo trasparente per transizioni */
+    transition: all 0.3s ease; /* Transizione fluida per tutte le proprietà */
+    cursor: pointer; /* Indica che è cliccabile */
+	margin-bottom: 10px;
+}
+
+.button-modifica:hover {
+    background-color: #6B3A0F; /* Marrone più scuro al passaggio del mouse */
+    border-color: #4B2A0B; /* Bordo visibile al passaggio */
+    transform: translateY(-2px); /* Leggero sollevamento */
+}
+
+.button-modifica:active {
+    background-color: #4B2A0B; /* Marrone ancora più scuro quando cliccato */
+    transform: translateY(0); /* Ritorna alla posizione originale */
+}
+
+.button-modifica:focus {
+    outline: none; /* Rimuove il contorno predefinito */
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.3); /* Ombra marrone per accessibilità */
+}
+
+.button-annulla {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #DC143C; /* Rosso medio per un look professionale */
+    color: #ffffff; /* Testo bianco per contrasto */
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    border-radius: 8px; /* Angoli arrotondati */
+    font-family: 'Segoe UI', Arial, sans-serif; /* Font moderno */
+    font-size: 16px;
+    font-weight: 500; /* Peso medio per il testo */
+    line-height: 1.5; /* Altezza della linea per leggibilità */
+    text-align: center;
+    border: 2px solid transparent; /* Bordo trasparente per transizioni */
+    transition: all 0.3s ease; /* Transizione fluida per tutte le proprietà */
+    cursor: pointer; /* Indica che è cliccabile */
+    margin-bottom: 10px;
+}
+
+.button-annulla:hover {
+    background-color: #B31232; /* Rosso più scuro al passaggio del mouse */
+    border-color: #8B0E26; /* Bordo visibile al passaggio */
+    transform: translateY(-2px); /* Leggero sollevamento */
+}
+
+.button-annulla:active {
+    background-color: #8B0E26; /* Rosso ancora più scuro quando cliccato */
+    transform: translateY(0); /* Ritorna alla posizione originale */
+}
+
+.button-annulla:focus {
+    outline: none; /* Rimuove il contorno predefinito */
+    box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.3); /* Ombra rossa per accessibilità */
+}
+
+
+
+
+/* Media query per dispositivi mobili */
+@media (max-width: 600px) {
+    .button-conferma {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
 }
