@@ -62,7 +62,8 @@ public class AuthenticatioController {
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
-			model.addAttribute("prodotti", prodottoService.getVetrina());
+			model.addAttribute("primo", prodottoService.getPrimo());
+			model.addAttribute("secondo", prodottoService.getSecondo());
 			return "index.html";
 		} else {
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -71,7 +72,8 @@ public class AuthenticatioController {
 				return "admin/indexAdmin.html";
 			}
 		}
-		model.addAttribute("prodotti", prodottoService.getVetrina());		
+		model.addAttribute("primo", prodottoService.getPrimo());		
+		model.addAttribute("secondo", prodottoService.getSecondo());
 		return "index.html";
 	}
 	
@@ -83,7 +85,8 @@ public class AuthenticatioController {
 		if (credentials.getRole().equals(Credentials.PROVIDER_ROLE)) {
 			return "admin/indexAdmin.html";	//se ho permessi speciali allora posso accedere ad un'altra area
 		}
-		model.addAttribute("prodotti", prodottoService.getVetrina());
+		model.addAttribute("primo", prodottoService.getPrimo());		
+		model.addAttribute("secondo", prodottoService.getSecondo());
 		return "index.html"; //se mi sono autenticato e sono un utente normale torno alla homepage
 	}
 

@@ -80,23 +80,27 @@ public class ProdottoService {
 	public List<Prodotto> getByCategoriaOrderedByNomeDesc(String categoria) {	
 		return prodottoRepository.findByCategoriaOrderByNomeDesc(categoria);
 	}
-	public List <Prodotto> getVetrina () {
+	public List <Prodotto> getPrimo () {
 		List <Prodotto> vetrina = new ArrayList<>();
 		List <Prodotto> pizze = this.getAllPizze();
 		List <Prodotto> sfizi = this.getAllSfizi();
-		List <Prodotto> dolci = this.getAllDolci();
 		Collections.shuffle(pizze);
 		Collections.shuffle(sfizi);
-		Collections.shuffle(dolci);
 		vetrina.addAll(pizze.subList(0, 2));
 		vetrina.addAll(sfizi.subList(0, 2));
-		vetrina.addAll(dolci.subList(0, 2));
-//		vetrina.add(pizze.getFirst());
-//		vetrina.add(dolci.getFirst());
-		
 		return vetrina;
 	}
-	
+	public List <Prodotto> getSecondo () {
+		List <Prodotto> vetrina = new ArrayList<>();
+		List <Prodotto> dolci = this.getAllDolci();
+		List <Prodotto> bevande = this.getAllBevande();
+
+		Collections.shuffle(dolci);
+		Collections.shuffle(bevande);
+		vetrina.addAll(dolci.subList(0, 2));
+		vetrina.addAll(bevande.subList(0, 1));
+		return vetrina;
+	}
 	public Prodotto save(Prodotto prodotto) {
 		return prodottoRepository.save(prodotto);
 	}

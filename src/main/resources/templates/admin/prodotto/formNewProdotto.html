@@ -12,13 +12,13 @@
 		<form th:action="@{/admin/prodotto}" method="POST" th:object="${prodotto}">
 			<h1>Aggiungi un <h1 th:text="${prodotto.categoria}"></h1>
 				<div id="nome">
-					<strong>Nome: </strong><input required type="text" th:field="${prodotto.nome}" />
+					<strong>Nome: </strong><input required type="text"  placeholder="Inserisci il nome del prodotto" th:field="${prodotto.nome}" />
 				</div>
 				<div id="descrizione">
-					<strong>Descrizione:</strong><input required type="text" th:field="${prodotto.descrizione}" />
+					<strong>Descrizione:</strong><textarea placeholder="Inserisci la descrizione del prodotto" th:field="${prodotto.descrizione}" ></textarea>
 				</div>
 				<div id="prezzo">
-					<strong>Prezzo:</strong><input required type="text" th:field="${prodotto.prezzo}" />
+					<strong>Prezzo:</strong><input required type="text" placeholder="Inserisci il prezzo del prodotto" th:field="${prodotto.prezzo}" />
 				</div>
 				<input type="hidden" th:field="${prodotto.categoria}" th:value="${categoria}" />
 				<div id="pulsanti">

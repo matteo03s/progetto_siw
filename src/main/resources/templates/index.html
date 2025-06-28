@@ -48,30 +48,47 @@
 		</a>
 	</div>
 
+	
+
 	<main>
-		<section class="carousel">
-			<h2>Alcune nostre specialità</h2>
+		<hr>
+		<div class="container">
+			<section class="carousel">
+				<h2>Alcune nostre specialità</h2>
 
-			<div class="carousel-track">
-				<th:block th:each="prodotto : ${prodotti}">
-					<div th:if="${prodotto.immagine != null}" class="oggetto-img">
-						<figure>
-							<img th:src="@{/immagine/{id}(id=${prodotto.immagine.id})}"
-								alt="Foto di {{prodotto.nome}}" />
-							<figcaption th:text="${prodotto.nome}"></figcaption>
-						</figure>
-				</th:block>
-			</div>
-		</section>
+				<div class="carousel-track">
+					<th:block th:each="prodotto : ${primo}">
+						<div th:if="${prodotto.immagine != null}" class="oggetto-img">
+							<a class="titolo" th:href="@{'/prodotto/' + ${prodotto.id}}">
+								<figure>
+									<img th:src="@{/immagine/{id}(id=${prodotto.immagine.id})}"
+										alt="Foto di {{prodotto.nome}}" />
+									<figcaption th:text="${prodotto.nome}"></figcaption></a>
+								</figure>
 
+						</div>
+					</th:block>
+				</div>
+			</section>
+			<hr>
+			<section class="carousel">
+				<h2>Alcune nostre specialità</h2>
+
+				<div class="carousel-track">
+					<th:block th:each="prodotto : ${secondo}">
+						<div th:if="${prodotto.immagine != null}" class="oggetto-img">
+							<a class="titolo" th:href="@{'/prodotto/' + ${prodotto.id}}">
+								<figure>
+									<img th:src="@{/immagine/{id}(id=${prodotto.immagine.id})}"
+										alt="Foto di {{prodotto.nome}}" />
+									<figcaption th:text="${prodotto.nome}"></figcaption></a>
+								</figure>
+						</div>
+					</th:block>
+				</div>
+			</section>
+		</div>
 	</main>
-
-
-
-	<span th:if="${userDetails != null}" th:text="${userDetails.username}">Nome utente</span>
-	<span th:if="${userDetails == null}">Utente non autenticato</span>
-	</div>
-
 
 
 	<footer>
