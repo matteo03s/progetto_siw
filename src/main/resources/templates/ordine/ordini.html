@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>OrdinoHomePage</title>
-		<link rel="stylesheet" href="/stiloso.css"/>
-		
-	</head>
-	<body>
-				<nav class="navbar">
-					<ul>
-						<li><a href="/prodotto">Il nostro menù</a></li>
-						<li><a href="/pizza">Le nostre pizze</a></li>
-						<li><a href="/sfizio">Gli immancabili sfizi</a></li>
-						<li><a id="logo_home" href="/"><img src="/logo.png"></a></li> <!-- Logo al centro -->
-						<li><a href="/prenotazione/formNewPrenotazione">Vieni a mangiare da noi</a></li>
-						<li><a href="/prenotazione/formNewPrenotazione">Te la portiamo anche a casa!</a></li>
-		<!--				<li><a href="/dolce">Per i più golosi</a></li>
-						<li><a href="/bevanda">Con cosa accompagnamo sto cibo?</a></li>
-		-->				<li> <div id="login">
-						    <span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</span>
-						    <p th:if="${userDetails == null}" class="login-link">
-						        <a href="/login">Login</a> </p>
-						    <p th:if="${userDetails == null}" class="register-link">
-						        <span>Non hai un account?</span> <a href="/register">Registrati</a></p>
-						    <p th:if="${userDetails != null}" class="logout-link">
-						        <a href="/logout">Logout</a>
-						    </p>
-						</div></li> 
-					</ul>
-				</nav>
 
+<head>
+	<title>Ordini </title>
+	<link rel="stylesheet" href="/stile_elenco.css" />
+</head>
 
-		<p>ma se io volessi permettere ad un utente di 
-			effettuare un ordine, come dovrei fare? fino 
-			ad ora ho solo implementato la classe ordine, non so 
-			se devo implementare anche delle classi che indichino le 
-			voci dell'ordine o se mi basta avere la classe ordine con 
-			una relazione uno a molti con i prodotti, così da poter 
-			inserire i prodotti dell'rdine all'interno di una lista</p>
-	</body>
+<body>
+	<a id="logo" href="/"> <img src="/logo.png"> </a>
+
+	<div class="form-container">
+		<h1 th:if="${!ordini.isEmpty()}">I tuoi ordini</h1>
+		<!-- Modulo di ordinamento 
+		<form action="/admin/ordinaOrdini" method="GET">
+			<label for="ordine">Ordina per:</label>
+			<select id="ordine" name="ordine">
+				<option value="nome">Nome</option>
+				<option value="data">Data</option>
+				<option value="totale">Totale</option>
+			</select>
+			<label for="tipoRicerca">Ricerca per:</label>
+			<select id="tipoRicerca" name="tipoRicerca">
+				<option value="ascendente">Ascendente</option>
+				<option value="discendente">Discendente</option>
+			</select>
+			<button type="submit">Ordina</button>
+		</form>
+-->		<span th:if="${ordini.isEmpty()}">Non ci sono ordini</span>
+		<span th:if="${numero}" th:text="'sono stati trovati ' + ${numero} + ' elementi'"></span>
+	</div>
+	<div id="lista">
+		<ul>
+			<li class="ordine" th:each="ordine:${ordini}">
+				<p th:text="'ordinato da: ' + ${ordine.nome}"></a></p>
+				<hr>
+				<p th:text="${ordine.giornoConsegna} + ' alle: ' + ${ordine.orarioConsegna}"></p>
+				<br>
+				<p th:text=" ${ordine.totale} + '€'"></p>
+				<hr>
+				<a th:href="@{'/ordine/' + ${ordine.id}}">Dettagli</a>
+			</li>
+		</ul>
+	</div>
+</body>
+
 </html>
-	

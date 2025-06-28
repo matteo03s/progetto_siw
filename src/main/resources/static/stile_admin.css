@@ -3,9 +3,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-	background-color: rgb(238,225,202);	
 }
-
+body {
+	background-image: url('/pizze7.png');
+	background-size: 200px 200px; /* Immagine ridotta a 100x100 pixel */
+	background-repeat: repeat; /* Ripetizione in entrambe le direzioni */
+}
 /* Logo sopra i tasti */
 .logo-home {
     text-align: center;
@@ -13,10 +16,14 @@
 }
 
 #logo img {
-    width: 150px;
-    height: auto;
-    border-radius: 50%;
-    cursor: pointer;
+	width: 225px;
+	height: auto;
+	border-radius: 50%;
+	cursor: pointer;
+	background-color: rgb(238, 225, 202);
+	border: 3px solid rgb(0, 111, 55);	
+	box-shadow: 0 0 20px 7.5px #b2724f; /* Ombra marcata su ogni lato */
+	transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
 }
 
 /* Sezione con i tasti */

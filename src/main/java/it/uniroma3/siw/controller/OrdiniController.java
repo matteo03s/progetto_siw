@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.security.Principal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Ordine;
+import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.VoceOrdine;
@@ -47,6 +49,9 @@ public class OrdiniController {
 
 	@Autowired
 	private CredentialsService credentialService;
+	
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private VoceOrdineService voceordineService;
@@ -55,19 +60,36 @@ public class OrdiniController {
 
 
 	@GetMapping ("/ordine/ordini")
-	public String ordiniHome() {
-		return "/ordine/ordini.html";
+	public String getOrdini (Model model, Principal principal) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		Credentials credentials = credentialService.getCredentials(userDetails.getUsername());
+		if (credentials.getRole().equals(Credentials.PROVIDER_ROLE)) {
+			return "redirect:/admin/ordini";
+		}
+		model.addAttribute("ordini", this.ordineservice.getOrdiniUsername(principal.getName()));
+		return "ordine/ordini.html";
 	}
-
-
-	@GetMapping("/ordine/ordiniFatti")
-	public String ordiniFAtti(Model model) {
-
-		model.addAttribute("ordini", this.ordineservice.getAllByOrderByGiornoConsegnaAsc());
-		return "ordiniFatti.html";
+	@GetMapping ("/ordine/{id}")
+	public String getOrdine (Model model, Principal principal, @PathVariable ("id") Long id) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialService.getCredentials(userDetails.getUsername());
+		Ordine ordine = this.ordineservice.getOrdineById(id);
+		if (!credentials.getRole().equals("PROVIDER")) {
+			User user = credentials.getUser();
+			if (!user.getId().equals(ordine.getUtente().getId()))
+				return "redirect:/error/access-denied";
+		}
+		model.addAttribute("ordine", ordine);
+		return "ordine/dettagliOrdine.html";
 	}
-
-
+	
+	@GetMapping ("/admin/ordini/{id}")
+	public String getOrdiniUtente (Model model, @PathVariable ("id") Long id) {
+		User utente = userService.getUser(id);
+		model.addAttribute("ordini", utente.getOrdini());
+		return "admin/ordini.html";
+	}
 
 	@GetMapping("/ordine/formNewOrdine")
 	public String mostraFormOrdine(Model model,Principal principal) {
@@ -202,24 +224,26 @@ public class OrdiniController {
 		List<VoceOrdine> vociOrdine = new ArrayList<>();
 
 		List<Prodotto> prodotti = prodottoService.getOrderedByCategoriaAsc(); // Lista prodotti	
-
-
-		// Validazione automatica
-	    if (bindingResult.hasErrors()) {
+		
+		  //ottieneìi il giorno della settimana
+        DayOfWeek giorno = ordine.getGiornoConsegna().getDayOfWeek();
+		if (bindingResult.hasErrors() || ordine.getGiornoConsegna().isBefore(LocalDate.now()) || giorno == DayOfWeek.MONDAY) {
+			// Validazione automatica
+		    if (bindingResult.hasErrors()) {
+		        model.addAttribute("errore", "Errore nei dati inseriti. Controlla i campi e riprova.");
+		    }
+		    else if (ordine.getGiornoConsegna().isBefore(LocalDate.now())) {
+		    	model.addAttribute("errore", "La data di consegna non può essere precedente a oggi.");
+		    }
+		    else if (giorno == DayOfWeek.MONDAY) {
+		    	model.addAttribute("errore", "Gli ordini non sono disponibili il lunedì.");
+	        }
 	        model.addAttribute("utente", user);
 	        model.addAttribute("prodotti", prodotti);
-	        model.addAttribute("errore", "Errore nei dati inseriti. Controlla i campi e riprova.");
 	        return "/ordine/formNewOrdine.html";
-	    }
-	    
-		// Confronto della data di consegna con la data odierna
-	    if (ordine.getGiornoConsegna().isBefore(LocalDate.now())) {
-	        model.addAttribute("errore", "La data di consegna non può essere precedente a oggi.");
-	        model.addAttribute("utente", user);
-	        model.addAttribute("prodotti", prodotti);
-	        return "/ordine/formNewOrdine.html";
-	    }
-	    
+		    
+		}
+
 	 // Confronto dell'orario di consegna
 	    LocalTime maxTime = LocalTime.of(23, 0); // 23:00
 	    LocalTime minTime= LocalTime.of(11, 0);	 // 11:00
@@ -297,15 +321,15 @@ public class OrdiniController {
 	public String mostraRiepilogoOrdine(@PathVariable("id") Long id, Model model) {
 		// Validate ID
 		if (id == null || id <= 0) {
-			model.addAttribute("errore", "ID ordine non valido.");
-			return "/errore.html"; // Assumes an error page exists
+			model.addAttribute("errorMessage", "ID ordine non valido.");
+			return "/error/500.html"; // Assumes an error page exists
 		}
 
 		// Recupera l'ordine dal database
 		Ordine ordine = ordineservice.getOrdineById(id);
 		if (ordine == null) {
-			model.addAttribute("errore", "Ordine non trovato.");
-			return "/errore.html";
+			model.addAttribute("errorMessage", "Ordine non trovato.");
+			return "/error/500.html";
 		}
 
 		model.addAttribute("ordine", ordine);
@@ -431,12 +455,41 @@ public class OrdiniController {
 	}
 
 
-	@GetMapping("/admin/ordini")
-	public String ordiniRegistrati(Model model) {
-		model.addAttribute("ordini",ordineservice.getAllByOrderByGiornoConsegnaAsc());
+	/* lista tutti gli ordini (accessibile solo dall'admin) */
+	@GetMapping ("/admin/ordini")
+	public String tuttiOrdini (Model model) {
+		model.addAttribute("ordini", ordineservice.getAll());
 		return "/admin/ordini.html";
-	} 
+	}
 
+	/* ordinamento lista ordini */
+	@GetMapping("/admin/ordinaOrdini")
+	public String ordinaOrdini(@RequestParam String ordine, @RequestParam String tipoRicerca, Model model) {
+	    List<Ordine> ordini;
+	    
+	    // Ordina in base al criterio selezionato
+	    if ("nome".equals(ordine)) {
+	    	if (tipoRicerca.equals("ascendente"))
+	    		ordini = this.ordineservice.getAllByOrderNomeAsc();
+	    	else
+	    		ordini = this.ordineservice.getAllByOrderNomeDesc();
+	    } else if ("data".equals(ordine)) {
+	    	if (tipoRicerca.equals("ascendente"))
+	    		ordini = this.ordineservice.getAllByOrderByGiornoConsegnaAsc();
+	    	else
+	    		ordini = this.ordineservice.getAllByOrderByGiornoConsegnaDesc();
+	    } else if ("totale".equals(ordine)) {
+	    	if (tipoRicerca.equals("ascendente"))
+	    		ordini = this.ordineservice.getAllByOrderByTotaleAsc();
+	    	else
+	    		ordini = this.ordineservice.getAllByOrderTotaleDesc();
+	    } else {
+	        ordini = (List<Ordine>)this.ordineservice.getAll(); // Default (non ordinato)
+	    }
+
+	    model.addAttribute("ordini", ordini);
+	    return "/admin/ordini.html";
+	}
 
 
 	//Metodo ausiliario

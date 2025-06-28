@@ -1,85 +1,91 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title> Nuovo ordine</title>
-		<link rel="stylesheet" href="/stile_log.css"/>
-	</head>
-	<body>
-				<div class="form-container">
 
-					
-					<form th:action="@{/ordine/riepilogoOrdine}" th:object="${ordine}" method="post">
-						<!-- 
+<head>
+	<title> Nuovo ordine</title>
+	<link rel="stylesheet" href="/stile_log.css" />
+</head>
+
+<body>
+	<a id="logo" href="/"><img src="/logo.png" /></a>
+	<div class="form-container">
+
+
+		<form th:action="@{/ordine/riepilogoOrdine}" th:object="${ordine}" method="post">
+			<!-- 
 						<div th:if="${#fields.hasErrors('*')}" style="color:red" >
 							<p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>							
 						</div>
 						-->
-						<div class="error" th:if="${errore}">
-							<p th:text="${errore}"></p>
-						</div>
-					
+			<div class="error" th:if="${errore}">
+				<p th:text="${errore}"></p>
+			</div>
 
-						<div>
-						    <label for="nome"> <strong> Nome Cliente:</strong> </label>
-						    <span th:text="${utente.name}" ></span>
-						</div>
 
-						<div>
-						    <label for="cognome"> <strong>Cognome cliente:</strong></label>
-						      <span th:text="${utente.surname}" ></span>
-							  <input type="hidden" id="nome" name="nome" th:value="${utente.name} + ' ' + ${utente.surname}" />
-						</div>
+			<div>
+				<label for="nome"> <strong> Nome Cliente:</strong> </label>
+				<span th:text="${utente.name}"></span>
+			</div>
 
-						<div>
-							<label for="numeroTelefonico"> <strong> Numero telefonico:</strong></label>
-							<span th:text="${utente.numeroTelefonico}" ></span>
-							<input type="hidden" id="numeroTelefonico" name="numeroTelefonico" th:value="${utente.numeroTelefonico}" />
-						</div>				
-						<div> 
-							<label for="via"> <strong> Indirizzo Consegna:</strong></label>
+			<div>
+				<label for="cognome"> <strong>Cognome cliente:</strong></label>
+				<span th:text="${utente.surname}"></span>
+				<input type="hidden" id="nome" name="nome" th:value="${utente.name} + ' ' + ${utente.surname}" />
+			</div>
 
-							<input type="text" id="via" name="via" required pattern=".{1,100}" title="Inserisci un indirizzo valido (massimo 100 caratteri)" 
-							placeholder="Inserisci l'indirizzo di consegna" th:field="${ordine.indirizzo}" />
-							<span th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}"></span>
+			<div>
+				<label for="numeroTelefonico"> <strong> Numero telefonico:</strong></label>
+				<span th:text="${utente.numeroTelefonico}"></span>
+				<input type="hidden" id="numeroTelefonico" name="numeroTelefonico"
+					th:value="${utente.numeroTelefonico}" />
+			</div>
+			<div>
+				<label for="via"> <strong> Indirizzo Consegna:</strong></label>
 
-							
-						</div>		
-						<div>
-							<label for="dataConsegna" > <strong>Data:</strong></label> 
-							<input required type="date" placeholder="Inserisci la data della prenotazione" 
-							       th:field="${ordine.giornoConsegna}"  />
-							<!--<span th:if="${#fields.hasErrors('giornoConsegna')}"th:errors="*{giornoConsegna}"></span>-->
-						</div>
-							
-						<div>
-						    <label for="oraConsegna"><strong>Orario consegna:</strong></label>
-						    <input type="time" id="oraConsegna" name="oraConsegna" th:field="${ordine.orarioConsegna}" 
-						           min="11:00" max="23:00" required />
-						    <span th:if="${#fields.hasErrors('orarioConsegna')}" th:errors="*{orarioConsegna}" style="color:red"></span>
-						</div>											
-						
-					    <h3>Seleziona i prodotti e specifica la quantità:</h3>
-						    <table>
-						        <tr>
-						            <th>Nome Prodotto</th>
-						            <th>Quantità</th>
-						        </tr>
-						        <tr th:each="prodotto : ${prodotti}">
-						            <td th:text="${prodotto.nome}"></td>
-						            <td>
-						                <input type="number" th:name="'quantita_' + ${prodotto.id}" min="0" value="0" />
-						            </td>
-									<!-- 
+				<input type="text" id="via" name="via" required pattern=".{1,100}"
+					title="Inserisci un indirizzo valido (massimo 100 caratteri)"
+					placeholder="Inserisci l'indirizzo di consegna" th:field="${ordine.indirizzo}" />
+				<span th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}"></span>
+
+
+			</div>
+			<div>
+				<label for="dataConsegna"> <strong>Data:</strong></label>
+				<input required type="date" placeholder="Inserisci la data della prenotazione"
+					th:field="${ordine.giornoConsegna}" />
+				<!--<span th:if="${#fields.hasErrors('giornoConsegna')}"th:errors="*{giornoConsegna}"></span>-->
+			</div>
+
+			<div>
+				<label for="oraConsegna"><strong>Orario consegna:</strong></label>
+				<input type="time" id="oraConsegna" name="oraConsegna" th:field="${ordine.orarioConsegna}" min="11:00"
+					max="23:00" required />
+				<span th:if="${#fields.hasErrors('orarioConsegna')}" th:errors="*{orarioConsegna}"
+					style="color:red"></span>
+			</div>
+
+			<h3>Seleziona i prodotti e specifica la quantità:</h3>
+			<table>
+				<tr>
+					<th>Nome Prodotto</th>
+					<th>Quantità</th>
+				</tr>
+				<tr th:each="prodotto : ${prodotti}">
+					<td th:text="${prodotto.nome}"></td>
+					<td>
+						<input type="number" th:name="'quantita_' + ${prodotto.id}" min="0" value="0" />
+					</td>
+					<!-- 
 									<td>
 							            <img th:src="${prodotto.urlImage}" alt="Immagine prodotto" style="max-width: 100px; max-height: 100px;" />
 									</td>
 									-->
-						        </tr>
-						    </table>
-						
-					    <button type="submit">Riepilogo</button>
-					</form>
-			</div>	
-	</body>
+				</tr>
+			</table>
+
+			<button type="submit">Riepilogo</button>
+		</form>
+	</div>
+</body>
+
 </html>
-	

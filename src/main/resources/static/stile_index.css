@@ -160,7 +160,7 @@ a.titolo {
 	transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
 }
 
-a:hover {
+a.titolo:hover {
 	transform: scale(1.05); /* Ingrandisce il bottone del 10% al passaggio del mouse */
     color: rgb(0, 111, 55); /* Colore verde scuro al passaggio del mouse */
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Ordini </title>
+	<link rel="stylesheet" href="/stile_log.css" />
+</head>
+
+<body>
+	<a id="logo" href="/ordine/ordini"> <img src="/logo.png"> </a>
+	<div class="contenitore">
+		<div class="dettagli">
+			<strong>Nome utente:</strong>			
+			<span th:if="${userDetails != null and #lists.contains(userDetails.authorities.?[authority == 'PROVIDER'], userDetails.authorities[0])}">
+			<a class="titolo" th:href="@{'/admin/utente/' + ${ordine.utente.id}}" th:text="${ordine.nome}"></a>
+			</span>
+			<span th:unless="${userDetails != null and #lists.contains(userDetails.authorities.?[authority == 'PROVIDER'], userDetails.authorities[0])}"
+			      th:text="${ordine.nome}">
+			</span>
+			<br>
+			<strong>Numero telefonico:</strong>
+			<span th:text="${ordine.numeroTelefonico}"></span>
+			<hr>
+			<strong>Totale:</strong>
+			<span th:text="${ordine.totale} + '€'"></span>
+			<br>
+			<strong>Indirizzo:</strong>
+			<span th:text="${ordine.indirizzo}"></span>
+			<br>
+			<strong>Giorno della consegna:</strong>
+			<span th:text="${ordine.giornoConsegna}"></span>
+			<br>
+			<strong>Orario consegna:</strong>
+			<span th:text="${ordine.orarioConsegna}"></span>
+			<hr>
+			<strong>Elenco prodotti ordine:</strong>
+			<ul name="vociOrdine">
+				<li name="dettagli" th:each="voceOrdine : ${ordine.vociOrdine}">
+					<p th:text="${voceOrdine.prodotto.nome} + ' x ' + ${voceOrdine.quantità} "></p>
+					<span th:text=" ${voceOrdine.prodotto.prezzo} + '€'"> </span>
+				</li>
+			</ul>
+			<!-- 
+					    <strong>Contatta:</strong>
+					    <a th:href="@{'/admin/contatta/' + ${ordine.utente.id}}" th:text="${ordine.utente.email}"></a>
+						-->
+		</div>
+	</div>
+</body>
+
+</html>

@@ -20,6 +20,7 @@
     <!-- Azioni -->
     <div class="pulsanti">
       <a th:href="@{'/admin/prenotazioni/' + ${utente.id}}"><button>Visualizza le sue prenotazioni</button></a>
+	  <a th:href="@{'/admin/ordini/' + ${utente.id}}"><button>Visualizza i suoi ordini</button></a>
 
     </div>
 	<div class="error" th:if="${errorMessage}">

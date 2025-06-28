@@ -2,31 +2,12 @@
 <html>
 	<head>
 		<title>Modifica Ordine</title>
-	<link rel="stylesheet" href="/stile_ordine/stile_formOrdini.css"/>
+	<link rel="stylesheet" href="/stile_log.css"/>
 		
 	</head>
 	<body>
-
-				<nav class="navbar">
-					<ul>
-						<li><a href="/prodotto">Il nostro menù</a></li>
-						<li><a href="/pizza">Le nostre pizze</a></li>
-						<li><a href="/sfizio">Gli immancabili sfizi</a></li>
-						<li><a id="logo_home" href="/"><img src="/logo.png"></a></li> 
-						<li><a href="/prenotazione/formNewPrenotazione">Vieni a mangiare da noi</a></li>
-						<li><a href="/prenotazione/formNewPrenotazione">Te la portiamo anche a casa!</a></li>
-						<li> <div id="login">
-						    <span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</span>
-						    <p th:if="${userDetails == null}" class="login-link">
-						        <a href="/login">Login</a> </p>
-						    <p th:if="${userDetails == null}" class="register-link">
-						        <span>Non hai un account?</span> <a href="/register">Registrati</a></p>
-						    <p th:if="${userDetails != null}" class="logout-link">
-						        <a href="/logout">Logout</a>
-						    </p>
-						</div></li> 
-					</ul>
-				</nav>
+		<a id="logo" href="/"><img src="/logo.png" /></a>
+				
 
 					<div class="form-container">
 

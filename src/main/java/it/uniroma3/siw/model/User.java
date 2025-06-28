@@ -20,7 +20,7 @@ import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "app_user")
-public class User implements UserDetails{
+public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -122,23 +122,5 @@ public class User implements UserDetails{
 
 	public void setOrdini(List<Ordine> ordini) {
 		this.ordini = ordini;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

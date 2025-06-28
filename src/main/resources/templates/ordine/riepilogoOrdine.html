@@ -1,90 +1,65 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head> 
-    <title>Riepilogo ordine</title>
-    <link rel="stylesheet" href="/stile_ordine/stile_formOrdini.css"/>
+
+<head>
+	<title>Riepilogo ordine</title>
+	<link rel="stylesheet" href="/stile_log.css" />
 </head>
+
 <body>
-    <nav class="navbar">
-        <ul>
-            <li><a href="/prodotto">Il nostro menù</a></li>
-            <li><a href="/pizza">Le nostre pizze</a></li>
-            <li><a href="/sfizio">Gli immancabili sfizi</a></li>
-            <li><a id="logo_home" href="/"><img src="/logo.png"></a></li>
-            <li><a href="/prenotazione/formNewPrenotazione">Vieni a mangiare da noi</a></li>
-            <li><a href="/prenotazione/formNewPrenotazione">Te la portiamo anche a casa!</a></li>
-            <li>
-                <div id="login">
-                    <span th:if="${userDetails != null}" th:text="'Ciao ' + ${userDetails.username}">Nome utente</span>
-                    <p th:if="${userDetails == null}" class="login-link">
-                        <a href="/login">Login</a>
-                    </p>
-                    <p th:if="${userDetails == null}" class="register-link">
-                        <span>Non hai un account?</span> <a href="/register">Registrati</a>
-                    </p>
-                    <p th:if="${userDetails != null}" class="logout-link">
-                        <a href="/logout">Logout</a>
-                    </p>
-                </div>
-            </li> 
-        </ul>
-    </nav>
-    <div class=" b">   
-    <h1>Riepilogo dell'Ordine</h1>
-    
-    <h2>Dettagli dell'Ordine</h2>
-    <p><strong>Numero Ordine:</strong> <span th:text="${ordine.id}"></span></p>
-    <p><strong>Cliente:</strong> <span th:text="${ordine.nome}"></span></p>
-    <p><strong>Numero Telefonico:</strong> <span th:text="${ordine.numeroTelefonico}"></span></p>
-    
-    <h2>Prodotti Ordinati</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Prodotto</th>
-                <th>Qt.</th>
-                <th>Prezzo</th>
-                <th>Subtotale</th>
-            </tr>
-        </thead>
-        <tbody>
-			<tr th:each="voceOrdine : ${ordine.vociOrdine}" th:if="${voceOrdine.quantità > 0}">
-			    <td th:text="${voceOrdine.prodotto.nome}"></td>
-			    <td th:text="${voceOrdine.quantità}"></td>
-			    <td th:text="'€ ' + ${voceOrdine.prodotto.prezzo}"></td>
-			    <td th:text="'€ ' + ${voceOrdine.totParziale}"></td>
-			</tr>
-        </tbody>
-    </table>
-    
-    <h2>Totale Ordine</h2>
-    <p class="total" th:text="'€ ' + ${ordine.totale}"></p>
-    
-    <h2>Dettagli di Consegna</h2>
- 
-    <p><strong>Data Consegna:</strong> <span th:text="${ordine.giornoConsegna}"></span></p>	
-    <p><strong>Orario Consegna:</strong> <span th:text="${ordine.orarioConsegna}"></span></p>
-	<p><strong>Indirizzo:</strong> <span th:text="${ordine.indirizzo}"></span></p>
-	
-	<form th:action="@{/ordine/modificaOrdine}" method="post" th:object="${ordine}">
-	    <input type="hidden" th:field="*{id}" />
-	    <button type="submit" class="button-modifica" >Modifica Ordine</button>
-	</form>
-	<form th:action="@{/ordine/annullaOrdine}" method="post" th:object="${ordine}">
-	    <input type="hidden" th:field="*{id}" />
-	    <button type="submit" class="button-annulla" >Annulla Ordine</button>
-	</form>
+	<a id="logo" href="/"><img src="/logo.png" /></a>
+	<div class="form-container">
+		<h1>Riepilogo dell'Ordine</h1>
 
-	
-	<a href="/" class="button-conferma"> Conferma ordine </a>
-	
-	<button class="button" name="Conferma" onclick="window.location.href='/'">Conferma ordine</button>
-	<form th:action="@{/ordine/annullaOrdine}" method="post" th:object="${ordine}">
-	    <input type="hidden" name="id" th:value="${ordine.id}" /> 
-	    <button type="submit" name="Annulla">Annulla Ordine</button>
-	</form>
+		<h2>Dettagli dell'Ordine</h2>
+		<p><strong>Numero Ordine:</strong> <span th:text="${ordine.id}"></span></p>
+		<p><strong>Cliente:</strong> <span th:text="${ordine.nome}"></span></p>
+		<p><strong>Numero Telefonico:</strong> <span th:text="${ordine.numeroTelefonico}"></span></p>
 
-    </div>
+		<h2>Prodotti Ordinati</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Prodotto</th>
+					<th>Qt.</th>
+					<th>Prezzo</th>
+					<th>Subtotale</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="voceOrdine : ${ordine.vociOrdine}" th:if="${voceOrdine.quantità > 0}">
+					<td th:text="${voceOrdine.prodotto.nome}"></td>
+					<td th:text="${voceOrdine.quantità}"></td>
+					<td th:text="'€ ' + ${voceOrdine.prodotto.prezzo}"></td>
+					<td th:text="'€ ' + ${voceOrdine.totParziale}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2>Totale Ordine</h2>
+		<p class="total" th:text="'€ ' + ${ordine.totale}"></p>
+
+		<h2>Dettagli di Consegna</h2>
+
+		<p><strong>Data Consegna:</strong> <span th:text="${ordine.giornoConsegna}"></span></p>
+		<p><strong>Orario Consegna:</strong> <span th:text="${ordine.orarioConsegna}"></span></p>
+		<p><strong>Indirizzo:</strong> <span th:text="${ordine.indirizzo}"></span></p>
+
+		<form th:action="@{/ordine/modificaOrdine}" method="post" th:object="${ordine}">
+			<input type="hidden" th:field="*{id}" />
+			<button type="submit" id="modifica">Modifica Ordine</button>
+		</form>
+
+
+
+		<button class="button" name="Conferma" onclick="window.location.href='/'">Conferma ordine</button>
+		<form th:action="@{/ordine/annullaOrdine}" method="post" th:object="${ordine}">
+			<input type="hidden" name="id" th:value="${ordine.id}" />
+			<button type="submit" id="annulla" name="Annulla">Annulla Ordine</button>
+		</form>
+
+	</div>
 
 </body>
+
 </html>

@@ -103,8 +103,7 @@ button { /* Seleziona gli elementi <button> all'interno di un elemento */
 
 #annulla{ /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
 	background-color: rgb(128, 0, 64); /* Imposta uno sfondo verde scuro per i bottoni */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Aggiunge transizioni fluide per colore di sfondo e trasformazione */
-	box-shadow: 0 0 7.5px 2.5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
+	box-shadow: 0 0 7.5px 2.5px rgb(128, 0, 64); /* Ombra marcata su ogni lato */
 }
 
 button:hover { /* Seleziona i bottoni di #turno al passaggio del mouse */
@@ -122,6 +121,10 @@ button.piccolo { /* Seleziona gli elementi <button> all'interno di un elemento *
  	box-shadow: 0 0 2.5px .5px rgb(0, 111, 55); /* Ombra marcata su ogni lato */
 }
 
+#modifica{ /* Seleziona gli elementi <button> all'interno di un elemento con id="turno" */
+	background-color: #b2724f; /* Imposta uno sfondo verde scuro per i bottoni */
+	box-shadow: 0 0 7.5px 2.5px #b2724f; /* Ombra marcata su ogni lato */
+}
 .contenitore {
 /* contenitore stile card centrato */
 width: 500px;
@@ -231,4 +234,12 @@ hr {
 .orario p { /* Seleziona gli elementi <p> all'interno di .orario */
     margin: 5px 0; /* Imposta un margine di 5px sopra/sotto e 0 a sinistra/destra */
     color: #333; /* Imposta il colore del testo a grigio scuro (#333) */
+}
+a {
+    text-decoration: none; /* Rimuove la sottolineatura dal link */
+    color: #333; /* Colore grigio scuro */
+    font-size: 1.15rem; /* Dimensione del font di 1.1rem */
+}
+a:hover {
+    color: rgb(0, 111, 55); /* Colore verde scuro al passaggio del mouse */
 }
